@@ -26,7 +26,7 @@ npm install
 ### 3) Inicie o projeto localmente
 
 ```bash
-npm run dev
+npm run start
 ```
 
 O terminal vai mostrar a URL local onde a aplicação está rodando, normalmente algo como:
@@ -43,7 +43,7 @@ Acesse essa URL no navegador para visualizar o projeto.
 ```bash
 npm run start
 ```
-> A principio não fiz separação de build/preview
+> A principio não fiz separação de build/preview então use o mesmo comando para rodar localmente
 
 Se houver erros de dependência, tente limpar o cache e reinstalar:
 
