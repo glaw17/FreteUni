@@ -14,7 +14,9 @@ app.set("views", viewsDirectory);
 app.use(express.static(publicDirectory));
 
 app.get("/", (request, response) => {
-  response.render("index");
+  response.render("index", {
+    exemploDeConteudo: "Hello, World!"
+  });
 });
 
 app.use((request, response) => {
