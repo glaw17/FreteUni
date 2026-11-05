@@ -2,17 +2,50 @@
 <html lang="pt-BR">
   <head>
     <title>FreteUni</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- 
-      <link rel="stylesheet/less" type="text/css" href="/less/style.less">
-      Não está feito, isso e apénas referência de uso!
-    --> 
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="FreteUni" />
+    <meta property="og:description" content="Sistema de rastreamento de encomendas." />
+    <meta property="og:image" content="https://meusite.com" />
+    <meta property="og:url" content="https://meusite.com" />
+
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet/less" type="text/css" href="/less/style.less" />
     <script src="https://cdn.jsdelivr.net/npm/less"></script>
   </head>
   <body>
-    <h1><%= exemploDeConteudo %></h1>
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="/">
+        <img class="navbar-brand-img" src="/images/logo.png" alt="Logo">
+        <span class="navbar-brand-text">Frete<span class="navbar-brand-text">Uni</span></span>
+      </a>
+      <span class="navbar-toggle">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </span>
+      <div class="navbar-nav d-flex flex-row gap-3">
+        <span class="nav-link">Enviar<i id="enviar-dropdown" class="fa-solid fa-angle-down"></i></span>
+        <span class="nav-link">Serviços<i id="servicos-dropdown" class="fa-solid fa-angle-down"></i></span>
+        <span class="nav-link">Quero ser parceiro<i id="parceiro-dropdown" class="fa-solid fa-angle-down"></i></span>
+        <span class="nav-link">Institucional<i id="institucional-dropdown" class="fa-solid fa-angle-down"></i></span>
+      </div>
+      <div class="navbar-search">
+        <input type="text" class="form-control" placeholder="Buscar..." />
+        <button class="btn btn-our px-4" href="#">Rastrear</button>
+      </div>
+      <div class="navbar-auth">
+        <button class="btn btn-outline-dark px-3" href="#">Entrar</button>
+        <button class="btn btn-outline-our px-4" href="#">Criar Conta</button>
+      </div>
+    </nav>
+    <div class="container">
+      <h1><%= exemploDeConteudo %></h1>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/f0c44ea109.js" crossorigin="anonymous"></script>
   </body>
 </html>
