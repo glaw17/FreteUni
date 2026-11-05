@@ -1,18 +1,7 @@
-//@import "colors.less";
-
-@import (css)
-  url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import "colors.less";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
 @font-family: "Inter", sans-serif;
-
-@primary: #ffffff;
-@secondary: #01032b;
-@highlight: #ff791f;
-
-@navy-light: #151a49;
-@blue-soft: #e9edfa;
-@orange-light: #ffb06b;
-@background: #f5f6fa;
 
 * {
   padding: 0;
@@ -26,7 +15,7 @@
   border-color: @highlight;
   font-size: 14px;
   font-weight: 500;
-  font-family: "Inter", sans-serif;
+  font-family: @font-family;
   &:hover {
     color: #fff;
     background-color: darken(@highlight, 10%);
@@ -45,7 +34,7 @@
   border-color: @highlight;
   font-size: 14px;
   font-weight: 500;
-  font-family: "Inter", sans-serif;
+  font-family: @font-family;
   &:hover {
     color: #fff;
     background-color: darken(@highlight, 10%);
@@ -66,99 +55,109 @@
   --bs-btn-active-border-color: darken(@highlight, 10%);
 }
 
-@media screen and (min-width: 1401px) {
-  body {
-    background-color: @secondary;
-    color: @primary;
-    .navbar {
-      gap: 20px;
-      padding: 10px 20px;
-      display: grid;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      grid-template-areas: "brand brand menus menus menus menus search search search search auth auth";
+body {
+  background-color: @secondary;
+  color: @primary;
+  .navbar {
+    gap: 20px;
+    padding: 10px 20px;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-areas: "brand brand menus menus menus menus search search search search auth auth";
 
-      .navbar-brand {
-        grid-area: brand;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        .navbar-brand-img {
-          width: 50px;
-          height: 50px;
-          margin-right: 10px;
+    .navbar-brand {
+      grid-area: brand;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .navbar-brand-img {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+      }
+      .navbar-brand-text {
+        color: @navy-light;
+        font-size: 28px;
+        font-weight: 800;
+        font-style: italic;
+        font-family: @font-family;
+        span {
+          color: @highlight;
         }
-        .navbar-brand-text {
+      }
+    }
+    .navbar-toggle {
+      grid-area: toggle;
+      display: none;
+    }
+    .navbar-nav {
+      gap: 10px;
+      justify-content: space-between;
+      grid-area: menus;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .nav-link {
+        color: #01032bb4;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: @font-family;
+        cursor: pointer;
+        &:hover {
           color: @secondary;
-          font-size: 28px;
-          font-weight: 800;
-          font-style: italic;
-          font-family: "Inter", sans-serif;
-          span {
-            color: @highlight;
-          }
+        }
+        > i {
+          margin-left: 7px;
         }
       }
-      .navbar-toggle {
-        grid-area: toggle;
-        display: none;
+      .dropdown-menu {
+        left: 0;
+        top: 150%;
+        position: absolute;
+        color: @navy-light;
+        font-size: 14px;
+        font-weight: 600;
+        font-family: @font-family;
+        border-radius: 0 0 6px 6px;
+        box-shadow: none;
+        border: none;
+        background-color: @primary;
       }
-      .navbar-nav {
-        gap: 10px;
-        justify-content: space-between;
-        grid-area: menus;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        .nav-link {
+    }
+    .navbar-search {
+      gap: 10px;
+      justify-content: space-between;
+      grid-area: search;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      border-right: 1px solid rgba(1, 3, 43, 0.222);
+      padding-right: 36px;
+      input {
+        &:hover {
+          border-color: @secondary;
+        }
+        &:focus {
+          border-color: @highlight;
+          box-shadow: none;
+        }
+      }
+    }
+    .navbar-auth {
+      gap: 10px;
+      justify-content: space-between;
+      grid-area: auth;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      button {
+        &:first-child {
+          border: none;
           color: #01032bb4;
-          font-size: 14px;
-          font-weight: 600;
-          font-family: "Inter", sans-serif;
-          cursor: pointer;
           &:hover {
             color: @secondary;
-          }
-          > i {
-            margin-left: 7px;
-          }
-        }
-      }
-      .navbar-search {
-        gap: 10px;
-        justify-content: space-between;
-        grid-area: search;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        border-right: 1px solid rgba(1, 3, 43, 0.222);
-        padding-right: 36px;
-        input {
-          &:hover {
-            border-color: @secondary;
-          }
-          &:focus {
-            border-color: @highlight;
-            box-shadow: none;
-          }
-        }
-      }
-      .navbar-auth {
-        gap: 10px;
-        justify-content: space-between;
-        grid-area: auth;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        button {
-          &:first-child {
-            border: none;
-            color: #01032bb4;
-            &:hover {
-              color: @secondary;
-              text-decoration: underline;
-              text-decoration-style: wavy;
-              background: none !important;
-            }
+            text-decoration: underline;
+            background: none !important;
           }
         }
       }
@@ -169,8 +168,11 @@
 @media screen and (max-width: 1400px) {
   body {
     .navbar {
-      grid-template-columns: auto minmax(0, 2fr) minmax(0, 2fr) auto;
-      grid-template-areas: "brand vazio search auth";
+      grid-template-columns: auto minmax(0, 2fr) minmax(0, 2fr) minmax(
+          0,
+          2fr
+        ) auto;
+      grid-template-areas: "brand vazio search search auth";
 
       .navbar-nav {
         display: none !important;

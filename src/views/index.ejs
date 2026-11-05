@@ -6,11 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="FreteUni" />
-    <meta property="og:description" content="Sistema de rastreamento de encomendas." />
+    <meta
+      property="og:description"
+      content="Sistema de rastreamento de encomendas."
+    />
     <meta property="og:image" content="https://meusite.com" />
     <meta property="og:url" content="https://meusite.com" />
 
-    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="icon" type="image/png" href="/images/logo.png" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -21,17 +24,83 @@
   <body>
     <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand" href="/">
-        <img class="navbar-brand-img" src="/images/logo.png" alt="Logo">
-        <span class="navbar-brand-text">Frete<span class="navbar-brand-text">Uni</span></span>
+        <img class="navbar-brand-img" src="/images/logo.png" alt="Logo" />
+        <span class="navbar-brand-text"
+          >Frete<span class="navbar-brand-text">Uni</span></span
+        >
       </a>
       <span class="navbar-toggle">
         <i class="fa-solid fa-bars" aria-hidden="true"></i>
       </span>
       <div class="navbar-nav d-flex flex-row gap-3">
-        <span class="nav-link">Enviar<i id="enviar-dropdown" class="fa-solid fa-angle-down"></i></span>
-        <span class="nav-link">Serviços<i id="servicos-dropdown" class="fa-solid fa-angle-down"></i></span>
-        <span class="nav-link">Quero ser parceiro<i id="parceiro-dropdown" class="fa-solid fa-angle-down"></i></span>
-        <span class="nav-link">Institucional<i id="institucional-dropdown" class="fa-solid fa-angle-down"></i></span>
+        <div class="nav-item dropdown">
+          <button
+            class="nav-link"
+            type="button"
+            id="menu-enviar"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Enviar
+            <i class="nav-arrow-button fa-solid fa-angle-down" aria-hidden="true"></i>
+          </button>
+
+          <ul class="dropdown-menu" aria-labelledby="menu-enviar">
+            <li><a class="dropdown-item" href="#">text aleatorio</a></li>
+            <li><a class="dropdown-item" href="#">text aleatorio</a></li>
+          </ul>
+        </div>
+        <div class="nav-item dropdown">
+          <button
+            class="nav-link"
+            type="button"
+            id="menu-servicos"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Serviços
+            <i class="nav-arrow-button fa-solid fa-angle-down" aria-hidden="true"></i>
+          </button>
+
+          <ul class="dropdown-menu" aria-labelledby="menu-servicos">
+            <li><a class="dropdown-item" href="#">text aleatorio</a></li>
+            <li><a class="dropdown-item" href="#">text aleatorio</a></li>
+          </ul>
+        </div>
+        <div class="nav-item dropdown">
+          <button
+            class="nav-link"
+            type="button"
+            id="menu-parceiro"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Quero ser parceiro
+            <i class="nav-arrow-button fa-solid fa-angle-down" aria-hidden="true"></i>
+          </button>
+
+          <ul class="dropdown-menu" aria-labelledby="menu-parceiro">
+            <li><a class="dropdown-item" href="#">text aleatorio</a></li>
+            <li><a class="dropdown-item" href="#">text aleatorio</a></li>
+          </ul>
+        </div>
+        <div class="nav-item dropdown">
+          <button
+            class="nav-link"
+            type="button"
+            id="menu-institucional"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Institucional
+            <i class="nav-arrow-button fa-solid fa-angle-down" aria-hidden="true"></i>
+          </button>
+
+          <ul class="dropdown-menu" aria-labelledby="menu-institucional">
+            <li><a class="dropdown-item" href="#">text aleatorio</a></li>
+            <li><a class="dropdown-item" href="#">text aleatorio</a></li>
+          </ul>
+        </div>
       </div>
       <div class="navbar-search">
         <input type="text" class="form-control" placeholder="Buscar..." />
@@ -46,6 +115,10 @@
       <h1><%= exemploDeConteudo %></h1>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://kit.fontawesome.com/f0c44ea109.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/f0c44ea109.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/script.js"></script>
   </body>
 </html>
