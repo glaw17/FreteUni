@@ -1,61 +1,28 @@
 @import "colors.less";
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+@import "bootstrap-extended.less";
 
-@font-family: "Inter", sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap");
 
+// Reset de espaçamento
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
-.btn-our {
-  color: #fff;
-  background-color: @highlight;
-  border-color: @highlight;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: @font-family;
-  &:hover {
-    color: #fff;
-    background-color: darken(@highlight, 10%);
-    border-color: darken(@highlight, 10%);
+/* IMPORTANTE
+  Pfv usem o estilo code-style de aninhamento!
+  elemento {
+    elemento-filho {
+      etc
+    }
   }
-  &:focus {
-    color: #fff;
-    background-color: darken(@highlight, 10%);
-    border-color: darken(@highlight, 10%);
-    box-shadow: none;
-  }
-}
 
-.btn-outline-our {
-  color: @highlight;
-  border-color: @highlight;
-  font-size: 14px;
-  font-weight: 500;
-  font-family: @font-family;
-  &:hover {
-    color: #fff;
-    background-color: darken(@highlight, 10%);
-    border-color: darken(@highlight, 10%);
-  }
-  &:focus {
-    color: #fff;
-    background-color: darken(@highlight, 10%);
-    border-color: darken(@highlight, 10%);
-    box-shadow: none;
-  }
-}
+  pois facilita para que n precisemos criar arquivos diferentes apra cada pagina
+*/
 
-.btn-our,
-.btn-outline-our {
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: darken(@highlight, 10%);
-  --bs-btn-active-border-color: darken(@highlight, 10%);
-}
-
-body {
+// Usa esse estilo como padrão em telas com largura maior que 1400px
+body[page="home"] {
   background-color: @secondary;
   color: @primary;
   .navbar {
@@ -80,7 +47,7 @@ body {
         font-size: 28px;
         font-weight: 800;
         font-style: italic;
-        font-family: @font-family;
+        font-family: "Inter", sans-serif;
         span {
           color: @highlight;
         }
@@ -101,7 +68,7 @@ body {
         color: #01032bb4;
         font-size: 14px;
         font-weight: 600;
-        font-family: @font-family;
+        font-family: "Inter", sans-serif;
         cursor: pointer;
         &:hover {
           color: @secondary;
@@ -113,15 +80,27 @@ body {
       .dropdown-menu {
         left: 0;
         top: 150%;
+        padding: 10px;
         position: absolute;
         color: @navy-light;
         font-size: 14px;
         font-weight: 600;
-        font-family: @font-family;
+        font-family: "Inter", sans-serif;
         border-radius: 0 0 6px 6px;
         box-shadow: none;
         border: none;
         background-color: @primary;
+        .dropdown-item {
+            border-radius: 6px;
+            color: @navy-light;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: "Inter", sans-serif;
+            &:hover {
+              color: @secondary;
+              background-color: @blue-soft;
+            }
+          }
       }
     }
     .navbar-search {
@@ -165,17 +144,48 @@ body {
   }
 }
 
+// Usa esse estilo como padrão em telas com largura entre 1030px e 1400px
 @media screen and (max-width: 1400px) {
-  body {
+  body[page="home"] {
     .navbar {
       grid-template-columns: auto minmax(0, 2fr) minmax(0, 2fr) minmax(
           0,
           2fr
         ) auto;
-      grid-template-areas: "brand vazio search search auth";
+      grid-template-areas:
+        "brand vazio search search auth"
+        "menus menus menus menus menus";
 
       .navbar-nav {
-        display: none !important;
+        margin: 0 10%;
+        grid-area: menus;
+        display: flex;
+        justify-content: space-between;
+        .dropdown-menu {
+          left: 0;
+          top: 115%;
+          padding: 10px;
+          position: absolute;
+          color: @navy-light;
+          font-size: 14px;
+          font-weight: 600;
+          font-family: "Inter", sans-serif;
+          border-radius: 0 0 6px 6px;
+          box-shadow: none;
+          border: none;
+          background-color: @primary;
+          .dropdown-item {
+            border-radius: 6px;
+            color: @navy-light;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: "Inter", sans-serif;
+            &:hover {
+              color: @secondary;
+              background-color: @blue-soft;
+            }
+          }
+        }
       }
 
       .navbar-search {
@@ -195,8 +205,9 @@ body {
   }
 }
 
+// Usa esse estilo como padrão em telas com largura entre 280px e 1030px
 @media screen and (max-width: 1030px) {
-  body {
+  body[page="home"] {
     .navbar {
       grid-template-columns: minmax(0, 1fr) auto;
       grid-template-areas:
@@ -241,8 +252,9 @@ body {
   }
 }
 
+// Usa esse estilo como padrão em telas com largura ate 279px
 @media screen and (max-width: 279px) {
-  body {
+  body[page="home"] {
     display: none;
   }
 }

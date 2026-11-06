@@ -1,0 +1,45 @@
+.btn-orange {
+  color: #fff;
+  background-color: @highlight;
+  border-color: @highlight;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  &:hover {
+    color: #fff;
+    background-color: darken(@highlight, 10%);
+    border-color: darken(@highlight, 10%);
+  }
+  &:focus {
+    color: #fff;
+    background-color: darken(@highlight, 10%);
+    border-color: darken(@highlight, 10%);
+    box-shadow: none;
+  }
+}
+
+.btn-outline-our {
+  color: @highlight;
+  border-color: @highlight;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  &:hover {
+    color: #fff;
+    background-color: darken(@highlight, 10%);
+    border-color: darken(@highlight, 10%);
+  }
+  &:focus {
+    color: #fff;
+    background-color: darken(@highlight, 10%);
+    border-color: darken(@highlight, 10%);
+    box-shadow: none;
+  }
+}
+
+.btn-orange,
+.btn-outline-our {
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: darken(@highlight, 10%);
+  --bs-btn-active-border-color: darken(@highlight, 10%);
+}
