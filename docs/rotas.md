@@ -1,43 +1,45 @@
-# Rotas do FreteUni
+# Rotas do projeto
 
-Separei as rotas em três arquivos dentro de `src/routes`, pra ficar mais fácil de mexer em cada parte (por agora, possivelmente adicionaremos mais):
+Rotas são os endereços que o servidor atende. **GET** serve para abrir páginas ou consultar dados. **POST** serve para enviar dados, como os campos de um formulário.
 
-- `pages.js`: páginas do site. Por enquanto, só tem a inicial.
-- `auth.js`: login, cadastro e sair da conta.
-- `fretes.js`: simular, contratar, ver os detalhes e rastrear um frete.
+Deixei as rotas separadas nestes arquivos de `src/routes/`:
 
-O `server.js` ficou com a configuração do Express, do EJS e dos arquivos públicos. Ele também carrega esses três arquivos de rotas. (basicamente oq o index.ejs faz com os partials)
+- `pages.js`: páginas gerais, como a home.
+- `auth.js`: login, cadastro e saída da conta.
+- `fretes.js`: simulação, contratação e rastreamento.
 
-## Pra que serve cada rota
+## O que temos por enquanto
 
-| Método | Rota | Arquivo | Pra que serve |
+Só a home (`GET /`) mostra uma página. Deixei as outras rotas com uma mensagem e status **501**, porque essas partes ainda precisam ser feitas.
+
+| Método | Rota | Arquivo | Para que vai servir |
 | --- | --- | --- | --- |
-| GET | `/` | `pages.js` | Abrir a página inicial. |
-| GET | `/login` | `auth.js` | Abrir a página de login. |
-| POST | `/login` | `auth.js` | Conferir os dados e fazer o login. |
-| GET | `/register` | `auth.js` | Abrir o cadastro de cliente ou motorista. |
-| POST | `/register` | `auth.js` | Conferir os dados e salvar o cadastro. |
+| GET | `/` | `pages.js` | Abrir a home. |
+| GET | `/login` | `auth.js` | Abrir o login. |
+| POST | `/login` | `auth.js` | Receber os dados do login. |
+| GET | `/register` | `auth.js` | Abrir o cadastro. |
+| POST | `/register` | `auth.js` | Receber e salvar o cadastro. |
 | POST | `/logout` | `auth.js` | Sair da conta. |
-| GET | `/fretes/novo` | `fretes.js` | Abrir o formulário pra contratar um frete. |
-| POST | `/fretes/simular` | `fretes.js` | Calcular o preço estimado do frete. |
-| POST | `/fretes` | `fretes.js` | Confirmar e salvar a contratação. |
-| GET | `/fretes/:id` | `fretes.js` | Mostrar os detalhes daquele frete. |
-| GET | `/rastrear` | `fretes.js` | Buscar o frete pelo código da URL. |
+| GET | `/fretes/novo` | `fretes.js` | Abrir o formulário de contratação. |
+| POST | `/fretes/simular` | `fretes.js` | Estimar o preço do frete. |
+| POST | `/fretes` | `fretes.js` | Salvar uma contratação. |
+| GET | `/fretes/:id` | `fretes.js` | Mostrar os detalhes de um frete. |
+| GET | `/rastrear` | `fretes.js` | Rastrear um frete pelo código. |
 
-Por enquanto, só a rota `/` mostra uma página. Nas outras, deixei uma mensagem com status **501**, porque ainda falta fazer as páginas e o backend dessas partes. Deixei os comentários `TODO` pra indicar o que falta em cada uma.
+## Como abrir uma página pela rota
 
-## Pra continuar
+A home usa `response.render("pages/home/index", ...)`, em `src/routes/pages.js`. Esse caminho aponta para `src/views/pages/home/index.ejs`.
 
-Quando criarem as páginas EJS, é só trocar a mensagem do GET por `response.render` e passar os dados que a página precisar. Os partials continuam sendo incluídos nas páginas, sem precisar de uma rota pra cada um.
+Para fazer outra página, crie o arquivo EJS na pasta correspondente de `src/views/pages/` e troque a mensagem 501 da rota GET por um `response.render` com o caminho certo. Seções dentro de uma página não precisam de uma rota própria.
 
-Nos forms que enviam dados, coloquem `method="post"` e o endereço da rota no `action`. Cada campo precisa ter `name` pra chegar no backend. Os dados ficam em `request.body`; já adicionei o `express.urlencoded` no `server.js` pra receber isso.
+## Como os dados chegam
 
-Depois de salvar a contratação, usem `response.redirect(303, "/fretes/" + id)` pra abrir os detalhes do frete. Assim, dar F5 nessa página não envia a contratação de novo. Façam isso depois de confirmar que salvou.
+- Em `/rastrear?id=ABC123`, o código chega em `request.query.id`.
+- Em `/fretes/123`, o ID chega em `request.params.id`.
+- Em um formulário com `method="post" action="/login"`, um campo com `name="email"` chega em `request.body.email`.
 
-Os botões da navbar já apontam pra `/login`, `/register` e `/rastrear?id=...`.
+Deixei o servidor pronto para receber dados de formulários, mas o login e as outras funcionalidades ainda precisam ser feitos. O atributo `name` é o que identifica o valor enviado pelo campo.
 
-> Já deixei uma base pra vc aq glawber
-- Em `/rastrear?id=ABC123`, o código chega em `request.query.id` (usa isso pra pegar o valro vindo do frontend).
-- Em `/fretes/123`, o ID chega em `request.params.id` (usa isso pra pegar o valor vindo do frontend).
+Mantenha `/fretes/novo` antes de `/fretes/:id` no arquivo de rotas, para o servidor não confundir `novo` com um ID. No `server.js`, as rotas ficam antes da resposta 404, que atende os endereços não encontrados.
 
-Deixe `/fretes/novo` antes de `/fretes/:id`, senão ele pode entender `novo` como um ID. No `server.js`, carreguem as rotas antes da resposta 404.
+Atualize esta lista quando implementar ou acrescentar alguma rota. Veja também [onde ficam os arquivos](estrutura-do-projeto.md).

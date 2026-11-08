@@ -1,7 +1,6 @@
 const express = require("express");
 const path = require("path");
 const pagesRoutes = require("./src/routes/pages");
-const authRoutes = require("./src/routes/auth");
 const fretesRoutes = require("./src/routes/fretes");
 
 const app = express();
@@ -18,7 +17,6 @@ app.use(express.static(publicDirectory));
 app.use(express.urlencoded({ extended: false }));
 
 app.use(pagesRoutes);
-app.use(authRoutes);
 app.use(fretesRoutes);
 
 app.use((request, response) => {

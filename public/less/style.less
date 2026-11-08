@@ -1,180 +1,23 @@
+/*
+  Este arquivo reúne os imports do projeto.
+
+  - colors.less: cores compartilhadas.
+  - base.less: reset e estilos globais.
+  - bootstrap-extended.less: personalizações do Bootstrap.
+  - components/: componentes compartilhados entre páginas.
+  - pages/: estilos específicos de cada página e suas seções.
+
+  Mantenha as media queries junto do componente ou seção.
+  Use aninhamento com poucas camadas para facilitar a manutenção.
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
 @import "colors.less";
 @import "bootstrap-extended.less";
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap");
+@import "base.less";
+@import "components/navbar.less";
+@import "components/footer.less";
 
-// Reset de espaçamento
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
-/* IMPORTANTE
-  Pfv usem o estilo code-style de aninhamento!
-  elemento {
-    elemento-filho {
-      etc
-    }
-  }
-
-  pois facilita para que n precisemos criar arquivos diferentes apra cada pagina
-*/
-
-// Usa esse estilo como padrão em telas com largura maior que 1400px
-body[page="home"] {
-  background-color: @secondary;
-  color: @primary;
-  .navbar {
-    gap: 20px;
-    padding: 10px 20px;
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-template-areas: "brand brand brand vazio search search search search search search auth auth";
-
-    .navbar-brand {
-      grid-area: brand;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      .navbar-brand-img {
-        width: 50px;
-        height: 50px;
-        margin-right: 10px;
-      }
-      .navbar-brand-text {
-        color: @navy-light;
-        font-size: 28px;
-        font-weight: 800;
-        font-style: italic;
-        font-family: "Inter", sans-serif;
-        span {
-          color: @highlight;
-        }
-      }
-    }
-    .navbar-toggle {
-      grid-area: toggle;
-      display: none;
-    }
-    .navbar-search {
-      gap: 10px;
-      justify-content: space-between;
-      grid-area: search;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      border-right: 1px solid rgba(1, 3, 43, 0.222);
-      padding-right: 36px;
-      input {
-        &:hover {
-          border-color: @secondary;
-        }
-        &:focus {
-          border-color: @highlight;
-          box-shadow: none;
-        }
-      }
-    }
-    .navbar-auth {
-      gap: 10px;
-      justify-content: space-between;
-      grid-area: auth;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      button {
-        &:first-child {
-          border: none;
-          color: #01032bb4;
-          &:hover {
-            color: @secondary;
-            text-decoration: underline;
-            background: none !important;
-          }
-        }
-      }
-    }
-  }
-}
-
-// Usa esse estilo como padrão em telas com largura entre 1030px e 1400px
-@media screen and (max-width: 1400px) {
-  body[page="home"] {
-    .navbar {
-      grid-template-columns: auto minmax(0, 2fr) minmax(0, 2fr) minmax(
-          0,
-          2fr
-        ) auto;
-      grid-template-areas:
-        "brand vazio search search auth";
-
-      .navbar-search {
-        border-right: none;
-        padding-right: 0;
-
-        input {
-          flex: 1;
-          min-width: 0;
-        }
-
-        button {
-          flex-shrink: 0;
-        }
-      }
-    }
-  }
-}
-
-// Usa esse estilo como padrão em telas com largura entre 280px e 1030px
-@media screen and (max-width: 1030px) {
-  body[page="home"] {
-    .navbar {
-      grid-template-columns: minmax(0, 1fr) auto;
-      grid-template-areas:
-        "brand toggle"
-        "search search";
-      gap: 12px;
-      padding-bottom: 20px;
-
-      .navbar-toggle {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-        line-height: 1;
-        grid-area: toggle;
-        justify-self: end;
-        align-self: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: @secondary;
-      }
-
-      .navbar-auth {
-        display: none !important;
-      }
-
-      .navbar-search {
-        border-right: none;
-        padding-right: 0;
-
-        input {
-          flex: 1;
-          min-width: 0;
-        }
-
-        button {
-          flex-shrink: 0;
-        }
-      }
-    }
-  }
-}
-
-// Usa esse estilo como padrão em telas com largura ate 279px
-@media screen and (max-width: 279px) {
-  body[page="home"] {
-    display: none;
-  }
-}
+@import "pages/home/style.less";
