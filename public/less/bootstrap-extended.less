@@ -43,3 +43,16 @@
   --bs-btn-active-bg: darken(@highlight, 10%);
   --bs-btn-active-border-color: darken(@highlight, 10%);
 }
+
+.form-check-input.check-orange {
+  &:checked,
+  &:indeterminate {
+    background-color: @highlight;
+    border-color: @highlight;
+  }
+
+  &:focus {
+    border-color: @highlight;
+    box-shadow: none;
+  }
+}

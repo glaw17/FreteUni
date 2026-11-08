@@ -1,61 +1,68 @@
-# Como rodar localmente
+﻿# Como rodar o projeto
 
-## Node.JS
+Deixei aqui o passo a passo para abrir o FreteUni no seu computador.
 
-### 1) Instale o Node.js
+## Antes de começar
 
-Baixe o Node.js:
+Instale estas ferramentas, se ainda não tiver:
 
-https://nodejs.org/
+- [Git](https://git-scm.com/downloads), para baixar o projeto e salvar suas contribuições.
+- [Node.js com npm](https://nodejs.org/en/download), para rodar o servidor.
 
-Depois confirme se a instalação foi concluída com sucesso:
+Também tenha um editor, como o VS Code, um navegador e acesso à internet.
 
-```bash
-node -v
-npm -v
-```
-
-### 2) Instale as dependências do projeto
-
-Abra o terminal na pasta raiz do projeto e execute:
+Abra um terminal e confira se as instalações funcionaram:
 
 ```bash
-npm install
+git --version
+node --version
+npm --version
 ```
 
-### 3) Inicie o projeto localmente
+Cada comando deve mostrar uma versão. Se não funcionar, tente fechar e abrir o terminal depois da instalação.
+
+## Baixando o projeto
+
+No terminal, entre na pasta em que quer guardar o projeto e execute:
 
 ```bash
-npm run start
+git clone https://github.com/glaw17/FreteUni.git
+cd FreteUni
 ```
 
-O terminal vai mostrar a URL local onde a aplicação está rodando, normalmente algo como:
+Se você já baixou o projeto, pode usar a pasta que já tem.
+
+Abra essa pasta no VS Code. Os próximos comandos devem ser executados na pasta que contém o `package.json` e o `server.js`.
+
+## Abrindo o site
+
+No terminal do projeto, execute:
 
 ```bash
-http://localhost:3000
-```
-> ":3000" é a porta que o servidor está escutando, pode ser alterada no .env
-
-Acesse essa URL no navegador para visualizar o projeto.
-
-### 4) Se quiser gerar a build de produção
-
-```bash
-npm run start
-```
-> A principio não fiz separação de build/preview então use o mesmo comando para rodar localmente
-
-Se houver erros de dependência, tente limpar o cache e reinstalar:
-
-```bash
-rm -rf node_modules package-lock.json
-npm install
+npm start
 ```
 
-Em Windows, use o PowerShell ou CMD e adapte o comando de remoção:
+Esse comando já instala os pacotes necessários antes de iniciar o servidor. Espere aparecer `Front disponível em http://localhost:3000` e abra `http://localhost:3000` no navegador.
 
-```bash
-rmdir /s /q node_modules
- del package-lock.json
-npm install
-```
+Deixe o terminal aberto enquanto usa o site. Para parar o servidor, pressione **Ctrl + C** nele. Se aparecer uma confirmação, confirme.
+
+Se os pacotes já estiverem instalados, também dá para iniciar com `node server.js`, sem repetir a instalação.
+
+## Enquanto estiver fazendo alterações
+
+- Alterou um arquivo EJS, LESS ou de `public/js`? Salve e atualize a página no navegador.
+- Alterou `server.js` ou algum arquivo de `src/routes`? Pare o servidor com **Ctrl + C**, inicie novamente e atualize a página.
+- O site não atualiza sozinho quando você salva um arquivo.
+
+Por enquanto, só a home abre uma página. Deixei login, cadastro e fretes com mensagens de desenvolvimento e status **501**. Isso não é falha da instalação. Não precisa configurar banco de dados para abrir a home.
+
+## Se algo não funcionar
+
+- **Erro dizendo que não encontrou `package.json`:** confira se o terminal está na pasta certa. O arquivo precisa estar nessa pasta, e não dentro de `src` ou `public`.
+- **O PowerShell bloqueou `npm.ps1`:** tente `npm.cmd start` no lugar de `npm start`.
+- **Porta 3000 ocupada (`EADDRINUSE`):** veja se o projeto já está rodando em outro terminal e pare essa execução com **Ctrl + C** antes de tentar de novo.
+- **A aparência está incompleta ou não mudou:** confira a internet, pois o site carrega estilos e bibliotecas externas. Tente também **Ctrl + F5** para atualizar os arquivos guardados pelo navegador.
+
+Se continuar dando erro, mande a mensagem completa para o grupo e diga qual comando você executou.
+
+Depois que estiver rodando, veja [como contribuir](../CONTRIBUTING.md). Para voltar à apresentação do projeto, abra o [README](../README.md).

@@ -1,0 +1,122 @@
+.navbar {
+  gap: 20px;
+  padding: 10px 20px;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-template-areas: "brand brand brand vazio search search search search search search auth auth";
+
+  .navbar-brand {
+    grid-area: brand;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .navbar-brand-img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+    .navbar-brand-text {
+      color: @navy-light;
+      font-size: 28px;
+      font-weight: 800;
+      font-style: italic;
+      font-family: "Inter", sans-serif;
+      .highlight-text {
+        color: @highlight;
+      }
+    }
+  }
+  .navbar-toggle {
+    grid-area: toggle;
+    display: none;
+  }
+  .navbar-search {
+    gap: 10px;
+    justify-content: space-between;
+    grid-area: search;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-right: 1px solid rgba(1, 3, 43, 0.222);
+    padding-right: 36px;
+    #search-input {
+      &:hover {
+        border-color: @secondary;
+      }
+      &:focus {
+        border-color: @highlight;
+        box-shadow: none;
+      }
+    }
+  }
+  .navbar-auth {
+    gap: 10px;
+    justify-content: space-between;
+    grid-area: auth;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    #login-btn {
+      border: none;
+      color: #01032bb4;
+      &:hover {
+        color: @secondary;
+        text-decoration: underline;
+        background: none !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .navbar {
+    grid-template-columns:
+      auto minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr)
+      auto;
+    grid-template-areas: "brand vazio search search auth";
+
+    .navbar-search {
+      border-right: none;
+      padding-right: 0;
+
+      #search-input {
+        flex: 1;
+        min-width: 0;
+      }
+
+      #track-btn {
+        flex-shrink: 0;
+      }
+    }
+  }
+}
+
+// Usa esse estilo como padrão em telas com largura entre 280px e 1030px
+@media screen and (max-width: 1030px) {
+  .navbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "brand toggle"
+      "search search";
+    gap: 12px;
+    padding-bottom: 20px;
+
+    .navbar-toggle {
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+      line-height: 1;
+      grid-area: toggle;
+      justify-self: end;
+      align-self: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: @secondary;
+    }
+
+    .navbar-auth {
+      display: none !important;
+    }
+  }
+}
