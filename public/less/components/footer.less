@@ -91,7 +91,8 @@
         }
     }
 }
-//Responsividade
+
+//Responsividade para Tablet
 @media only screen and (max-width: 870px) {
     .footer{
         display: grid;
@@ -101,6 +102,21 @@
         "centro centro";
         grid-template-columns: 5fr 0.5fr; 
 
+        .feedback{
+            .form-range{max-width: 40%;}
+        }
+    }
+}
+//Reponsividade para Celular
+@media only screen and (max-width: 600px) {
+    .footer{
+        display: grid;
+        grid-template-areas:
+        "f-entreCon"
+        "f-redesSoc"
+        "feedback"
+        "centro";
+        text-align: center;
         .feedback{
             .form-range{max-width: 40%;}
         }
