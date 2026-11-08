@@ -3,6 +3,7 @@
     background-color: @primary;
     color: @navy-light;
     margin-top: 40px;
+    padding: auto;
     
     //Parte para fazer o Grid
     display: grid;
@@ -19,13 +20,14 @@
         margin: 30px;
         p{margin: 3px;}
         a{margin-right: 10px;}
+        img{border-radius: 50%; height: 20px; margin-right: 5px;}
         .zap{
-            background-color: limegreen; 
-            border-color: limegreen;
+            background-color: #25D366; 
+            border-color: #25D366;
             &:hover {
                 color: #fff;
-                background-color: darken(limegreen, 10%);
-                border-color: darken(limegreen, 10%);
+                background-color: darken(#25D366, 10%);
+                border-color: darken(#25D366, 10%);
             }
             &:focus {
                 color: #fff;
@@ -62,16 +64,17 @@
     .f-redesSoc {
         grid-area: f-redesSoc;
         margin: 30px;
-        a{margin-right: 30px;}
+        img{border-radius: 50%; height: 40%;}
+        text-align: center;
     }
     //Parte do Feedback
     .feedback {
         grid-area: feedback;
-        margin: 0px 0px 30px 30px;
+        margin-left: 30px;
+        text-align: center;
         //Barrinha de Avaliar
-        .form-range{
-            max-width: 60%;
-        }
+        .form-range{ max-width: 70%; }
+
         /* Alterar a cor do ponteiro no Bootstrap (utilizei IA nessa parte) */
         .form-range::-webkit-slider-thumb {
         background-color: @highlight;
@@ -84,7 +87,22 @@
         }
         //Botão para "Enviar" a Avaliação
         .btn{
-            height: 20px;
+            height: auto;
+        }
+    }
+}
+//Responsividade
+@media only screen and (max-width: 870px) {
+    .footer{
+        display: grid;
+        grid-template-areas:
+        "f-entreCon f-redesSoc"
+        "feedback feedback"
+        "centro centro";
+        grid-template-columns: 5fr 0.5fr; 
+
+        .feedback{
+            .form-range{max-width: 40%;}
         }
     }
 }
