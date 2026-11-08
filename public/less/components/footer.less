@@ -1,1 +1,124 @@
-.footer {}
+.footer {
+    font-size: small;
+    background-color: @primary;
+    color: @navy-light;
+    margin-top: 40px;
+    padding: auto;
+    
+    //Parte para fazer o Grid
+    display: grid;
+    grid-template-areas:
+        "f-entreCon centro f-redesSoc"
+        "f-entreCon centro feedback";
+    grid-template-columns: 1.5fr 3fr 1.5fr;
+    justify-content: center;
+    align-items: center;
+
+    //Parte do Entre em Contato
+    .f-entreCon {
+        grid-area: f-entreCon;
+        margin: 30px;
+        p{margin: 3px;}
+        a{margin-right: 10px;}
+        img{border-radius: 50%; height: 20px; margin-right: 5px;}
+        .zap{
+            background-color: #25D366; 
+            border-color: #25D366;
+            &:hover {
+                color: #fff;
+                background-color: darken(#25D366, 10%);
+                border-color: darken(#25D366, 10%);
+            }
+            &:focus {
+                color: #fff;
+                background-color: darken(limegreen, 10%);
+                border-color: darken(limegreen, 10%);
+                box-shadow: none;
+            }
+        }
+    }
+
+    //Parte da Logo
+    .centro {
+        grid-area: centro;
+        text-align: center;
+        margin: 30px;
+        //Reutilizei o estilo da Parte da Logo da NavBar
+        .navbar-brand-img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .navbar-brand-text {
+            color: @navy-light;
+            font-size: 28px;
+            font-weight: 800;
+            font-style: italic;
+            font-family: "Inter", sans-serif;
+            .highlight-text {
+                color: @highlight;
+            }
+        }
+    }
+    //Parte das Redes Sociais
+    .f-redesSoc {
+        grid-area: f-redesSoc;
+        margin: 30px;
+        img{border-radius: 50%; height: 40%;}
+        text-align: center;
+    }
+    //Parte do Feedback
+    .feedback {
+        grid-area: feedback;
+        margin-left: 30px;
+        text-align: center;
+        //Barrinha de Avaliar
+        .form-range{ max-width: 70%; }
+
+        /* Alterar a cor do ponteiro no Bootstrap (utilizei IA nessa parte) */
+        .form-range::-webkit-slider-thumb {
+        background-color: @highlight;
+        }
+        .form-range::-moz-range-thumb {
+        background-color: @highlight;
+        }
+        .form-range:focus::-webkit-slider-thumb {
+        box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+        }
+        //Botão para "Enviar" a Avaliação
+        .btn{
+            height: auto;
+        }
+    }
+}
+
+//Responsividade para Tablet
+@media only screen and (max-width: 870px) {
+    .footer{
+        display: grid;
+        grid-template-areas:
+        "f-entreCon f-redesSoc"
+        "feedback feedback"
+        "centro centro";
+        grid-template-columns: 5fr 0.5fr; 
+
+        .feedback{
+            .form-range{max-width: 40%;}
+        }
+    }
+}
+//Reponsividade para Celular
+@media only screen and (max-width: 600px) {
+    .footer{
+        display: grid;
+        grid-template-areas:
+        "f-entreCon"
+        "f-redesSoc"
+        "feedback"
+        "centro";
+        text-align: center;
+        .feedback{
+            .form-range{max-width: 40%;}
+        }
+    }
+}
