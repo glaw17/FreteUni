@@ -7,16 +7,16 @@
     </div>
     <div class="conteudo">
       <h3>Calcule o Frete da Sua Encomenda!</h3>
-      <p>Informe o Cep de Origem e de Destino para começar.</p>
+      <p>Informe o Cep de Origem e de Destino para começar. (Apenas Números)</p>
       <form action="/fretes/simular" method="POST">
         <div class="row">
           <div class="col">
             <label>Cep de Origem</label>
-            <input type="text" class="form-control" name="cepOrigem" placeholder="Digite o Cep" aria-label="Cep Origem">
+            <input type="number" class="form-control" name="cepOrigem" placeholder="Digite o Cep" aria-label="Cep Origem">
           </div>
           <div class="col">
             <label>Cep de Destino</label>
-            <input type="text" class="form-control" name="cepDestino" placeholder="Digite o Cep" aria-label="Cep Destino">
+            <input type="number" class="form-control" name="cepDestino" placeholder="Digite o Cep" aria-label="Cep Destino">
           </div>
         </div>
         <br>

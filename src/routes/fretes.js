@@ -1,5 +1,5 @@
 const express = require("express");
-
+const { getDistance } = require('geolib');
 const router = express.Router();
 
 router.get("/fretes/novo", (request, response) => {
@@ -8,15 +8,56 @@ router.get("/fretes/novo", (request, response) => {
 });
 
 router.post("/fretes/simular", async (request, response) => {
-  // TODO: calcular a estimativa antes de confirmar a contratação.
+  // Verificação da Entrada
   const { cepOrigem, cepDestino } = request.body;
 
   if (!cepOrigem || !cepDestino) {
-    return response.status(400).send("Cep de origem e destino são obrigatórios.");
+    return alert("Cep de origem e destino são obrigatórios.");
   }
   if (cepOrigem.length !== 8 || cepDestino.length !== 8) {
    return response.status(400).send("Cep de origem e destino devem ter 8 dígitos.");
   }
+  
+  // Função para buscar coordenadas de um CEP usando a GeoLib
+  const buscarCoordenadas = async (cep) => {
+    const response = await fetch(
+        `https://brasilapi.com.br/api/cep/v2/${cep}`
+    );
+
+    //Pegando todas as informações do cep dada pela API BrasilAPI e guardando na variável infoDoCep
+    const infoDoCep = await response.json();
+    console.log(`Informações do CEP ${cep}: ${JSON.stringify(infoDoCep)}`);
+
+    //Pegando somente as coordenadas do cep e guardando na variável cords
+    const cords = infoDoCep.location?.coordinates;
+
+    //Vendo se alguma retornou uma valor nulo ou vazio, caso sim, lançando um erro
+    if (cords?.latitude == null || cords?.longitude == null ||
+    cords.latitude === '' || cords.longitude === '') {
+      return console.error(`Coordenadas indisponíveis: ${cep}`);
+    }
+
+    return {
+      latitude: Number(cords.latitude),
+      longitude: Number(cords.longitude)
+    };
+  }
+  
+  const coordenadasOrigem = await buscarCoordenadas(cepOrigem);
+  const coordenadasDestino = await buscarCoordenadas(cepDestino);
+
+  console.log(`Coordenadas Origem: ${JSON.stringify(coordenadasOrigem)}`);
+  console.log(`Coordenadas Destino: ${JSON.stringify(coordenadasDestino)}`);
+
+  const distancia = getDistance(
+    coordenadasOrigem,
+    coordenadasDestino
+  )/1000; // Convertendo de metros para quilômetros
+
+  const preco = (180 + (distancia * 4)).toFixed(2);
+  console.log(`Distância: ${distancia} km, Preço: R$ ${preco}`);
+
+  return response.status(200).json({ distancia, preco });
 });
 
 router.post("/fretes", (request, response) => {
