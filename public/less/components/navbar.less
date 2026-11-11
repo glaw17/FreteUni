@@ -65,7 +65,31 @@
         background: none !important;
       }
     }
+    .profile-area {
+      gap: 20px;
+      display: flex;
+      width: 100%;
+      justify-content: center ;
+      align-items: center;
+      cursor: pointer;
+      color: @light-black;
+      .profile {
+        border: none;
+        background: none;
+        padding: 5px 10px;
+        border-radius: 8px;
+        .profile-name {
+          font-family: "Inter", sans-serif;
+          font-weight: 500;
+          margin-right: 10px;
+        }
+      }
+    }
   }
+}
+
+.navbar.logged {
+  grid-template-areas: "brand brand brand vazio search search search search search search search auth" !important;
 }
 
 @media screen and (max-width: 1400px) {
@@ -93,30 +117,13 @@
 
 // Usa esse estilo como padrão em telas com largura entre 280px e 1030px
 @media screen and (max-width: 1030px) {
-  .navbar {
-    grid-template-columns: minmax(0, 1fr) auto;
+  .navbar,
+  .navbar.logged {
+    grid-template-columns: minmax(0, 1fr) auto !important;
     grid-template-areas:
-      "brand toggle"
-      "search search";
+      "brand auth"
+      "search search" !important;
     gap: 12px;
     padding-bottom: 20px;
-
-    .navbar-toggle {
-      width: 40px;
-      height: 40px;
-      font-size: 18px;
-      line-height: 1;
-      grid-area: toggle;
-      justify-self: end;
-      align-self: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: @secondary;
-    }
-
-    .navbar-auth {
-      display: none !important;
-    }
   }
 }

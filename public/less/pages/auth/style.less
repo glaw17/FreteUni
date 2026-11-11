@@ -1,0 +1,349 @@
+// Importa as modificações específicas da navbar que fiz para as apginas de auth
+@import "navbar-mod";
+
+@auth-focus: rgba(31, 27, 22, 0.886);
+
+body[page="login"],
+body[page="register"] {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+
+  .main-area {
+    display: grid;
+    grid-template-columns: minmax(0, 7.5fr) minmax(0, 4.5fr);
+    grid-template-areas: "info form";
+    background-color: @background;
+    .info-main-area,
+    .form-main-area {
+      display: flex;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: "Inter", sans-serif;
+      flex-direction: column;
+    }
+    .info-main-area {
+      z-index: 2;
+      padding: clamp(32px, 4vw, 64px);
+      grid-area: info;
+      color: @primary;
+      border-radius: 0 25px 25px 0;
+      align-items: flex-start;
+      background-image:
+        linear-gradient(
+          90deg,
+          fade(@secondary, 78%),
+          fade(@secondary, 60%) 58%,
+          fade(@secondary, 14%)
+        ),
+        url("/images/gerado_por_ia/auth-image.png");
+      background-repeat: no-repeat;
+      background-position: right center;
+      background-size: cover;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.136);
+      .info-content {
+        width: 100%;
+        max-width: 600px;
+      }
+      .info-texts {
+        font-family: "Inter", sans-serif;
+        font-size: clamp(36px, 4.2vw, 64px);
+        font-weight: 700;
+        max-width: 14ch;
+        margin: 0;
+        line-height: 1.08;
+        letter-spacing: -0.045em;
+        .info-text {
+          display: block;
+        }
+        .info-text.highlight {
+          color: @highlight;
+          font-size: inherit;
+        }
+      }
+      .info-description {
+        max-width: 34ch;
+        margin: 24px 0 0;
+        color: fade(@primary, 78%);
+        font-size: 17px;
+        font-weight: 400;
+        line-height: 1.65;
+      }
+    }
+    .form-main-area {
+      z-index: 1;
+      padding: clamp(24px, 3vw, 48px);
+      grid-area: form;
+      color: @primary;
+      align-items: center;
+      justify-content: center;
+      .form-card {
+        margin: 0;
+        padding: 32px;
+        color: @secondary;
+        width: 100%;
+        max-width: 440px;
+        border: 1px solid fade(@secondary, 8%);
+        background-color: @primary;
+        border-radius: 20px;
+        box-shadow: 0 16px 48px fade(@secondary, 7%);
+
+        .form-title {
+          font-family: "Inter", sans-serif;
+          font-size: clamp(26px, 2.2vw, 32px);
+          font-weight: 700;
+          margin-bottom: 0;
+          line-height: 1.2;
+          letter-spacing: -0.025em;
+        }
+        .form-description {
+          display: block;
+          margin-top: 8px;
+          color: @light-black;
+          font-family: "Inter", sans-serif;
+          font-size: 15px;
+          font-weight: 400;
+          line-height: 1.6;
+        }
+        #auth-form {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          margin-top: 24px;
+          .account-type {
+            width: 100%;
+            min-height: 45px;
+            border-radius: 10px;
+            border: 1px solid fade(@secondary, 8%);
+            position: relative;
+            .selected-background {
+              z-index: 0;
+              position: absolute;
+              width: 50%;
+              min-height: 45px;
+              border-radius: 10px;
+              background-color: @highlight;
+              transition: 0.1s linear;
+            }
+            .selected-background.move {
+              transform: translateX(100%);
+            }
+            .account-options {
+              width: 100%;
+              position: relative;
+              z-index: 2;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              .form-check-label-type {
+                width: 50%;
+                height: 45px;
+                z-index: 2;
+                color: @secondary;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                margin: auto;
+                padding: auto;
+              }
+              .form-check-label-type.actived {
+                color: @primary;
+              }
+            }
+          }
+          .form-input-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid fade(@secondary, 18%);
+            transition: 0.1s linear;
+            .form-input-icon {
+              margin: 0 5px;
+              flex-shrink: 0;
+              color: @light-black;
+              transition: 0.1s linear;
+            }
+            .form-input {
+              border: none;
+              outline: none;
+              color: @light-black;
+              flex: 1;
+              min-width: 0;
+              width: auto;
+              transition: 0.1s linear;
+            }
+            .form-input-icon#password-view {
+              cursor: pointer;
+              &:hover {
+                color: darken(@highlight, 10%);
+              }
+            }
+            &:hover {
+              border-color: @highlight;
+              .form-input-icon {
+                color: @highlight;
+              }
+            }
+            &:focus-within {
+              border-color: @highlight;
+              .form-input-icon {
+                color: @highlight;
+              }
+            }
+          }
+          .form-input-area#password-input-area {
+            margin-top: 15px;
+          }
+          .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px 16px;
+            margin: 15px 0;
+            color: @light-black;
+            font-size: 13px;
+            padding: 0 2px;
+
+            .remember-me {
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+              cursor: pointer;
+
+              .form-check-input {
+                margin: 0;
+                flex-shrink: 0;
+                padding: 6px;
+              }
+            }
+            .forget-password-text {
+              cursor: pointer;
+              font-weight: 600;
+              color: @highlight;
+              transition: 0.1s linear;
+              &:hover {
+                color: darken(@highlight, 10%);
+              }
+            }
+          }
+          #form-elements {
+            .form-input-area {
+              margin-top: 10px;
+            }
+          }
+          .btn-orange {
+            width: 100%;
+            padding: 12px 10px;
+            font-weight: 600;
+            border-radius: 10px;
+            .loading-icon {
+              animation: rotate 1s linear infinite;
+            }
+          }
+        }
+        #alternative-logins {
+          .alternatives-text {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+            color: @light-black;
+            padding: 22px 0 14px;
+            font-size: 12px;
+
+            &::before,
+            &::after {
+              content: "";
+              flex: 1;
+              height: 1px;
+              background-color: fade(@secondary, 12%);
+            }
+          }
+          .alternative-method {
+            width: 100%;
+            padding: 12px 10px;
+            font-weight: 500;
+            border-radius: 10px;
+            display: block;
+            color: @secondary;
+            background-color: @primary;
+            border: 1px solid fade(@secondary, 18%);
+            transition: 0.1s linear;
+            i {
+              color: @highlight;
+              margin-right: 5px;
+            }
+            &:hover {
+              color: @secondary;
+              background-color: fade(@highlight, 5%);
+              border-color: fade(@highlight, 55%);
+              i {
+                color: @highlight;
+              }
+            }
+          }
+        }
+        #success-auth {
+          margin-top: 15px;
+          padding: 12px 14px;
+          color: @secondary;
+          border: 1px solid @highlight;
+          border-radius: 10px;
+          background-color: fade(@highlight, 10%);
+          font-size: 14px;
+          line-height: 1.5;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 1030px) {
+  body[page="login"],
+  body[page="register"] {
+    .main-area {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body[page="login"],
+  body[page="register"] {
+    .main-area {
+      grid-template-columns: minmax(0, 12fr);
+      grid-template-areas: "form";
+      align-items: stretch;
+      background-image: url("/images/gerado_por_ia/auth-image.png");
+      background-repeat: no-repeat;
+      background-position: right center;
+      background-size: cover;
+      .info-main-area {
+        display: none;
+      }
+      .form-main-area {
+        padding: 24px 16px;
+
+        .form-card {
+          padding: 24px 20px;
+        }
+      }
+    }
+  }
+}

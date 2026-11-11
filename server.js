@@ -1,7 +1,11 @@
 const express = require("express");
+const session = require("express-session");
 const path = require("path");
 const pagesRoutes = require("./src/routes/pages");
+const authRoutes = require("./src/routes/auth");
 const fretesRoutes = require("./src/routes/fretes");
+
+process.loadEnvFile();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,8 +19,23 @@ app.set("views", viewsDirectory);
 
 app.use(express.static(publicDirectory));
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+app.use(session({
+  name: "freteuni.sid",
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 60 * 60 * 1000 // Uma hora.
+  }
+}));
 
 app.use(pagesRoutes);
+app.use(authRoutes);
 app.use(fretesRoutes);
 
 app.use((request, response) => {
