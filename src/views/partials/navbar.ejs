@@ -1,4 +1,4 @@
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-light bg-light <%= user !== null ? 'logged' : '' %>">
   <a class="navbar-brand" href="/">
     <img class="navbar-brand-img" src="/images/logo.png" alt="Logo" />
     <span class="navbar-brand-text">
@@ -13,7 +13,45 @@
     <button id="track-btn" class="btn btn-orange px-4">Rastrear</button>
   </div>
   <div class="navbar-auth">
-    <button id="login-btn" class="btn btn-outline-dark px-3">Entrar</button>
-    <button id="register-btn" class="btn btn-outline-our px-4">Criar Conta</button>
+    <% if (user) { %>
+      <div class="profile-area">
+        <button type="button" class="profile" data-bs-toggle="modal" data-bs-target="#profile-not-implemented">
+          <span class="profile-name"><%= user.name %></span>
+          <i class="fa-solid fa-angle-down"></i>
+        </button>
+      </div>
+    <% } else { %>
+      <button type="button" id="login-btn" class="btn btn-outline-dark px-3">Entrar</button>
+      <button type="button" id="register-btn" class="btn btn-outline-orange px-4">Criar Conta</button>
+    <% } %>
   </div>
 </nav>
+<div
+      class="modal fade profile-not-implemented"
+      id="profile-not-implemented"
+      tabindex="-1"
+      aria-labelledby="profile-not-implemented-title"
+      aria-describedby="profile-not-implemented-description"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content text-body">
+          <div class="modal-header">
+            <h2 class="modal-title fs-5" id="profile-not-implemented-title">
+              Perfil não implementado
+            </h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Fechar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="mb-0 p-2" id="profile-not-implemented-description">
+              O menu de perfil ainda não foi implementado
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>

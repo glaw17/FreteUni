@@ -1,7 +1,7 @@
 (() => {
   const pageId = document.body?.getAttribute("page");
 
-  if (pageId == "home") { 
+  if (pageId == "home") {
     // So define e executa o código abaixo caso o <body> tenha (page = "body")
     // exemplo <body page="home"> usado em index.ejs
 
