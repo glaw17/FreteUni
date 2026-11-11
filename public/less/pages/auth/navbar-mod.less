@@ -1,0 +1,27 @@
+// Navbar do login e cadastro
+body[page="login"],
+body[page="register"] {
+  .navbar {
+    z-index: 20;
+    padding: 10px 20px;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 7fr) minmax(0, 3fr);
+    grid-template-areas: "brand vazio auth";
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .navbar-search,
+    .navbar-nav,
+    .navbar-toggle {
+      display: none !important;
+    }
+
+    .navbar-auth {
+      display: flex !important;
+      justify-content: flex-end;
+      align-items: center;
+      > button {
+        padding: 10px 20px !important;
+      }
+    }
+  }
+}

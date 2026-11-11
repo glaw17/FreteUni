@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <title><%= title %></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet/less" type="text/css" href="/less/style.less" />
+    <script src="https://cdn.jsdelivr.net/npm/less"></script>
+  </head>
+  <body page="login">
+    <!-- Inclui o codigo HTML da navbar no inicio do body -->
+    <%- include('../../partials/navbar.ejs') %>
+
+    <main class="main-area">
+      <div class="info-main-area">
+        <div class="info-content">
+          <h1 class="info-texts">
+            <span class="info-text">Seu próximo frete</span>
+            <span class="info-text highlight">começa aqui.</span>
+          </h1>
+          <p class="info-description">
+            Conectando quem precisa enviar a quem faz chegar.
+          </p>
+        </div>
+      </div>
+
+      <div class="form-main-area">
+        <div class="form-card">
+          <h2 class="form-title">Entrar na sua conta</h2>
+          <span class="form-description">Acesse sua conta para continuar.</span>
+          <form id="auth-form">
+            <div id="email-input-area" class="form-input-area">
+              <i class="form-input-icon fa-solid fa-envelope"></i>
+              <input
+                class="form-input"
+                type="email"
+                placeholder="Digite seu email"
+                id="email-input"
+              />
+            </div>
+            <span id="email-error" class="d-none text-danger">Email inválido</span>
+
+            <div id="password-input-area" class="form-input-area">
+              <i class="form-input-icon fa-solid fa-lock"></i>
+              <input
+                class="form-input"
+                type="password"
+                placeholder="Digite sua senha"
+                id="password-input"
+              />
+              <i
+                id="password-view"
+                class="form-input-icon fa-solid fa-eye"
+                aria-hidden="true"
+              ></i>
+            </div>
+            <span id="password-error" class="d-none text-danger">Senha inválida</span>
+
+            <div class="form-options">
+              <label class="remember-me" for="rememberMe">
+                <input
+                  type="checkbox"
+                  class="form-check-input check-orange"
+                  id="rememberMe"
+                  name="rememberMe"
+                  value="1"
+                />
+                <span>Lembrar de mim</span>
+              </label>
+              <span id="forget-password" class="forget-password-text"
+                >Esqueceu sua senha?</span
+              >
+            </div>
+            <button id="submitBtn" type="submit" class="btn btn-orange">
+              Entrar
+            </button>
+          </form>
+          <div id="alternative-logins">
+            <span class="alternatives-text">ou continue com</span>
+            <button
+            id="google-login"
+              type="button"
+              class="alternative-method mb-2"
+              data-bs-toggle="modal"
+              data-bs-target="#alternative-methods"
+            >
+              <i class="fab fa-google"></i> Continuar com Google
+            </button>
+            <button
+              id="facebook-login"
+              type="button"
+              class="alternative-method"
+              data-bs-toggle="modal"
+              data-bs-target="#alternative-methods"
+            >
+              <i class="fa-brands fa-facebook-f"></i> Continuar com Facebook
+            </button>
+          </div>
+          <div id="success-auth" class="d-none">
+            Login realizado com sucesso!
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div
+      class="modal fade alternative-methods"
+      id="alternative-methods"
+      tabindex="-1"
+      aria-labelledby="alternative-methods-title"
+      aria-describedby="alternative-methods-description"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content text-body">
+          <div class="modal-header">
+            <h2 class="modal-title fs-5" id="alternative-methods-title">
+              Login alternativo
+            </h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Fechar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="mb-0 p-2" id="alternative-methods-description">
+              Essa alternativa de login está indisponível no momento! Tente o
+              método convencional de login.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/f0c44ea109.js"></script>
+    <script type="module" src="/js/auth/login.js"></script>
+  </body>
+</html>
