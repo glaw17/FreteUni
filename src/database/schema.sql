@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS Freteuni;
-CREATE DATABASE IF NOT EXISTS  Freteuni;
-USE  Freteuni;
+DROP DATABASE IF EXISTS freteuni;
+CREATE DATABASE IF NOT EXISTS  freteuni;
+USE  freteuni;
 
 -- TABELA USERS --
 CREATE TABLE IF NOT EXISTS users (
@@ -42,10 +42,7 @@ CREATE TABLE IF NOT EXISTS drivers (
     cnh_number CHAR(11) UNIQUE NOT NULL,
     
     cnh_category ENUM(
-        'A', 'B', 'C', 'D', 'E',
-        'AB', 'AC', 'AD', 'AE',
-        'BC', 'BD', 'BE',
-        'CD', 'CE', 'DE'
+        'A', 'B', 'C', 'D', 'E'
     ) NOT NULL,
 
     cnh_expiration DATE NOT NULL,

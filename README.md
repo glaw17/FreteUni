@@ -1,4 +1,4 @@
-# FreteUni
+# FreteUni - Andrey Elias, David Anderson, Glawber de Morais, Lucas Arruda, Yohan Mitsuo
 
 Trabalho do primeiro período da disciplina de Desenvolvimento Front-End Para Web. Estamos montando um site de serviços de frete usando HTML, LESS, JavaScript, EJS e Express.
 
