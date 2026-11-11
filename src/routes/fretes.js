@@ -1,5 +1,5 @@
 const express = require("express");
-const ceputils = require('ceputils');
+
 const router = express.Router();
 
 router.get("/fretes/novo", (request, response) => {
@@ -17,20 +17,6 @@ router.post("/fretes/simular", async (request, response) => {
   if (cepOrigem.length !== 8 || cepDestino.length !== 8) {
    return response.status(400).send("Cep de origem e destino devem ter 8 dígitos.");
   }
-
-  try {
-    const distancia = await ceputils.calculateDistance(cepOrigem, cepDestino);
-    
-    valorFrete = distancia * 4;
-    return response.status(200).json({
-      valorFrete: valorFrete.tofixed(2),
-      distancia: distancia.tofixed(2)
-    })
-  } catch (error) {
-    console.error("Erro ao calcular a distância:", error);
-    return response.status(500).send("Erro ao calcular a distância.");
-  }
-
 });
 
 router.post("/fretes", (request, response) => {
