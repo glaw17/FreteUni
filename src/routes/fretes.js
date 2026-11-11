@@ -8,15 +8,15 @@ router.get("/fretes/novo", (request, response) => {
 });
 
 router.post("/fretes/simular", async (request, response) => {
-  // TODO: calcular a estimativa antes de confirmar a contratação.
-  const { cepOrigem, cepDestino } = request.body;
+  // TODO: calcular a estimativa antes de confirmar a contratação.
+  const { cepOrigem, cepDestino } = request.body;
 
-  if (!cepOrigem || !cepDestino) {
-    return response.status(400).send("Cep de origem e destino são obrigatórios.");
-  }
-  if (cepOrigem.length !== 8 || cepDestino.length !== 8) {
-    return response.status(400).send("Cep de origem e destino devem ter 8 dígitos.");
-  }
+  if (!cepOrigem || !cepDestino) {
+    return response.status(400).send("Cep de origem e destino são obrigatórios.");
+  }
+  if (cepOrigem.length !== 8 || cepDestino.length !== 8) {
+   return response.status(400).send("Cep de origem e destino devem ter 8 dígitos.");
+  }
 
   try {
     const distancia = await ceputils.calculateDistance(cepOrigem, cepDestino);
