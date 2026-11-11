@@ -19,9 +19,9 @@
     "start": "npm run install-all && node server.js"
   },
   "dependencies": {
+    "ceputils": "^2.0.1",
     "ejs": "^7.0.2",
     "express": "^5.3.0",
-    "mysql2": "^3.24.6",
-    "ceputils": "^2.0.1"
+    "mysql2": "^3.24.6"
   }
 }
