@@ -8,6 +8,9 @@ router.get("/fretes/novo", (request, response) => {
 });
 
 router.post("/fretes/simular", async (request, response) => {
+  //Debug do Envio
+  console.log("Envio Chegou na Rota");
+
   // Verificação da Entrada
   const { cepOrigem, cepDestino } = request.body;
 
@@ -58,8 +61,8 @@ router.post("/fretes/simular", async (request, response) => {
   console.log(`Distância: ${distancia} km, Preço: R$ ${preco}`);
 
   //Retornando Valores
-  return response.status(200).json({ distancia, preco });
-  
+  return response.json({ distancia, preco });
+
 });
 
 router.post("/fretes", (request, response) => {
