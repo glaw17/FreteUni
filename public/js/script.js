@@ -29,16 +29,18 @@ const formSimular = document.getElementById('simular-f');
 formSimular.addEventListener('submit', async (simular) => {
   simular.preventDefault();
 
+  console.log("Formulario Enviado!");
+
   const ceps = new FormData(formSimular);
-  const resultado = await fetch('/fretes/simular', {
+  const dados = await fetch('/fretes/simular', {
     method: 'POST',
     body: new URLSearchParams(ceps)
   });
 
-  const resultado = await resultado.json();
+  const resultado = await dados.json();
 
   const distancia = resultado.distancia;
   const preco = resultado.preco;
 
-  document.getElementById('resultado').innerHTML = `<p>Distância: ${distancia.toFixed(2)} km. Valor Final do Frete: ${preco.toFixed(2)}</p>`;
+  document.getElementById('resultado').innerHTML = `<p>Distância: ${distancia} km. Valor Final do Frete: ${preco}</p>`;
 })
