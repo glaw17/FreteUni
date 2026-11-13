@@ -24,3 +24,21 @@
     });
   }
 })();
+
+const formSimular = document.getElementById('simular-f');
+formSimular.addEventListener('submit', async (simular) => {
+  simular.preventDefault();
+
+  const ceps = new FormData(formSimular);
+  const resultado = await fetch('/fretes/simular', {
+    method: 'POST',
+    body: new URLSearchParams(ceps)
+  });
+
+  const resultado = await resultado.json();
+
+  const distancia = resultado.distancia;
+  const preco = resultado.preco;
+
+  document.getElementById('resultado').innerHTML = `<p>Distância: ${distancia.toFixed(2)} km. Valor Final do Frete: ${preco.toFixed(2)}</p>`;
+})

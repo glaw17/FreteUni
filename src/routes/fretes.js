@@ -54,10 +54,12 @@ router.post("/fretes/simular", async (request, response) => {
     coordenadasDestino
   )/1000; // Convertendo de metros para quilômetros
 
-  const preco = (180 + (distancia * 4)).toFixed(2);
+  const preco = (180 + (distancia * 4.5)).toFixed(2);
   console.log(`Distância: ${distancia} km, Preço: R$ ${preco}`);
 
+  //Retornando Valores
   return response.status(200).json({ distancia, preco });
+  
 });
 
 router.post("/fretes", (request, response) => {

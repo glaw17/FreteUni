@@ -8,7 +8,8 @@
     <div class="conteudo">
       <h3>Calcule o Frete da Sua Encomenda!</h3>
       <p>Informe o Cep de Origem e de Destino para começar. (Apenas Números)</p>
-      <form action="/fretes/simular" method="POST">
+
+      <form action="/fretes/simular" method="POST" id="simular-f">
         <div class="row">
           <div class="col">
             <label>Cep de Origem</label>
@@ -22,8 +23,9 @@
         <br>
         <input type="submit" class="btn-orange" value="Calcular">
       </form>
+
       <div class="resultado">
-        <p>Obs: É cobrado R$4.00 por Km. Cada ajudante adiciona ao total R$70.00</p>
+        <p>Obs: Preço Fixo: R$180, cada Km é cobrado R$4.50. Cada ajudante adiciona ao total R$60.00</p>
       </div>
     </div>
   </div>
