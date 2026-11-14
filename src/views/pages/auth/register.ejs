@@ -32,24 +32,83 @@
       <div class="form-main-area">
         <div class="form-card">
           <h2 class="form-title">Crie sua conta</h2>
-          <span class="form-description">Preencha os campos abaixo para criar sua conta.</span>
-          <form id="auth-form">
-            <div class="account-type">
-              <span id="selected-type-background" class="selected-background"></span>
+          <span class="form-description">Vamos criar sua conta em etapas.</span>
+          <form id="auth-form" action="/auth/register" method="post" novalidate>
+            <div class="account-type" role="group" aria-label="Tipo de conta">
+              <span
+                id="selected-type-background"
+                class="selected-background"
+                aria-hidden="true"
+              ></span>
               <div class="account-options">
-                <span class="form-check-label-type actived" option-id="0">Cliente</span>
-                <span class="form-check-label-type" option-id="1">Motorista</span>
+                <input
+                  class="form-check-input-type visually-hidden"
+                  type="radio"
+                  name="profileType"
+                  id="profile-buyer"
+                  value="BUYER"
+                  checked
+                />
+                <label
+                  class="form-check-label-type actived"
+                  for="profile-buyer"
+                >
+                  Cliente
+                </label>
+                <input
+                  class="form-check-input-type visually-hidden"
+                  type="radio"
+                  name="profileType"
+                  id="profile-driver"
+                  value="DRIVER"
+                />
+                <label class="form-check-label-type" for="profile-driver">
+                  Motorista
+                </label>
               </div>
             </div>
-            <div id="form-elements">
+
+            <!-- 
+              O register.js monta os campos da etapa atual aqui.
+              Diferente da página de login, preferi fazer assim pra facilitar a implementação de outros steps/fields.
+            -->
+            <div id="form-elements"></div>
+            <p
+              id="register-error"
+              class="register-error"
+              role="alert"
+              hidden
+            ></p>
+            <div class="register-actions">
+              <button
+                id="back-step-btn"
+                type="button"
+                class="btn register-back"
+                hidden
+              >
+                Voltar
+              </button>
+              <button id="submitBtn" type="submit" class="btn btn-orange">
+                Continuar
+              </button>
             </div>
-            <button id="submitBtn" type="submit" class="btn btn-orange mt-3">
-              Cadastrar
-            </button>
           </form>
-          <div id="success-auth" class="d-none">
+          <button
+            id="form-scroll-hint"
+            type="button"
+            class="form-scroll-hint d-none"
+            aria-controls="auth-form"
+          >
+            Role para ver mais
+            <span class="form-scroll-icon" aria-hidden="true"></span>
+          </button>
+          <div id="success-auth" class="d-none" role="status">
             Cadastro realizado com sucesso!
+            <br><a class="move-to-login" href="/login">Entrar na sua conta</a>
           </div>
+          <noscript
+            >Ative o JavaScript para continuar o cadastro por etapas.</noscript
+          >
         </div>
       </div>
     </main>

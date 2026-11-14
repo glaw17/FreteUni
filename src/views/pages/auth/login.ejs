@@ -33,7 +33,8 @@
         <div class="form-card">
           <h2 class="form-title">Entrar na sua conta</h2>
           <span class="form-description">Acesse sua conta para continuar.</span>
-          <form id="auth-form">
+          <form id="auth-form" novalidate>
+            <label for="email-input" class="form-input">Email</label>
             <div id="email-input-area" class="form-input-area">
               <i class="form-input-icon fa-solid fa-envelope"></i>
               <input
@@ -45,6 +46,7 @@
             </div>
             <span id="email-error" class="d-none text-danger">Email inválido</span>
 
+            <label for="password-input" class="form-input mt-3">Senha</label>
             <div id="password-input-area" class="form-input-area">
               <i class="form-input-icon fa-solid fa-lock"></i>
               <input
@@ -72,10 +74,17 @@
                 />
                 <span>Lembrar de mim</span>
               </label>
-              <span id="forget-password" class="forget-password-text"
-                >Esqueceu sua senha?</span
+              <button
+                id="forget-password"
+                type="button"
+                class="forget-password-text"
+                data-bs-toggle="modal"
+                data-bs-target="#forgot-password-modal"
               >
+                Esqueceu sua senha?
+              </button>
             </div>
+            <p id="form-error" class="form-error-message d-none" role="alert"></p>
             <button id="submitBtn" type="submit" class="btn btn-orange">
               Entrar
             </button>
@@ -133,6 +142,36 @@
             <p class="mb-0 p-2" id="alternative-methods-description">
               Essa alternativa de login está indisponível no momento! Tente o
               método convencional de login.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="forgot-password-modal"
+      tabindex="-1"
+      aria-labelledby="forgot-password-modal-title"
+      aria-describedby="forgot-password-modal-description"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content text-body">
+          <div class="modal-header">
+            <h2 class="modal-title fs-5" id="forgot-password-modal-title">
+              Função indisponível
+            </h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Fechar"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p class="mb-0 p-2" id="forgot-password-modal-description">
+              A recuperação de senha ainda não está disponível.
             </p>
           </div>
         </div>
