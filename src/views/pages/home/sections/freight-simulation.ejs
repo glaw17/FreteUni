@@ -1,31 +1,35 @@
 <section class="freight-simulation">
-  <h2>Simule seu Frete em Alguns Segundos!</h2>
-  <p>Quer ter uma Estimativa de Quanto seu Frete vai custar?</p>
-  <div class="conteiner">
-    <div class="imagem">
-      <img src="/images/img-freight-simulation.png" alt="imagem">
-    </div>
-    <div class="conteudo">
-      <h3>Calcule o Frete da Sua Encomenda!</h3>
-      <p>Informe o Cep de Origem e de Destino para começar. (Apenas Números)</p>
+  <div class="freight-simulation-container">
+    <header class="freight-simulation-header">
+      <h2 class="freight-simulation-title">Simule seu Frete em Alguns Segundos!</h2>
+      <p class="freight-simulation-description">Quer ter uma Estimativa de Quanto seu Frete vai custar?</p>
+    </header>
+    <div class="conteiner">
+      <div class="imagem">
+        <img src="/images/img-freight-simulation.png" alt="imagem">
+      </div>
+      <div class="conteudo">
+        <h3>Calcule o Frete da Sua Encomenda!</h3>
+        <p>Informe o Cep de Origem e de Destino para começar. (Apenas Números)</p>
 
-      <form id="simular-f">
-        <div class="row">
-          <div class="col">
-            <label>Cep de Origem</label>
-            <input type="number" class="form-control" name="cepOrigem" placeholder="Digite o Cep" aria-label="Cep Origem">
+        <form id="simular-f">
+          <div class="row">
+            <div class="col">
+              <label>Cep de Origem</label>
+              <input type="number" class="form-control" name="cepOrigem" placeholder="Digite o Cep" aria-label="Cep Origem">
+            </div>
+            <div class="col">
+              <label>Cep de Destino</label>
+              <input type="number" class="form-control" name="cepDestino" placeholder="Digite o Cep" aria-label="Cep Destino">
+            </div>
           </div>
-          <div class="col">
-            <label>Cep de Destino</label>
-            <input type="number" class="form-control" name="cepDestino" placeholder="Digite o Cep" aria-label="Cep Destino">
-          </div>
+          <br>
+          <input type="submit" class="btn-orange" value="Calcular">
+        </form>
+
+        <div id="resultado">
+          <p>Obs: Preço Fixo: R$180, cada Km é cobrado R$4.50. Cada ajudante adiciona ao total R$60.00</p>
         </div>
-        <br>
-        <input type="submit" class="btn-orange" value="Calcular">
-      </form>
-
-      <div id="resultado">
-        <p>Obs: Preço Fixo: R$180, cada Km é cobrado R$4.50. Cada ajudante adiciona ao total R$60.00</p>
       </div>
     </div>
   </div>
