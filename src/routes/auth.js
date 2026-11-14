@@ -1,5 +1,7 @@
 const express = require("express");
-const { getUserById, getUserByEmail, existsEmail } = require("../controller/UserController");
+const bcrypt = require("bcrypt");
+const { getUserById, getUserByEmail, createUser } = require("../controller/UserController");
+const { validateRegisterData } = require("../validators/register");
 
 const router = express.Router();
 const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -17,10 +19,9 @@ router.get("/login", (request, response) => {
   });
 });
 
-router.post("/auth/login", (request, response, next) => {
-  const { email, password } = request.body;
+router.post("/auth/login", async (request, response, next) => {
+  const { email, password, rememberMe } = request.body || {};
 
-  // Simple validation (replace with actual authentication logic)
   if (!email || !password) {
     return response.status(400).json({
       status: "error",
@@ -29,7 +30,7 @@ router.post("/auth/login", (request, response, next) => {
     });
   }
 
-  if (!regexEmail.test(email)) {
+  if (typeof email !== "string" || !regexEmail.test(email.trim()) || email.trim().length > 150) {
     return response.status(400).json({
       status: "error",
       errtype: "invalid_email",
@@ -37,39 +38,60 @@ router.post("/auth/login", (request, response, next) => {
     });
   }
 
-  if (existsEmail(email)) {
-    return response.status(400).json({
-      status: "error",
-      errtype: "already_registered",
-      message: "O email já está registrado.",
-    });
-  }
-
-  if (password.length < 8) {
+  if (typeof password !== "string" || password.length < 8 || Buffer.byteLength(password, "utf8") > 72) {
     return response.status(400).json({
       status: "error",
       errtype: "invalid_password",
-      message: "A senha deve ter pelo menos 8 caracteres.",
+      message: "Informe uma senha com pelo menos 8 caracteres e que não seja muito longa.",
     });
   }
 
-  const user = getUserByEmail(email);
-
-  if (!user || password !== user.password) {
-    return response.status(401).json({
+  if (rememberMe !== undefined && typeof rememberMe !== "boolean") {
+    return response.status(400).json({
       status: "error",
-      errtype: "invalid_credentials",
-      message: "Credenciais inválidas.",
+      errtype: "invalid_remember_me",
+      message: "O campo lembrar de mim deve ser verdadeiro ou falso.",
     });
   }
 
-  // user é o usuário encontrado no banco, com a senha já conferida.
+  let user;
+  try {
+    user = getUserByEmail(email);
+    if (!user) {
+      return response.status(400).json({
+        status: "error",
+        errtype: "not_registered",
+        message: "O email não está registrado.",
+      });
+    }
+
+    const passwordMatches = await bcrypt.compare(password, user.password);
+    if (!passwordMatches) {
+      return response.status(401).json({
+        status: "error",
+        errtype: "invalid_credentials",
+        message: "Credenciais inválidas.",
+      });
+    }
+  } catch (error) {
+    return response.status(500).json({
+      status: "error",
+      errtype: "login_failed",
+      message: "Não foi possível concluir o login. Tente novamente em instantes.",
+    });
+  }
+
   request.session.regenerate((error) => {
     if (error) {
       return next(error);
     }
 
     request.session.userId = user.id;
+    request.session.cookie.maxAge = 60 * 60 * 1000;
+
+    if (rememberMe) {
+      request.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
+    }
 
     request.session.save((error) => {
       if (error) {
@@ -93,10 +115,37 @@ router.get("/register", (request, response) => {
   });
 });
 
-router.post("/auth/register", (request, response) => {
-  const { name, email, password } = request.body;
+router.post("/auth/register", async (request, response) => {
+  const { data } = request.body || {};
+  const registerTest = validateRegisterData(data);
+  if (!registerTest.isValid) {
+    return response.status(400).json({
+      status: "error",
+      errtype: registerTest.errtype,
+      message: registerTest.message,
+    });
+  }
 
-  response.status(200).json({ name, email, password });
+  try {
+    const user = await createUser(registerTest.data);
+    return response.status(201).json({
+      status: "success",
+      user: { id: user.id, name: user.name },
+    });
+  } catch (error) {
+    if ((error.status === 400 || error.status === 409) && error.errtype) {
+      return response.status(error.status).json({
+        status: "error",
+        errtype: error.errtype,
+        message: error.message,
+      });
+    }
+    return response.status(500).json({
+      status: "error",
+      errtype: "registration_failed",
+      message: "Não foi possível concluir o cadastro. Tente novamente em instantes.",
+    });
+  }
 });
 
 router.post("/auth/logout", (request, response, next) => {

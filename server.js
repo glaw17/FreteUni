@@ -38,6 +38,24 @@ app.use(pagesRoutes);
 app.use(authRoutes);
 app.use(fretesRoutes);
 
+app.use((error, request, response, next) => {
+  if (!request.path.startsWith("/auth/")) {
+    return next(error);
+  }
+  if (error.status === 400 || error.status === 413 || error.status === 415) {
+    return response.status(error.status).json({
+      status: "error",
+      errtype: "invalid_request",
+      message: "Não foi possível ler os dados enviados. Confira o formulário e tente novamente.",
+    });
+  }
+  return response.status(500).json({
+    status: "error",
+    errtype: "server_error",
+    message: "Não foi possível processar a solicitação. Tente novamente em instantes.",
+  });
+});
+
 app.use((request, response) => {
   response.status(404).send("Página não encontrada");
 });
