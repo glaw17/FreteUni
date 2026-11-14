@@ -71,6 +71,9 @@ function validateRegisterData(data) {
   if (Buffer.byteLength(data.password, "utf8") > 72) {
     return registrationError("invalid_password", "A senha é muito longa. Reduza a quantidade de caracteres.");
   }
+  if (data.acceptedTerms !== true) {
+    return registrationError("terms_not_accepted", "Você precisa aceitar os Termos de Uso para concluir o cadastro.");
+  }
 
   const firstName = fullName.split(" ")[0].slice(0, 50);
   // Só os campos escolhidos aqui serão salvos; id e nickname não vêm do formulário.
@@ -83,6 +86,8 @@ function validateRegisterData(data) {
     password: data.password,
     phone,
     user_type: data.profileType,
+    accepted_terms: true,
+    terms_accepted_at: new Date().toISOString(),
     cpf: null,
     cnpj: null,
     company_name: null,

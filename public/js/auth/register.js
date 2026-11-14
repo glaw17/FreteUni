@@ -5,14 +5,14 @@ const stepsByProfile = {
   BUYER: [
     ["name", "birthDate", "email", "phone"],
     ["personType", "cpf", "cnpj", "companyName"],
-    ["password", "confirmPassword"],
+    ["password", "confirmPassword", "acceptedTerms"],
   ],
   DRIVER: [
     ["name", "birthDate", "email", "phone"],
     ["cpf", "cnhNumber", "cnhCategory", "cnhExpiration"],
     ["vehicleType", "plate", "brand", "model", "year", "color"],
     ["capacity", "interstate"],
-    ["password", "confirmPassword"],
+    ["password", "confirmPassword", "acceptedTerms"],
   ]
 };
 
@@ -236,6 +236,14 @@ const fields = {
     minLength: 8,
     send: false,
     test: testConfirmPassword
+  },
+  acceptedTerms: {
+    label: "Li e aceito os",
+    type: "checkbox",
+    defaultValue: false,
+    required: true,
+    link: { label: "Termos de Uso", href: "/termos" },
+    test: testAcceptedTerms
   },
 };
 
@@ -476,6 +484,13 @@ function testConfirmPassword(value) {
   return { isValid: true, error: null, value };
 }
 
+function testAcceptedTerms(value) {
+  if (value !== true) {
+    return { isValid: false, error: "Aceite os Termos de Uso para continuar." };
+  }
+  return { isValid: true, error: null, value };
+}
+
 function getFieldValue(fieldName) {
   if (formValues[fieldName] !== undefined) {
     return formValues[fieldName];
@@ -667,10 +682,34 @@ function createField(fieldName) {
   if (field.type === "checkbox") {
     input.checked = getFieldValue(fieldName);
     input.className = "form-check-input check-orange";
-    label.className = "register-route-option";
-    label.appendChild(input);
-    label.appendChild(document.createTextNode(field.label));
-    inputArea = label;
+    if (field.link) {
+      input.classList.add("register-terms-input");
+      input.setAttribute("aria-label", field.label + " " + field.link.label);
+      inputArea = document.createElement("div");
+      inputArea.className = "register-terms-option";
+      inputArea.appendChild(input);
+
+      const text = document.createElement("div");
+      text.className = "register-terms-text";
+      label.className = "register-terms-label";
+      label.textContent = field.label;
+      text.appendChild(label);
+      text.appendChild(document.createTextNode(" "));
+
+      const link = document.createElement("a");
+      link.className = "register-terms-link";
+      link.textContent = field.link.label;
+      link.href = field.link.href;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      text.appendChild(link);
+      inputArea.appendChild(text);
+    } else {
+      label.className = "register-route-option";
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(field.label));
+      inputArea = label;
+    }
   } else {
     label.textContent = field.label;
     input.className = "form-input";
@@ -1148,6 +1187,10 @@ authForm.addEventListener("submit", async (e) => {
       }
       if (resultjson.errtype === "invalid_password") {
         setInputAreaError("password", resultjson.message);
+        return;
+      }
+      if (resultjson.errtype === "terms_not_accepted") {
+        setInputAreaError("acceptedTerms", resultjson.message);
         return;
       }
       if (resultjson.errtype === "invalid_person_type") {

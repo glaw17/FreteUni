@@ -313,6 +313,34 @@ body[page="register"] {
               flex-shrink: 0;
             }
           }
+          .register-terms-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            min-width: 0;
+            color: @light-black;
+            font-size: 13px;
+            .register-terms-input {
+              margin: 3px 0 0;
+              flex-shrink: 0;
+            }
+            .register-terms-text {
+              min-width: 0;
+              line-height: 1.5;
+              overflow-wrap: anywhere;
+            }
+            .register-terms-label {
+              display: inline;
+              cursor: pointer;
+            }
+            .register-terms-link {
+              color: @highlight;
+              font-weight: 600;
+              &:hover {
+                color: darken(@highlight, 10%);
+              }
+            }
+          }
           .register-error,
           .form-error-message {
             margin: 16px 0 0;
