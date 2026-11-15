@@ -4,6 +4,7 @@ const path = require("path");
 const pagesRoutes = require("./src/routes/pages");
 const authRoutes = require("./src/routes/auth");
 const fretesRoutes = require("./src/routes/fretes");
+const { createTables } = require("./src/database/scheminha");
 
 process.loadEnvFile();
 
@@ -59,6 +60,8 @@ app.use((error, request, response, next) => {
 app.use((request, response) => {
   response.status(404).send("Página não encontrada");
 });
+
+createTables();
 
 app.listen(port, () => {
   console.log(`Front disponível em http://localhost:${port}`);
