@@ -5,21 +5,8 @@
     // So define e executa o código abaixo caso o <body> tenha (page = "body")
     // exemplo <body page="home"> usado em index.ejs
 
-    // Obtem o valor da caixa de texto search-input, verifica se esta com algum valor e redireciona pra página de rastreamento (tlvz pedir cpf la)
-    const trackButton = document.getElementById("track-btn");
-    const searchInput = document.getElementById("search-input");
     const loginButton = document.getElementById("login-btn");
     const registerButton = document.getElementById("register-btn");
-
-    if (trackButton && searchInput) {
-      trackButton.addEventListener("click", () => {
-        const searchId = searchInput.value.trim();
-        if (searchId) {
-          searchInput.value = "";
-          window.location.href = `/rastrear?id=${encodeURIComponent(searchId)}`;
-        }
-      });
-    }
 
     if (loginButton) {
       loginButton.addEventListener("click", () => {
