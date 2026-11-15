@@ -17,8 +17,14 @@
     box-shadow: none;
   }
 }
+.btn-orange.disabled {
+  color: #a9a9a9;
+  background-color: darken(@highlight, 10%);
+  border-color: darken(@highlight, 10%);
+  cursor: not-allowed;
+}
 
-.btn-outline-our {
+.btn-outline-orange {
   color: @highlight;
   border-color: @highlight;
   font-size: 14px;
@@ -37,8 +43,14 @@
   }
 }
 
+.btn-outline-orange.disabled {
+  color: darken(@highlight, 10%);
+  border-color: darken(@highlight, 10%);
+  cursor: not-allowed;
+}
+
 .btn-orange,
-.btn-outline-our {
+.btn-outline-orange {
   --bs-btn-active-color: #fff;
   --bs-btn-active-bg: darken(@highlight, 10%);
   --bs-btn-active-border-color: darken(@highlight, 10%);
@@ -51,6 +63,17 @@
     border-color: @highlight;
   }
 
+  &:focus {
+    border-color: @highlight;
+    box-shadow: none;
+  }
+}
+
+.form-control.input-orange {
+  &:hover {
+    border-color: @highlight;
+    box-shadow: none;
+  }
   &:focus {
     border-color: @highlight;
     box-shadow: none;

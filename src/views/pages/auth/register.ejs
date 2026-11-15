@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <title><%= title %></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet/less" type="text/css" href="/less/style.less" />
+    <script src="https://cdn.jsdelivr.net/npm/less"></script>
+  </head>
+  <body page="register">
+    <!-- Inclui o codigo HTML da navbar no inicio do body -->
+    <%- include('../../partials/navbar.ejs') %>
+
+    <main class="main-area">
+      <div class="info-main-area">
+        <div class="info-content">
+          <h1 class="info-texts">
+            <span class="info-text">Seu próximo frete</span>
+            <span class="info-text highlight">começa aqui.</span>
+          </h1>
+          <p class="info-description">
+            Conectando quem precisa enviar a quem faz chegar.
+          </p>
+        </div>
+      </div>
+
+      <div class="form-main-area">
+        <div class="form-card">
+          <h2 class="form-title">Crie sua conta</h2>
+          <span class="form-description">Vamos criar sua conta em etapas.</span>
+          <form id="auth-form" action="/auth/register" method="post" novalidate>
+            <div class="account-type" role="group" aria-label="Tipo de conta">
+              <span
+                id="selected-type-background"
+                class="selected-background"
+                aria-hidden="true"
+              ></span>
+              <div class="account-options">
+                <input
+                  class="form-check-input-type visually-hidden"
+                  type="radio"
+                  name="profileType"
+                  id="profile-buyer"
+                  value="BUYER"
+                  checked
+                />
+                <label
+                  class="form-check-label-type actived"
+                  for="profile-buyer"
+                >
+                  Cliente
+                </label>
+                <input
+                  class="form-check-input-type visually-hidden"
+                  type="radio"
+                  name="profileType"
+                  id="profile-driver"
+                  value="DRIVER"
+                />
+                <label class="form-check-label-type" for="profile-driver">
+                  Motorista
+                </label>
+              </div>
+            </div>
+
+            <!-- 
+              O register.js monta os campos da etapa atual aqui.
+              Diferente da página de login, preferi fazer assim pra facilitar a implementação de outros steps/fields.
+            -->
+            <div id="form-elements"></div>
+            <p
+              id="register-error"
+              class="register-error"
+              role="alert"
+              hidden
+            ></p>
+            <div class="register-actions">
+              <button
+                id="back-step-btn"
+                type="button"
+                class="btn register-back"
+                hidden
+              >
+                Voltar
+              </button>
+              <button id="submitBtn" type="submit" class="btn btn-orange">
+                Continuar
+              </button>
+            </div>
+          </form>
+          <button
+            id="form-scroll-hint"
+            type="button"
+            class="form-scroll-hint d-none"
+            aria-controls="auth-form"
+          >
+            Role para ver mais
+            <span class="form-scroll-icon" aria-hidden="true"></span>
+          </button>
+          <div id="success-auth" class="d-none" role="status">
+            Cadastro realizado com sucesso!
+            <br><a class="move-to-login" href="/login">Entrar na sua conta</a>
+          </div>
+          <noscript
+            >Ative o JavaScript para continuar o cadastro por etapas.</noscript
+          >
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/f0c44ea109.js"></script>
+    <script type="module" src="/js/auth/register.js"></script>
+  </body>
+</html>

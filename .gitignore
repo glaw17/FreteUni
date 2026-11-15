@@ -41,6 +41,13 @@ build/Release
 node_modules/
 jspm_packages/
 
+# Dados locais dos usuários; o exemplo pode ser compartilhado com o grupo
+src/database/users.json
+src/database/users.json.tmp
+
+# Anotações locais
+/.notes
+
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 
