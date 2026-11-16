@@ -1,20 +1,21 @@
 const express = require("express");
 const { getUserById } = require("../controller/UserController");
-const { route } = require("./auth");
 
 const router = express.Router();
 
-router.get("/", (request, response) => {
-  const user = getUserById(request.session.userId);
+router.get("/", async (request, response) => {
+  const user = await getUserById(request.session.userId);
   response.render("pages/home/index", {
     title: "FreteUni | Sua solução de frete inteligente",
     user: user || null
   });
 });
 
-router.get("/termos", (request, response) => {
+router.get("/termos", async (request, response) => {
+  const user = await getUserById(request.session.userId);
   response.render("pages/terms/index", {
-    title: "FreteUni | Termos de Uso"
+    title: "FreteUni | Termos de Uso",
+    user: user || null
   });
 });
 
