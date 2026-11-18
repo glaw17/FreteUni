@@ -1,0 +1,250 @@
+
+/*
+  =====================================================
+  PÁGINA DE TERMOS E CONDIÇÕES
+  =====================================================
+
+  Este código LESS teve grande auxílio da Inteligência
+  Artificial (IA) durante seu desenvolvimento.
+
+  A ferramenta foi utilizada como apoio na elaboração,
+  organização, explicação e documentação dos estilos.
+
+  O código foi analisado e adaptado conforme as
+  necessidades e o padrão de organização do projeto FreteUni.
+*/
+
+
+/* =====================================================
+   ESTILIZAÇÃO GERAL DA PÁGINA
+   Aplica os estilos exclusivamente na página de termos.
+===================================================== */
+
+body[page="termos"] {
+
+  /* =====================================================
+     CONTAINER PRINCIPAL
+     Define o fundo, espaçamento e cor padrão da página.
+  ===================================================== */
+
+  .terms-page {
+    padding: 50px 0;
+    background-color: #fff;
+    min-height: 100vh;
+    color: #333;
+  }
+
+
+  /* =====================================================
+     CABEÇALHO
+     Estiliza o título principal e a data de atualização.
+  ===================================================== */
+
+  .terms-header {
+    margin-bottom: 35px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e5e5;
+
+    /* Título principal da página */
+    h1 {
+      color: #26374a;
+      font-size: 30px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    /* Data da última atualização */
+    p {
+      color: #888;
+      font-size: 13px;
+      margin: 0;
+    }
+  }
+
+
+  /* =====================================================
+     CONTEÚDO
+     Controla a largura máxima e a organização dos textos.
+  ===================================================== */
+
+  .terms-content {
+    max-width: 900px;
+
+    /* Seções individuais dos termos */
+    article {
+      margin-bottom: 28px;
+    }
+
+    /* Títulos de cada seção */
+    h2 {
+      color: #26374a;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    /* Parágrafos e textos explicativos */
+    p {
+      color: #666;
+      font-size: 15px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Links presentes no conteúdo */
+    a {
+      color: @highlight;
+      text-decoration: none;
+    }
+
+
+    /*
+      =====================================================
+      ESTADOS DOS LINKS E ANINHAMENTO NO LESS
+      =====================================================
+
+      1. O QUE É UM SELETOR?
+
+      Um seletor identifica qual elemento HTML receberá
+      determinada estilização.
+
+      Exemplo:
+
+      a {
+        color: @highlight;
+      }
+
+      O seletor "a" identifica os links HTML.
+      Nesse caso, todos os links receberão a cor definida
+      na variável @highlight.
+
+
+      2. O QUE É UMA PSEUDO-CLASSE?
+
+      Uma pseudo-classe representa um estado ou condição
+      específica de um elemento HTML.
+
+      Exemplos:
+
+      :hover  -> Quando o mouse passa sobre o elemento.
+      :focus  -> Quando o elemento recebe foco.
+      :active -> Enquanto o elemento está sendo clicado.
+
+      Elas permitem alterar a aparência de um elemento
+      dependendo da interação do usuário.
+
+
+      3. O QUE É O ANINHAMENTO NO LESS?
+
+      O aninhamento permite escrever um seletor dentro
+      de outro seletor, organizando os estilos por hierarquia.
+
+      Exemplo:
+
+      a {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      Nesse exemplo, o :hover está dentro do seletor "a".
+      Isso indica que a interação pertence aos links,
+      e não a todos os elementos da página.
+
+
+      4. QUAL É A FUNÇÃO DO &?
+
+      O símbolo "&" representa o seletor do bloco atual.
+
+      Como estamos dentro do seletor "a", o LESS substitui
+      o "&" por "a" durante a compilação.
+
+      Portanto:
+
+      &:hover
+
+      Torna-se:
+
+      a:hover
+
+      O resultado é que o sublinhado aparece somente
+      quando o usuário passa o mouse sobre um link.
+
+
+      5. COMO FARÍAMOS SEM O &?
+
+      Também podemos escrever o seletor completo,
+      sem utilizar o recurso de aninhamento:
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      O resultado visual e o CSS gerado são os mesmos.
+
+      A diferença está na organização do código:
+
+      Com &: o seletor fica agrupado dentro de "a".
+      Sem &: escrevemos o seletor completo separadamente.
+
+      Neste projeto, optamos por utilizar seletores
+      separados nos estados de interação para facilitar
+      a leitura e o entendimento de cada regra.
+    */
+
+    /* Quando o mouse passa sobre um link */
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Quando um link recebe foco visível, como pelo teclado */
+    a:focus-visible {
+      outline: 2px solid @highlight;
+      outline-offset: 3px;
+    }
+  }
+
+
+  /* =====================================================
+     RESPONSIVIDADE
+     Adapta os espaçamentos e tamanhos para telas menores.
+     As alterações são aplicadas até 768px de largura.
+  ===================================================== */
+
+  @media (max-width: 768px) {
+
+    /* Reduz o espaçamento externo da página */
+    .terms-page {
+      padding: 30px 0;
+    }
+
+    /* Ajusta o cabeçalho */
+    .terms-header {
+      margin-bottom: 25px;
+
+      /* Reduz o tamanho do título principal */
+      h1 {
+        font-size: 25px;
+      }
+    }
+
+    /* Ajusta o conteúdo para telas menores */
+    .terms-content {
+
+      /* Reduz o espaçamento entre as seções */
+      article {
+        margin-bottom: 22px;
+      }
+
+      /* Reduz o tamanho dos títulos das seções */
+      h2 {
+        font-size: 17px;
+      }
+
+      /* Reduz o tamanho dos parágrafos */
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+}
