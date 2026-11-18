@@ -8,28 +8,35 @@
 }
 
 body{
-    background-image: url("/public/images/gerado_por_ia/caminhao-triste.png") !important;
+    background-image: url("/images/gerado_por_ia/Caminhao-Triste404.png") !important;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    background-color: @secondary;
 }
 
 main{
     display: flex;
     justify-content: center;
     align-items: center;
-
+    width: 100%;
+    min-height: 100vh;
 
     .content{
         text-align: center;
         background-color: @primary;
         color: @secondary;
         border-radius: 12px;
+        border-color: @highlight;
         padding: 40px;
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.9);
         
         .btn-orange{
             display: block;
             text-decoration: none;
+            border-radius: 7px;
+            padding: 10px;
+            margin-top: 20px;
         }
     }
 }
