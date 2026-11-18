@@ -65,16 +65,16 @@ app.use((request, response) => {
 });
 
 async function startServer() {
-  //const connection = await getConnection();
+  const connection = await getConnection();
 
   try {
-    //await createTables();
+    await createTables();
     app.listen(port, () => {
       console.log(`Front disponível em: http://localhost:${port}`);
     });
   } catch (error) {
     console.error("Não foi possível preparar o banco de dados:", error.message);
-    //await connection.destroy();
+    await connection.destroy();
     process.exitCode = 1;
   }
 }
