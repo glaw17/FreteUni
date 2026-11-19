@@ -13,11 +13,19 @@ router.get("/", async (request, response) => {
 
 router.get("/termos", async (request, response) => {
   const user = await getUserById(request.session.userId);
-  response.render("pages/terms/index", {
+  response.render("pages/terms/terms", {
     title: "FreteUni | Termos de Uso",
     user: user || null
   });
 });
+  
+router.get("/easter-egg", async (request, response) => {
+  const user = await getUserById(request.session.userId);
+
+  response.render("pages/easter-egg/easter_egg", {
+  title: "FreteUni | Easter egg",
+  user: user || null
+});
+});
 
 module.exports = router;
-  
