@@ -1,7 +1,17 @@
 .hero {
   background-color: @secondary;
-  padding: 40px 20px;
-// Construção da Grid
+  background-image:
+    linear-gradient(to right, fade(@secondary, 96%) 0%, fade(@secondary, 80%) 48%, fade(@secondary, 15%) 100%),
+    url("/images/gerado_por_ia/glawber-caminhoneiro-maromba.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: calc(100vh - 80px);
+  min-height: calc(100svh - 80px);
+  display: flex;
+  align-items: center;
+  padding: clamp(32px, 5vw, 72px) clamp(18px, 4vw, 60px);
+  // Construção da Grid
 
   .layout {
     display: grid;
@@ -9,11 +19,12 @@
       "title imagem"
       "subtitle imagem"
       "buttons imagem";
-    grid-template-columns: 1fr 1fr;
-    gap:15px 20px;
-    padding: 60px 40px 35px 40px;
-    background-color:@secondary;
-    min-height: 400px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    align-items: start;
+    gap: 18px clamp(24px, 4vw, 64px);
+    width: min(100%, 1200px);
+    margin: 0 auto;
   }
 
   .layout div.title {
@@ -22,11 +33,12 @@
     width: 100%;
     max-width: 500px;
 
-      h1 {
-        font-size: 48px;
-        line-height: 1.1;
-        margin: 0;
-      }
+    h1 {
+      font-weight: 700;
+      font-size: clamp(32px, 4vw, 48px);
+      line-height: 1.1;
+      margin: 0;
+    }
   }
 
   .layout div.subtitle {
@@ -35,6 +47,7 @@
     max-width: 420px;
     font-size: 16px;
     line-height: 1.5;
+    p { margin: 0; }
   }
 
   //Personalização dos botões
@@ -43,129 +56,144 @@
     grid-area: buttons;
     display: flex;
     align-items: flex-start;
+    flex-wrap: wrap;
     gap: 10px;
     margin: 0;
-    
-      .btn1{
-        background-color: @highlight;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 10px;
-        color:@primary;
-        font-weight: 500;
-        font-family: "Inter", sans-serif;
-        font-size: 14px;
-        text-align: center;
-        text-decoration: none;
 
-          &:hover {
-            background-color: darken(@highlight, 10%);
-            color:@primary;
-          }
+    .btn1, .btn2 {
+      transition: 0.1s linear;
+      &:focus-visible {
+        outline: 2px solid @primary;
+        outline-offset: 4px;
       }
+      @media (prefers-reduced-motion: reduce) { transition: none; }
+    }
 
-      .btn2{
-        background-color: @primary;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 10px;
-        color:@highlight;
-        font-weight: 500;
-        font-family: "Inter", sans-serif;
-        font-size: 14px;
-        text-align: center;
-        text-decoration: none;
-        
-          &:hover {
-            background-color: darken(@highlight, 10%);
-            color:@primary;
-          }
+    .btn1 {
+      background-color: @highlight;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+      color: @primary;
+      font-weight: 500;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      text-align: center;
+      text-decoration: none;
+
+      &:hover {
+        background-color: darken(@highlight, 10%);
+        color: @primary;
       }
+    }
+
+    .btn2 {
+      background-color: @primary;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+      color: @highlight;
+      font-weight: 500;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      text-align: center;
+      text-decoration: none;
+
+      &:hover {
+        background-color: darken(@highlight, 10%);
+        color: @primary;
+      }
+    }
   }
 
   .layout div.imagem {
     grid-area: imagem;
     width: 100%;
     aspect-ratio: 16 / 9;
-    background-color:@navy-light;
     border-radius: 10px;
     overflow: hidden;
-  }
-  
-// RESPONSIVIDADE
-// obs: nesta parte eu pedi ajuda a ia pra entender como a responsividade funcionava
+    align-self: center;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-
-// RESPONSIVIDADE PARA TABLETS
-@media only screen and (max-width: 870px) {
-
-  .layout {
-    padding: 40px 30px;
-    gap: 15px;
-  }
-  
-  .layout div.title h1 {
-    font-size: 38px;
-  }
-
-  .layout div.subtitle {
-    font-size: 15px;
-  }
-
-  .layout div.imagem {
-    margin-top: 20px;
-    width: 100%;
-    height: 350px;
-    overflow: hidden;
-    aspect-ratio: auto;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: fill; //a imagem acompanha a dimensão da div, mesmo que a imagem fique deformada
-      }
-  }
-}
-
-// RESPONSIVIDADE PARA CELULARES 
-@media only screen and (max-width: 600px) {
-  
-  .layout {
-    grid-template-areas: 
-      "imagem"
-      "title"
-      "subtitle"
-      "buttons";
-
-    grid-template-columns: 1fr;
-    min-height: auto;
-    padding: 30px 20px;
-    gap: 15px;
-  }
-
-  .layout div.imagem {
-    margin-top: 0;
-    min-height: 250px;
-    aspect-ratio: 4 / 3;
-  }
-
-  .layout div.title {
-    max-width: 100%;
-
-    h1 {
-      font-size: 32px;
-      line-height: 1.1;
+    img {
+      display: block;
+      width: min(55%, 320px);
+      height: auto;
+      max-height: 100%;
+      object-fit: contain;
+      opacity: 30%;
     }
   }
 
-  .layout div.subtitle {
-    max-width: 100%;
-    font-size: 14px;
+  // RESPONSIVIDADE
+  // obs: nesta parte eu pedi ajuda a ia pra entender como a responsividade funcionava
+
+  // RESPONSIVIDADE PARA TABLETS
+  @media only screen and (max-width: 870px) {
+    .layout {
+      gap: 16px 24px;
+    }
+
+    .layout div.title h1 {
+      font-size: clamp(32px, 4.5vw, 38px);
+    }
+
+    .layout div.subtitle {
+      font-size: 15px;
+    }
+
+    .layout div.imagem {
+      width: 100%;
+    }
   }
 
-  .layout div.buttons {
-    flex-wrap: wrap;
-  }
+  // RESPONSIVIDADE PARA CELULARES
+  @media only screen and (max-width: 600px) {
+    background-image:
+      linear-gradient(to top, fade(@secondary, 98%) 0%, fade(@secondary, 90%) 55%, fade(@secondary, 30%) 100%),
+      url("/images/gerado_por_ia/glawber-caminhoneiro-maromba.png");
 
-}
+    .layout {
+      grid-template-areas:
+        "imagem"
+        "title"
+        "subtitle"
+        "buttons";
+
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto;
+      gap: 16px;
+    }
+
+    min-height: calc(100vh - 60px);
+    min-height: calc(100svh - 60px);
+    background-position: center center;
+
+    .layout div.imagem {
+      margin-top: 0;
+      aspect-ratio: auto;
+      img { width: min(45%, 180px); }
+    }
+
+    .layout div.title {
+      max-width: 100%;
+
+      h1 {
+        font-size: clamp(26px, 7vw, 32px);
+        line-height: 1.1;
+      }
+    }
+
+    .layout div.subtitle {
+      max-width: 100%;
+      font-size: 14px;
+    }
+
+    .layout div.buttons {
+      flex-wrap: wrap;
+    }
+  }
 }
