@@ -11,7 +11,7 @@
   <title><%= title %></title>
 
   <!-- Carrega o LESS principal, que importa os estilos do projeto. -->
-  <link rel="stylesheet/less" type="text/css" href="/less/style.less">
+  <link rel="stylesheet/less" type="text/css" href="/less/pages/easter_egg.less">
 
   <!-- Permite que o navegador interprete os arquivos LESS. -->
   <script src="https://cdn.jsdelivr.net/npm/less"></script>
@@ -31,10 +31,11 @@
     <section class="easter-egg-hero" aria-labelledby="hero-title">
       <video
         class="hero-video"
-        controls
         playsinline
+        loop
         preload="metadata"
         aria-label="Gravação recuperada da entrega em Marte"
+        id="easter-egg-video"
       >
         <!-- O arquivo deve ficar em public/videos/easter-egg.mp4. -->
         <source src="/video/easter_egg.mp4" type="video/mp4">
@@ -44,7 +45,7 @@
       </video>
 
       <!-- Este conteúdo fica sobre o vídeo. -->
-      <div class="hero-content">
+      <div id="hero-content" class="hero-content">
         <p class="eyebrow">Transmissão recuperada · Marte · 23:17</p>
         <h1 id="hero-title">Entrega concluída.<br>Destinatário: desconhecido.</h1>
         <p>
@@ -53,7 +54,7 @@
         </p>
 
         <!-- Leva a pessoa até o relatório abaixo. -->
-        <a class="hero-link" href="#tracking-title">Ler relatório do incidente</a>
+        <a id="video-link" class="hero-link">Ver vídeo do incidente</a>
       </div>
     </section>
 
@@ -93,5 +94,6 @@
       <p>FreteUni · Acesso registrado</p>
     </footer>
   </main>
+  <script src="/js/script.js"></script>
 </body>
 </html>
