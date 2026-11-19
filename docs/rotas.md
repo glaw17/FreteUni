@@ -25,6 +25,7 @@ Só a home (`GET /`) mostra uma página. Deixei as outras rotas com uma mensagem
 | POST | `/fretes` | `fretes.js` | Salvar uma contratação. |
 | GET | `/fretes/:id` | `fretes.js` | Mostrar os detalhes de um frete. |
 | GET | `/rastrear` | `fretes.js` | Rastrear um frete pelo código. |
+| GET | `/easter-egg` | `pages.js` | Mostrar a página do easter egg. |
 
 ## Como abrir uma página pela rota
 

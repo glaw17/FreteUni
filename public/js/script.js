@@ -27,19 +27,61 @@ if (formSimular) {
   formSimular.addEventListener('submit', async (simular) => {
     simular.preventDefault();
 
+    const cepOrigem = document.querySelector('[name=cepOrigem]').value;
+    const cepDestino = document.querySelector('[name=cepDestino]').value;
+    const botao = document.getElementById('botaoEnv');
+    botao.disable= true;
+
+    //Debug
+    console.log(`${cepOrigem}`);
+    console.log(`${cepDestino}`);
+
+    if (!cepOrigem || !cepDestino) {
+      return alert("Cep de origem e destino são obrigatórios.");
+    }
+    const reCEP = /^\d{5}-?\d{3}$/;
+    if (!reCEP.test(cepOrigem) || !reCEP.test(cepDestino)){
+      return alert("CEP Inválido!");
+    }
+
+    if (cepOrigem.length !== 8 || cepDestino.length !== 8) {
+      return alert("Cep de origem e destino devem ter 8 dígitos.");
+    }
+
     console.log("Formulario Enviado!");
 
-    const ceps = new FormData(formSimular);
     const dados = await fetch('/fretes/simular', {
       method: 'POST',
-      body: new URLSearchParams(ceps)
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cepOrigem,
+        cepDestino
+      })
     });
 
     const resultado = await dados.json();
+
+    if(resultado === null){
+      return alert("ERRO ao Consultar CEPs");
+    }
+
+    if(!resultado.ok && resultado.status == "error"){
+      const message = document.getElementById('messageERRO');
+      if(message && message.classList.includes("d-none")){
+        message.classList.remove('d-none');
+        message.classList.add('d-flex');
+      }
+      message.innerHTML = resultado.message;
+      botao.disable= false;
+      return;
+    }
 
     const distancia = resultado.distancia;
     const preco = resultado.preco;
 
     document.getElementById('resultado').innerHTML = `<p>Distância: ${distancia} km. Valor Final do Frete: ${preco}</p>`;
+    botao.disable= false;
   });
 }
