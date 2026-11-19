@@ -1,12 +1,12 @@
 const knex = require("knex");
 const conection_database = knex ({
-    client: "mysql2",
+    client: process.env.DATABASE_TYPE || "mysql2",
     connection: {
-    host: "localhost",
-    port: 3306,
-    user: "root",
-    password:"M.itsuo78@76" ,
-    database:"freteuni"
+    host: process.env.DATABASE_HOST || "localhost",
+    port: Number(process.env.DATABASE_PORT || 3306),
+    user: process.env.DATABASE_USER || "root",
+    password: process.env.DATABASE_PASSWORD || "",
+    database: process.env.DATABASE_NAME || "freteuni"
 
 }
 });

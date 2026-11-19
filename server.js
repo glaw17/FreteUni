@@ -1,3 +1,5 @@
+process.loadEnvFile();
+
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
@@ -5,8 +7,6 @@ const pagesRoutes = require("./src/routes/pages");
 const authRoutes = require("./src/routes/auth");
 const fretesRoutes = require("./src/routes/fretes");
 const { createTables } = require("./src/database/scheminha");
-
-process.loadEnvFile();
 
 const app = express();
 const port = process.env.PORT || 3000;
