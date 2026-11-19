@@ -19,6 +19,18 @@
         window.location.href = "/register";
       });
     }
+  } else if (pageId == "easter-egg") {
+    const videoLink = document.getElementById("video-link");
+    if (videoLink) {
+      videoLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        const heroContent =  document.getElementById("hero-content");
+        heroContent.style.display = "none";
+        const video =  document.getElementById("easter-egg-video");
+        video.style.filter = "blur(0px)";
+        video.play();
+      });
+    }
   }
 })();
 
