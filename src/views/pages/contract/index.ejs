@@ -1,34 +1,106 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <title> <%= title %> </title>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type="image/png" href="/images/logo.png" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet/less" type="text/css" href="/less/style.less" />
-        <script src="https://cdn.jsdelivr.net/npm/less"></script>
-    </head>
-    <body page="contract">
+  <head>
+    <title><%= title %></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet/less" type="text/css" href="/less/pages/contract/style.less" />
+    <script src="https://cdn.jsdelivr.net/npm/less"></script>
+  </head>
 
-        <!-- Inclui o codigo HTML da navbar no inicio do body -->
-        <%- include('../../partials/navbar.ejs') %>
+  <body page="contract">
+    <!-- Inclui o codigo HTML da navbar no inicio do body -->
+    <%- include('../../partials/navbar.ejs') %>
 
-            <main>
-                <section class="content-contract">
-                    
-                </section>
+    <main>
+      <section class="content-contract">
 
-                <section class="form-contract">
+      </section>
 
-                </section>
-            </main>
+      <section class="form-card" aria-labelledby="form-title">
+        <header class="form-card__header">
+          <h2 id="form-title" class="form-card__title">Vamos planejar seu frete?</h2>
+          <p class="form-card__subtitle">Preencha os campos abaixo para solicitar um orçamento.</p>
+        </header>
 
-        <!-- Inclui o codigo HTML do footer no final do body -->
-        <%-include('../../partials/footer.ejs') %>
+        <form class="form" method="post">
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://kit.fontawesome.com/f0c44ea109.js"></script>
-        <script src="/js/script.js"></script>
-    </body>
+          <fieldset class="form__section">
+            <legend class="form__legend">
+              <span class="form__num">01</span> Seus dados
+            </legend>
+
+            <div class="field">
+              <label for="nome">Nome</label>
+              <input id="nome" name="nome" type="text" placeholder="Seu nome completo" required>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="cpf">CPF</label>
+                <input id="cpf" name="cpf" type="text" placeholder="000.000.000-00" inputmode="numeric">
+              </div>
+              <div class="field">
+                <label for="telefone">Telefone</label>
+                <input id="telefone" name="telefone" type="tel" placeholder="(00) 00000-0000">
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form__section">
+            <legend class="form__legend">
+              <span class="form__num">02</span> Qual é o trajeto?
+            </legend>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="cep-origem">CEP de origem</label>
+                <input id="cep-origem" name="cep_origem" type="text" placeholder="00000-000" inputmode="numeric">
+              </div>
+              <div class="field">
+                <label for="cep-destino">CEP de destino</label>
+                <input id="cep-destino" name="cep_destino" type="text" placeholder="00000-000" inputmode="numeric">
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form__section">
+            <legend class="form__legend">
+              <span class="form__num">03</span> Quando será o frete?
+            </legend>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="data">Data do frete</label>
+                <input id="data" name="data" type="date" placeholder="dd/mm/aaaa">
+              </div>
+              <div class="field">
+                <label for="hora">Hora do frete</label>
+                <input id="hora" name="hora" type="time" placeholder="hh:mm">
+              </div>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn-submit">
+            Solicitar orçamento <span aria-hidden="true">&#8594;</span>
+          </button>
+
+          <p class="form__note">
+            Ao continuar, você concorda com os Termos de uso e a Política de Privacidade.<br>
+            Seus dados serão usados para atender a sua solicitação.
+          </p>
+
+        </form>
+      </section>
+    </main>
+
+    <!-- Inclui o codigo HTML do footer no final do body -->
+    <%-include('.. /../partials/footer.ejs') %>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://kit.fontawesome.com/f0c44ea109.js"></script>
+      <script src="/js/script.js"></script>
+  </body>
 </html>
