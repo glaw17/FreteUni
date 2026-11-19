@@ -2,34 +2,37 @@
   <div class="freight-simulation-container">
     <header class="freight-simulation-header">
       <h2 class="freight-simulation-title">Simule seu Frete em Alguns Segundos!</h2>
-      <p class="freight-simulation-description">Quer ter uma Estimativa de Quanto seu Frete vai custar?</p>
+      <p class="freight-simulation-description">Quer ter uma estimativa de quanto seu frete vai custar?</p>
     </header>
     <div class="conteiner">
       <div class="imagem">
-        <img src="/images/gerado_por_ia/img-freight-simulation.png" alt="imagem">
+        <img src="/images/gerado_por_ia/img-freight-simulation.png" alt="Ilustração de transporte de encomendas">
       </div>
       <div class="conteudo">
-        <h3>Calcule o Frete da Sua Encomenda!</h3>
-        <p>Informe o Cep de Origem e de Destino para começar. (Apenas Números)</p>
+        <h3 class="form-label">Calcule o Frete da Sua Encomenda!</h3>
+        <p id="cep-instrucoes">Informe os CEPs de origem e destino com 8 dígitos, sem hífen.</p>
 
-        <form id="simular-f">
+        <form id="simular-f" novalidate>
           <div class="row">
             <div class="col">
-              <label>Cep de Origem</label>
-              <input type="text" class="form-control" name="cepOrigem" placeholder="Digite o Cep" aria-label="Cep Origem">
+              <label for="cep-origem">CEP de origem</label>
+              <input type="text" class="form-control" id="cep-origem" name="cepOrigem" placeholder="Digite o CEP"
+                inputmode="numeric" maxlength="8" pattern="[0-9]{8}" required aria-describedby="cep-instrucoes messageERRO">
             </div>
             <div class="col">
-              <label>Cep de Destino</label>
-              <input type="text" class="form-control" name="cepDestino" placeholder="Digite o Cep" aria-label="Cep Destino">
+              <label for="cep-destino">CEP de destino</label>
+              <input type="text" class="form-control" id="cep-destino" name="cepDestino" placeholder="Digite o CEP"
+                inputmode="numeric" maxlength="8" pattern="[0-9]{8}" required aria-describedby="cep-instrucoes messageERRO">
             </div>
           </div>
           <br>
           <input type="submit" id="botaoEnv" class="btn-orange" value="Calcular">
         </form>
 
-        <div id="resultado">
-          <p>Obs: Preço Fixo: R$180, cada Km é cobrado R$4.50. Cada ajudante adiciona ao total R$60.00</p><br>
-          <span id="messageERRO" class="d-none" style="color: red; font-weight: bold;"></span>
+        <div class="mt-3">
+          <p id="messageERRO" class="text-danger fw-semibold mb-0" role="alert"></p>
+          <p id="resultado" class="fw-semibold mb-0" role="status" aria-live="polite"></p>
+          <p id="tarifas-simulacao" class="mb-0 mt-2">Estimativa: R$ 180,00 de tarifa fixa + R$ 4,50 por km de distância geográfica (em linha reta). Não inclui ajudantes! O preço final pode variar.</p>
         </div>
       </div>
     </div>

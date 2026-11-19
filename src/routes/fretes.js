@@ -1,92 +1,151 @@
 const express = require("express");
-const { getDistance } = require('geolib');
+const { getDistance } = require("geolib");
 const router = express.Router();
 
 router.get("/fretes/novo", (request, response) => {
   // TODO: mostrar o formulário de contratação.
-  response.status(501).send("Página de contratação de frete em desenvolvimento.");
+  response
+    .status(501)
+    .send("Página de contratação de frete em desenvolvimento.");
 });
 
-router.post("/fretes/simular", async (request, response) => {
-  //Debug do Envio
-  console.log("Envio Chegou na Rota");
+const CEP_REGEX = /^\d{8}$/;
+const BRASIL_API_TIMEOUT = 5000;
 
-  // Verificação da Entrada
-  const { cepOrigem, cepDestino } = request.body;
+function erroSimulacao(status, errtype, message) {
+  const error = new Error(message);
+  error.status = status;
+  error.errtype = errtype;
+  return error;
+}
 
-  if (!cepOrigem || !cepDestino) {
-    return response.status(400).send("Cep de origem e destino são obrigatórios.");
+function coordenadaValida(valor, limite) {
+  if (typeof valor !== "number" && typeof valor !== "string") {
+    return false;
   }
-  if (cepOrigem.length !== 8 || cepDestino.length !== 8) {
-    return response.status(400).send("Cep de origem e destino devem ter 8 dígitos.");
+  if (typeof valor === "string" && valor.trim() === "") {
+    return false;
   }
+  const numero = Number(valor);
+  return Number.isFinite(numero) && Math.abs(numero) <= limite;
+}
 
-  // Função para buscar coordenadas de um CEP usando a GeoLib
+async function buscarCoordenadas(cep, tipo) {
   try {
-    const buscarCoordenadas = async (cep) => {
-      const responseBAPI = await fetch(
-        `https://brasilapi.com.br/api/cep/v2/${cep}`,
-        {
-          method: 'GET'
-        }
+    const resposta = await fetch(`https://brasilapi.com.br/api/cep/v2/${cep}`, {
+      signal: AbortSignal.timeout(BRASIL_API_TIMEOUT),
+    });
+
+    if (resposta.status === 404) {
+      throw erroSimulacao(
+        400,
+        "cep_not_found",
+        `CEP de ${tipo} não encontrado.`,
       );
-
-      // CEP não encontrado
-      if (responseBAPI.status === 404) {
-        response.status(400).json({
-          status: "error",
-          message: "CEP não Encontrado"
-        });
-        return;
-      }
-
-      // Outros erros HTTP
-      if (!responseBAPI.ok) {
-        response.status(400).json({
-          status: "error",
-          message: "Erro ao consultar CEP"
-        });
-        return;
-      }
-
-      //Pegando todas as informações do cep dada pela API BrasilAPI e guardando na variável infoDoCep
-      const infoDoCep = await responseBAPI.json();
-      console.log(`Informações do CEP ${cep}: ${JSON.stringify(infoDoCep)}`);
-
-      //Pegando somente as coordenadas do cep e guardando na variável cords
-      const cords = infoDoCep.location?.coordinates;
-
-      //Vendo se alguma retornou uma valor nulo ou vazio, caso sim, lançando um erro
-      if (cords?.latitude == null || cords?.longitude == null ||
-        cords.latitude === '' || cords.longitude === '') {
-        return console.error(`Coordenadas indisponíveis: ${cep}`);
-      }
-
-      return {
-        latitude: Number(cords.latitude),
-        longitude: Number(cords.longitude)
-      };
+    }
+    if (!resposta.ok) {
+      throw erroSimulacao(
+        502,
+        "cep_provider_error",
+        "Não foi possível consultar os CEPs no momento.",
+      );
     }
 
-    const coordenadasOrigem = await buscarCoordenadas(cepOrigem);
-    const coordenadasDestino = await buscarCoordenadas(cepDestino);
+    const dados = await resposta.json();
+    const coordenadas = dados?.location?.coordinates;
+    if (
+      !coordenadaValida(coordenadas?.latitude, 90) ||
+      !coordenadaValida(coordenadas?.longitude, 180)
+    ) {
+      throw erroSimulacao(
+        422,
+        "coordinates_unavailable",
+        `Coordenadas indisponíveis para o CEP de ${tipo}.`,
+      );
+    }
 
-    console.log(`Coordenadas Origem: ${JSON.stringify(coordenadasOrigem)}`);
-    console.log(`Coordenadas Destino: ${JSON.stringify(coordenadasDestino)}`);
+    return {
+      latitude: Number(coordenadas.latitude),
+      longitude: Number(coordenadas.longitude),
+    };
+  } catch (error) {
+    if (error.errtype) {
+      throw error;
+    }
+    if (error.name === "TimeoutError" || error.name === "AbortError") {
+      throw erroSimulacao(
+        504,
+        "cep_timeout",
+        "A consulta de CEP demorou demais. Tente novamente.",
+      );
+    }
+    throw erroSimulacao(
+      502,
+      "cep_provider_error",
+      "Não foi possível consultar os CEPs no momento.",
+    );
+  }
+}
 
-    const distancia = getDistance(
-      coordenadasOrigem,
-      coordenadasDestino
-    ) / 1000; // Convertendo de metros para quilômetros
+router.post("/fretes/simular", async (request, response) => {
+  const body = request.body;
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
+    return response.status(400).json({
+      status: "error",
+      errtype: "invalid_request",
+      message: "Informe os CEPs de origem e destino.",
+    });
+  }
 
-    const preco = (180 + (distancia * 4.5)).toFixed(2);
-    console.log(`Distância: ${distancia} km, Preço: R$ ${preco}`);
+  const { cepOrigem, cepDestino, ajudantes = 0 } = body;
+  if (
+    typeof cepOrigem !== "string" ||
+    cepOrigem.length !== 8 ||
+    !CEP_REGEX.test(cepOrigem) ||
+    typeof cepDestino !== "string" ||
+    cepDestino.length !== 8 ||
+    !CEP_REGEX.test(cepDestino)
+  ) {
+    return response.status(400).json({
+      status: "error",
+      errtype: "invalid_cep",
+      message: "Os CEPs de origem e destino devem ter exatamente 8 dígitos.",
+    });
+  }
+  if (!Number.isInteger(ajudantes) || ajudantes < 0) {
+    return response.status(400).json({
+      status: "error",
+      errtype: "invalid_helpers",
+      message: "Quantidade de ajudantes inválida.",
+    });
+  }
 
-    //Retornando Valores
+  try {
+    // A segunda consulta só é feita se a primeira tiver sido bem-sucedida.
+    const coordenadasOrigem = await buscarCoordenadas(cepOrigem, "origem");
+    const coordenadasDestino = await buscarCoordenadas(cepDestino, "destino");
+
+    // Distância geográfica em quilômetros, não distância por rodovia.
+    const distancia = getDistance(coordenadasOrigem, coordenadasDestino) / 1000;
+    if (!Number.isFinite(distancia) || distancia < 0) {
+      throw new Error("Distância inválida");
+    }
+
+    const preco = (180 + distancia * 4.5 + ajudantes * 60).toFixed(2);
     return response.json({ distancia, preco });
   } catch (error) {
-    console.error(error.message);
-    return null;
+    const status = error.status || 500;
+    const errtype = error.errtype || "simulation_failed";
+    if (status >= 500) {
+      console.error("[simulador]", errtype);
+    }
+    return response.status(status).json({
+      status: "error",
+      errtype,
+      message: error.errtype
+        ? error.message
+        : "Não foi possível calcular o frete. Tente novamente.",
+    });
   }
 });
 
