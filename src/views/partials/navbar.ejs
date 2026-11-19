@@ -1,94 +1,73 @@
-<nav class="navbar navbar-light bg-light <%= user !== null ? 'logged' : '' %>">
+<%
+  const currentPage = typeof navbarPage === "string" ? navbarPage : "";
+  const isAuthPage = currentPage === "login" || currentPage === "register";
+%>
+<nav class="navbar navbar-light bg-light<%= user ? ' logged' : '' %><%= isAuthPage ? ' navbar-simple' : '' %>" aria-label="Navegação principal">
   <a class="navbar-brand" href="/">
-    <img class="navbar-brand-img" src="/images/logo.png" alt="Logo" />
+    <img class="navbar-brand-img" src="/images/logo.png" alt="" />
     <span class="navbar-brand-text">
       Frete<span class="navbar-brand-text highlight-text">Uni</span>
     </span>
   </a>
-  <span class="navbar-toggle">
-    <i class="fa-solid fa-bars" aria-hidden="true"></i>
-  </span>
-  <div class="navbar-search">
-    <input id="search-input" type="text" class="form-control" placeholder="Buscar..." />
-    <button
-      id="track-btn"
-      type="button"
-      class="btn btn-orange px-4"
-      data-bs-toggle="modal"
-      data-bs-target="#tracking-not-implemented"
-    >
-      Rastrear
+
+  <% if (!isAuthPage) { %>
+    <button type="button" class="navbar-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navbar-menu navbar-search navbar-auth">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
     </button>
-  </div>
-  <div class="navbar-auth">
-    <% if (user) { %>
-      <div class="profile-area">
-        <button type="button" class="profile" data-bs-toggle="modal" data-bs-target="#profile-not-implemented">
+
+    <div class="navbar-menu" id="navbar-menu">
+      <a class="nav-link" href="/" <%- currentPage === "home" ? 'aria-current="page"' : '' %>>Início</a>
+      <a class="nav-link" href="/fretes/novo" <%- currentPage === "contract" ? 'aria-current="page"' : '' %> data-unavailable="A contratação de frete ainda está em desenvolvimento.">Contratação</a>
+      <a class="nav-link" href="/#section-simulation">Simular</a>
+      <a class="nav-link" href="/termos" <%- currentPage === "terms" ? 'aria-current="page"' : '' %>>Termos</a>
+    </div>
+
+    <form class="navbar-search" id="navbar-search" action="/rastrear" method="get" role="search"
+      data-unavailable="O rastreamento de encomendas ainda não está disponível.">
+      <label for="search-input" class="visually-hidden">Código de rastreio</label>
+      <input id="search-input" name="id" type="search" class="form-control" placeholder="Código de rastreio" required maxlength="100" />
+      <button id="track-btn" type="submit" class="btn btn-orange">Rastrear</button>
+    </form>
+  <% } %>
+
+  <div class="navbar-auth" id="navbar-auth">
+    <% if (currentPage === "login") { %>
+      <a href="/register" class="btn btn-orange">Criar conta</a>
+    <% } else if (currentPage === "register") { %>
+      <a href="/login" class="btn btn-orange">Entrar</a>
+    <% } else if (user) { %>
+      <details class="profile-area">
+        <summary class="profile">
           <span class="profile-name"><%= user.name %></span>
-          <i class="fa-solid fa-angle-down"></i>
-        </button>
-      </div>
+          <span class="profile-arrow" aria-hidden="true"><i class="fa-solid fa-angle-down"></i></span>
+        </summary>
+        <div class="profile-menu">
+          <button type="button" id="logout-btn" class="profile-action">
+            <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Sair
+          </button>
+          <p id="logout-error" class="profile-error" role="alert"></p>
+        </div>
+      </details>
     <% } else { %>
-      <button type="button" id="login-btn" class="btn btn-outline-dark px-3">Entrar</button>
-      <button type="button" id="register-btn" class="btn btn-outline-orange px-4">Criar Conta</button>
+      <a href="/login" id="login-btn" class="btn btn-outline-dark">Entrar</a>
+      <a href="/register" id="register-btn" class="btn btn-outline-orange">Criar Conta</a>
     <% } %>
   </div>
 </nav>
-<div
-  class="modal fade"
-  id="tracking-not-implemented"
-  tabindex="-1"
-  aria-labelledby="tracking-not-implemented-title"
-  aria-describedby="tracking-not-implemented-description"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content text-body">
-      <div class="modal-header">
-        <h2 class="modal-title fs-5" id="tracking-not-implemented-title">
-          Função indisponível
-        </h2>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Fechar"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <p class="mb-0 p-2" id="tracking-not-implemented-description">
-          O rastreamento de encomendas ainda não está disponível.
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-<div
-      class="modal fade profile-not-implemented"
-      id="profile-not-implemented"
-      tabindex="-1"
-      aria-labelledby="profile-not-implemented-title"
-      aria-describedby="profile-not-implemented-description"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content text-body">
-          <div class="modal-header">
-            <h2 class="modal-title fs-5" id="profile-not-implemented-title">
-              Perfil não implementado
-            </h2>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Fechar"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <p class="mb-0 p-2" id="profile-not-implemented-description">
-              O menu de perfil ainda não foi implementado
-            </p>
-          </div>
+
+<% if (!isAuthPage) { %>
+  <div class="modal fade" id="navbar-unavailable" tabindex="-1" aria-labelledby="navbar-unavailable-title" aria-describedby="navbar-unavailable-description" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content text-body">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="navbar-unavailable-title">Função indisponível</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-0 p-2" id="navbar-unavailable-description"></p>
         </div>
       </div>
     </div>
+  </div>
+  <script src="/js/navbar.js" defer></script>
+<% } %>

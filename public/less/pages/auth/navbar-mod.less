@@ -1,27 +1,26 @@
-// Navbar do login e cadastro
+// Navbar reduzida do login e cadastro.
 body[page="login"],
 body[page="register"] {
-  .navbar {
+  .navbar.navbar-simple {
     z-index: 20;
-    padding: 10px 20px;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 7fr) minmax(0, 3fr);
-    grid-template-areas: "brand vazio auth";
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "brand auth";
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-    .navbar-search,
-    .navbar-nav,
-    .navbar-toggle {
-      display: none !important;
+    .navbar-auth > .btn {
+      min-width: 100px;
+      padding: 8px 14px;
     }
+  }
 
-    .navbar-auth {
-      display: flex !important;
-      justify-content: flex-end;
-      align-items: center;
-      > button {
-        padding: 10px 20px !important;
+  @media screen and (max-width: 360px) {
+    .navbar.navbar-simple {
+      .navbar-brand {
+        .navbar-brand-img { width: 32px; height: 32px; }
+        .navbar-brand-text { font-size: 20px; }
       }
+      .navbar-auth > .btn { min-width: 0; padding: 8px 10px; }
     }
   }
 }

@@ -1,4 +1,4 @@
-import { regexEmail, createAuthButtonToPage } from "./utils.js";
+import { regexEmail } from "./utils.js";
 
 const emailInput = document.getElementById("email-input");
 const passwordInput = document.getElementById("password-input");
@@ -51,14 +51,6 @@ function testPassword() {
   return { isValid: true, error: null, password };
 }
 
-function resetNavbarButtons() {
-  const authArea = document.querySelector(".navbar-auth");
-  if (authArea) {
-    authArea.innerHTML = "";
-    authArea.appendChild(createAuthButtonToPage("register", "/register"));
-  }
-}
-
 function passwordViewClick() {
   if (passwordInput) {
     if (passwordInput.getAttribute("type") === "password") {
@@ -98,9 +90,6 @@ function resetFormError() {
   formError.textContent = "";
   formError.classList.add("d-none");
 }
-
-// Recarrega os botões da navbar
-resetNavbarButtons();
 
 // Adiciona eventos aos elementos
 passwordViewIcon.addEventListener("click", passwordViewClick);
