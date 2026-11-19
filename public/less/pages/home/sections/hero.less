@@ -3,169 +3,169 @@
   padding: 40px 20px;
 // Construção da Grid
 
-  .layout {
-    display: grid;
-    grid-template-areas:
-      "title imagem"
-      "subtitle imagem"
-      "buttons imagem";
-    grid-template-columns: 1fr 1fr;
-    gap:15px 20px;
-    padding: 60px 40px 35px 40px;
-    background-color:@secondary;
-    min-height: 400px;
-  }
+    .layout {
+      display: grid;
+      grid-template-areas:
+        "title imagem"
+        "subtitle imagem"
+        "buttons imagem";
+      grid-template-columns: 1fr 1fr;
+      gap:15px 20px;
+      padding: 60px 40px 35px 40px;
+      background-color:@secondary;
+      min-height: 400px;
+    }
 
-  .layout div.title {
-    grid-area: title;
-    display: block;
-    width: 100%;
-    max-width: 500px;
+    .layout div.title {
+      grid-area: title;
+      display: block;
+      width: 100%;
+      max-width: 500px;
 
-      h1 {
-        font-size: 48px;
-        line-height: 1.1;
-        margin: 0;
-      }
-  }
+        h1 {
+          font-size: 48px;
+          line-height: 1.1;
+          margin: 0;
+        }
+    }
 
-  .layout div.subtitle {
-    grid-area: subtitle;
-    display: block;
-    max-width: 420px;
-    font-size: 16px;
-    line-height: 1.5;
-  }
+    .layout div.subtitle {
+      grid-area: subtitle;
+      display: block;
+      max-width: 420px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
 
-  //Personalização dos botões
+    //Personalização dos botões
 
-  .layout div.buttons {
-    grid-area: buttons;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin: 0;
+    .layout div.buttons {
+      grid-area: buttons;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 0;
+      
+        .btn1{
+          background-color: @highlight;
+          border: none;
+          padding: 10px 15px;
+          border-radius: 10px;
+          color:@primary;
+          font-weight: 500;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          text-align: center;
+          text-decoration: none;
+
+            &:hover {
+              background-color: darken(@highlight, 10%);
+              color:@primary;
+            }
+        }
+
+        .btn2{
+          background-color: @primary;
+          border: none;
+          padding: 10px 15px;
+          border-radius: 10px;
+          color:@highlight;
+          font-weight: 500;
+          font-family: "Inter", sans-serif;
+          font-size: 14px;
+          text-align: center;
+          text-decoration: none;
+          
+            &:hover {
+              background-color: darken(@highlight, 10%);
+              color:@primary;
+            }
+        }
+    }
+
+    .layout div.imagem {
+      grid-area: imagem;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background-color:@navy-light;
+      border-radius: 10px;
+      overflow: hidden;
+    }
     
-      .btn1{
-        background-color: @highlight;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 10px;
-        color:@primary;
-        font-weight: 500;
-        font-family: "Inter", sans-serif;
-        font-size: 14px;
-        text-align: center;
-        text-decoration: none;
-
-          &:hover {
-            background-color: darken(@highlight, 10%);
-            color:@primary;
-          }
-      }
-
-      .btn2{
-        background-color: @primary;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 10px;
-        color:@highlight;
-        font-weight: 500;
-        font-family: "Inter", sans-serif;
-        font-size: 14px;
-        text-align: center;
-        text-decoration: none;
-        
-          &:hover {
-            background-color: darken(@highlight, 10%);
-            color:@primary;
-          }
-      }
-  }
-
-  .layout div.imagem {
-    grid-area: imagem;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background-color:@navy-light;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  
-// RESPONSIVIDADE
-// obs: nesta parte eu pedi ajuda a ia pra entender como a responsividade funcionava
+  // RESPONSIVIDADE
+  // obs: nesta parte eu pedi ajuda a ia pra entender como a responsividade funcionava
 
 
-// RESPONSIVIDADE PARA TABLETS
-@media only screen and (max-width: 870px) {
+  // RESPONSIVIDADE PARA TABLETS
+  @media only screen and (max-width: 870px) {
 
-  .layout {
-    padding: 40px 30px;
-    gap: 15px;
-  }
-  
-  .layout div.title h1 {
-    font-size: 38px;
-  }
+    .layout {
+      padding: 40px 30px;
+      gap: 15px;
+    }
+    
+    .layout div.title h1 {
+      font-size: 38px;
+    }
 
-  .layout div.subtitle {
-    font-size: 15px;
-  }
+    .layout div.subtitle {
+      font-size: 15px;
+    }
 
-  .layout div.imagem {
-    margin-top: 20px;
-    width: 100%;
-    height: 350px;
-    overflow: hidden;
-    aspect-ratio: auto;
+    .layout div.imagem {
+      margin-top: 20px;
+      width: 100%;
+      height: 350px;
+      overflow: hidden;
+      aspect-ratio: auto;
 
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: fill; //a imagem acompanha a dimensão da div, mesmo que a imagem fique deformada
-      }
-  }
-}
-
-// RESPONSIVIDADE PARA CELULARES 
-@media only screen and (max-width: 600px) {
-  
-  .layout {
-    grid-template-areas: 
-      "imagem"
-      "title"
-      "subtitle"
-      "buttons";
-
-    grid-template-columns: 1fr;
-    min-height: auto;
-    padding: 30px 20px;
-    gap: 15px;
-  }
-
-  .layout div.imagem {
-    margin-top: 0;
-    min-height: 250px;
-    aspect-ratio: 4 / 3;
-  }
-
-  .layout div.title {
-    max-width: 100%;
-
-    h1 {
-      font-size: 32px;
-      line-height: 1.1;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: fill; //a imagem acompanha a dimensão da div, mesmo que a imagem fique deformada
+        }
     }
   }
 
-  .layout div.subtitle {
-    max-width: 100%;
-    font-size: 14px;
-  }
+  // RESPONSIVIDADE PARA CELULARES 
+  @media only screen and (max-width: 600px) {
+    
+    .layout {
+      grid-template-areas: 
+        "imagem"
+        "title"
+        "subtitle"
+        "buttons";
 
-  .layout div.buttons {
-    flex-wrap: wrap;
-  }
+      grid-template-columns: 1fr;
+      min-height: auto;
+      padding: 30px 20px;
+      gap: 15px;
+    }
 
-}
+    .layout div.imagem {
+      margin-top: 0;
+      min-height: 250px;
+      aspect-ratio: 4 / 3;
+    }
+
+    .layout div.title {
+      max-width: 100%;
+
+      h1 {
+        font-size: 32px;
+        line-height: 1.1;
+      }
+    }
+
+    .layout div.subtitle {
+      max-width: 100%;
+      font-size: 14px;
+    }
+
+    .layout div.buttons {
+      flex-wrap: wrap;
+    }
+
+  }
 }
