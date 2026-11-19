@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Define a codificação para os acentos e caracteres especiais. -->
+  <meta charset="UTF-8">
+
+  <!-- Faz a página se adaptar à largura da tela, inclusive no celular. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- EJS preenche este título com o valor enviado pela rota. -->
+  <title><%= title %></title>
+
+  <!-- Carrega o LESS principal, que importa os estilos do projeto. -->
+  <link rel="stylesheet/less" type="text/css" href="/less/style.less">
+
+  <!-- Permite que o navegador interprete os arquivos LESS. -->
+  <script src="https://cdn.jsdelivr.net/npm/less"></script>
+</head>
+
+<!-- O atributo page faz o LESS aplicar o tema só nesta página. -->
+<body page="easter-egg">
+  <main class="easter-egg-page">
+
+    <!-- Identificação do projeto e classificação do arquivo. -->
+    <header class="easter-egg-header">
+      <a class="brand" href="/">FreteUni</a>
+      <p class="secret-label">Arquivo restrito · Incidente M-EGG404</p>
+    </header>
+
+    <!-- Hero: vídeo em destaque com o texto do incidente por cima. -->
+    <section class="easter-egg-hero" aria-labelledby="hero-title">
+      <video
+        class="hero-video"
+        controls
+        playsinline
+        preload="metadata"
+        aria-label="Gravação recuperada da entrega em Marte"
+      >
+        <!-- O arquivo deve ficar em public/videos/easter-egg.mp4. -->
+        <source src="/video/easter_egg.mp4" type="video/mp4">
+
+        <!-- Aparece se o navegador não conseguir reproduzir o vídeo. -->
+        Seu navegador não conseguiu reproduzir a gravação.
+      </video>
+
+      <!-- Este conteúdo fica sobre o vídeo. -->
+      <div class="hero-content">
+        <p class="eyebrow">Transmissão recuperada · Marte · 23:17</p>
+        <h1 id="hero-title">Entrega concluída.<br>Destinatário: desconhecido.</h1>
+        <p>
+          O pacote especial chegou ao Setor 04 de Marte.
+          Não havia ninguém na base para recebê-lo.
+        </p>
+
+        <!-- Leva a pessoa até o relatório abaixo. -->
+        <a class="hero-link" href="#tracking-title">Ler relatório do incidente</a>
+      </div>
+    </section>
+
+    <!-- Histórico fictício da encomenda. -->
+    <section class="tracking-card" aria-labelledby="tracking-title">
+      <p class="record-label">Registro de entrega · Destino: Marte</p>
+      <h2 id="tracking-title">Histórico da encomenda</h2>
+
+      <ol class="tracking-list">
+        <li>
+          <strong>Solicitação recebida:</strong>
+          pacote especial com destino ao Setor 04 de Marte.
+        </li>
+        <li>
+          <strong>Sinal perdido:</strong>
+          a transmissão foi interrompida durante 17 minutos.
+        </li>
+        <li>
+          <strong>Entrega confirmada:</strong>
+          o pacote apareceu numa sala lacrada. A porta não foi aberta.
+        </li>
+      </ol>
+    </section>
+
+    <!-- details cria uma mensagem que só aparece quando clicada. -->
+    <details class="secret-message">
+      <summary>Abrir nota do operador</summary>
+      <p>
+        Se ouvir três batidas vindas de dentro da caixa, não responda.
+        A equipe de entrega não reconhece esse protocolo.
+      </p>
+    </details>
+
+    <!-- Link para sair do arquivo e voltar ao início do projeto. -->
+    <footer class="easter-egg-footer">
+      <a href="/">Encerrar arquivo e voltar</a>
+      <p>FreteUni · Acesso registrado</p>
+    </footer>
+  </main>
+</body>
+</html>

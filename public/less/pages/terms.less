@@ -1,250 +1,309 @@
 
 /*
   =====================================================
-  PÁGINA DE TERMOS E CONDIÇÕES
+  PÁGINA DE TERMOS E CONDIÇÕES - FRETEUNI
   =====================================================
 
   Este código LESS teve grande auxílio da Inteligência
   Artificial (IA) durante seu desenvolvimento.
 
   A ferramenta foi utilizada como apoio na elaboração,
-  organização, explicação e documentação dos estilos.
+  organização e documentação dos estilos.
 
-  O código foi analisado e adaptado conforme as
-  necessidades e o padrão de organização do projeto FreteUni.
+  O código foi adaptado conforme as necessidades e a
+  identidade visual do projeto acadêmico FreteUni.
 */
 
 
 /* =====================================================
-   ESTILIZAÇÃO GERAL DA PÁGINA
-   Aplica os estilos exclusivamente na página de termos.
+   ESTILIZAÇÃO GERAL
 ===================================================== */
 
 body[page="termos"] {
 
-  /* =====================================================
-     CONTAINER PRINCIPAL
-     Define o fundo, espaçamento e cor padrão da página.
-  ===================================================== */
+  background-color: #f3f6fb;
 
   .terms-page {
-    padding: 50px 0;
-    background-color: #fff;
     min-height: 100vh;
-    color: #333;
+    padding: 55px 0 70px;
+    background-color: #f3f6fb;
+    color: #343f50;
   }
 
 
   /* =====================================================
      CABEÇALHO
-     Estiliza o título principal e a data de atualização.
   ===================================================== */
 
   .terms-header {
+    position: relative;
     margin-bottom: 35px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #e5e5e5;
+    padding: 35px;
+    background: linear-gradient(135deg, @secondary, #17245a);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(1, 3, 43, 0.12);
 
-    /* Título principal da página */
     h1 {
-      color: #26374a;
-      font-size: 30px;
-      font-weight: 600;
-      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
     }
 
-    /* Data da última atualização */
     p {
-      color: #888;
-      font-size: 13px;
+      position: relative;
+      z-index: 1;
+      color: #d3d9e8;
+      font-size: 14px;
       margin: 0;
     }
   }
 
 
+  /* Detalhe decorativo do cabeçalho */
+
+  .terms-header::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: -55px;
+    top: -75px;
+    border: 25px solid rgba(250, 112, 20, 0.16);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+
   /* =====================================================
-     CONTEÚDO
-     Controla a largura máxima e a organização dos textos.
+     CONTEÚDO PRINCIPAL
   ===================================================== */
 
   .terms-content {
-    max-width: 900px;
+    max-width: 950px;
+    margin: 0 auto;
 
-    /* Seções individuais dos termos */
+    /* Cartões das seções */
+
     article {
-      margin-bottom: 28px;
+      position: relative;
+      margin-bottom: 20px;
+      padding: 25px 28px;
+      background-color: #fff;
+      border: 1px solid #e7ebf2;
+      border-left: 4px solid @highlight;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(1, 3, 43, 0.035);
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
     }
 
-    /* Títulos de cada seção */
+    /* Efeito de interação dos cartões */
+
+    article:hover {
+      transform: translateY(-3px);
+      border-color: #f6c29f;
+      box-shadow: 0 8px 22px rgba(1, 3, 43, 0.08);
+    }
+
+
+    /* =====================================================
+       TÍTULOS DAS SEÇÕES
+    ===================================================== */
+
     h2 {
-      color: #26374a;
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 10px;
+      color: @secondary;
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #edf0f5;
     }
 
-    /* Parágrafos e textos explicativos */
+
+    /* =====================================================
+       PARÁGRAFOS
+    ===================================================== */
+
     p {
-      color: #666;
+      color: #586477;
       font-size: 15px;
-      line-height: 1.7;
-      margin: 0;
+      line-height: 1.8;
+      margin-bottom: 12px;
+      text-align: justify;
     }
 
-    /* Links presentes no conteúdo */
+    /* Remove o espaçamento do último parágrafo */
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+
+    /* =====================================================
+       LINKS
+    ===================================================== */
+
     a {
       color: @highlight;
+      font-weight: 600;
       text-decoration: none;
+      transition: color 0.2s ease;
     }
 
+    /* Interação ao passar o mouse */
 
-    /*
-      =====================================================
-      ESTADOS DOS LINKS E ANINHAMENTO NO LESS
-      =====================================================
-
-      1. O QUE É UM SELETOR?
-
-      Um seletor identifica qual elemento HTML receberá
-      determinada estilização.
-
-      Exemplo:
-
-      a {
-        color: @highlight;
-      }
-
-      O seletor "a" identifica os links HTML.
-      Nesse caso, todos os links receberão a cor definida
-      na variável @highlight.
-
-
-      2. O QUE É UMA PSEUDO-CLASSE?
-
-      Uma pseudo-classe representa um estado ou condição
-      específica de um elemento HTML.
-
-      Exemplos:
-
-      :hover  -> Quando o mouse passa sobre o elemento.
-      :focus  -> Quando o elemento recebe foco.
-      :active -> Enquanto o elemento está sendo clicado.
-
-      Elas permitem alterar a aparência de um elemento
-      dependendo da interação do usuário.
-
-
-      3. O QUE É O ANINHAMENTO NO LESS?
-
-      O aninhamento permite escrever um seletor dentro
-      de outro seletor, organizando os estilos por hierarquia.
-
-      Exemplo:
-
-      a {
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-
-      Nesse exemplo, o :hover está dentro do seletor "a".
-      Isso indica que a interação pertence aos links,
-      e não a todos os elementos da página.
-
-
-      4. QUAL É A FUNÇÃO DO &?
-
-      O símbolo "&" representa o seletor do bloco atual.
-
-      Como estamos dentro do seletor "a", o LESS substitui
-      o "&" por "a" durante a compilação.
-
-      Portanto:
-
-      &:hover
-
-      Torna-se:
-
-      a:hover
-
-      O resultado é que o sublinhado aparece somente
-      quando o usuário passa o mouse sobre um link.
-
-
-      5. COMO FARÍAMOS SEM O &?
-
-      Também podemos escrever o seletor completo,
-      sem utilizar o recurso de aninhamento:
-
-      a:hover {
-        text-decoration: underline;
-      }
-
-      O resultado visual e o CSS gerado são os mesmos.
-
-      A diferença está na organização do código:
-
-      Com &: o seletor fica agrupado dentro de "a".
-      Sem &: escrevemos o seletor completo separadamente.
-
-      Neste projeto, optamos por utilizar seletores
-      separados nos estados de interação para facilitar
-      a leitura e o entendimento de cada regra.
-    */
-
-    /* Quando o mouse passa sobre um link */
     a:hover {
+      color: #d95600;
       text-decoration: underline;
     }
 
-    /* Quando um link recebe foco visível, como pelo teclado */
+    /* Destaque de foco para navegação pelo teclado */
+
     a:focus-visible {
       outline: 2px solid @highlight;
-      outline-offset: 3px;
+      outline-offset: 4px;
+      border-radius: 2px;
     }
   }
 
 
   /* =====================================================
-     RESPONSIVIDADE
-     Adapta os espaçamentos e tamanhos para telas menores.
-     As alterações são aplicadas até 768px de largura.
+     RESPONSIVIDADE - TABLETS
+     Adapta o layout para telas de até 768px.
   ===================================================== */
 
   @media (max-width: 768px) {
 
-    /* Reduz o espaçamento externo da página */
     .terms-page {
-      padding: 30px 0;
+      padding: 35px 0 45px;
     }
 
-    /* Ajusta o cabeçalho */
     .terms-header {
+      padding: 28px 24px;
       margin-bottom: 25px;
 
-      /* Reduz o tamanho do título principal */
       h1 {
-        font-size: 25px;
+        font-size: 27px;
+      }
+
+      p {
+        font-size: 13px;
       }
     }
 
-    /* Ajusta o conteúdo para telas menores */
+    .terms-header::after {
+      width: 130px;
+      height: 130px;
+      right: -45px;
+      top: -55px;
+      border-width: 18px;
+    }
+
     .terms-content {
+      padding: 0 5px;
 
-      /* Reduz o espaçamento entre as seções */
       article {
-        margin-bottom: 22px;
+        padding: 22px;
+        margin-bottom: 16px;
       }
 
-      /* Reduz o tamanho dos títulos das seções */
       h2 {
-        font-size: 17px;
+        font-size: 18px;
       }
 
-      /* Reduz o tamanho dos parágrafos */
       p {
         font-size: 14px;
+        line-height: 1.75;
       }
+    }
+  }
+
+
+  /* =====================================================
+     RESPONSIVIDADE - CELULARES
+     Adapta o layout para telas de até 480px.
+  ===================================================== */
+
+  @media (max-width: 480px) {
+
+    .terms-page {
+      padding: 22px 0 35px;
+    }
+
+    .terms-header {
+      padding: 25px 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+
+      h1 {
+        font-size: 23px;
+        letter-spacing: 0;
+      }
+
+      p {
+        font-size: 12px;
+      }
+    }
+
+    .terms-header::after {
+      width: 100px;
+      height: 100px;
+      right: -35px;
+      top: -40px;
+      border-width: 14px;
+    }
+
+    .terms-content {
+      padding: 0;
+
+      article {
+        padding: 19px 17px;
+        margin-bottom: 14px;
+        border-radius: 9px;
+        border-left-width: 3px;
+      }
+
+      h2 {
+        font-size: 16px;
+        margin-bottom: 12px;
+        padding-bottom: 9px;
+      }
+
+      p {
+        font-size: 13px;
+        line-height: 1.75;
+        text-align: left;
+      }
+    }
+  }
+
+
+  /* =====================================================
+     ACESSIBILIDADE
+     Respeita a preferência por movimento reduzido.
+  ===================================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .terms-content article {
+      transition: none;
+    }
+
+    .terms-content article:hover {
+      transform: none;
+    }
+
+    .terms-content a {
+      transition: none;
     }
   }
 }
