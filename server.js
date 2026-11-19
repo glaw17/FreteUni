@@ -58,7 +58,10 @@ app.use((error, request, response, next) => {
 });
 
 app.use((request, response) => {
-  response.status(404).send("Página não encontrada");
+  response.render("pages/pag404", {
+    title: "Pagina404"
+  });
+
 });
 
 async function startServer() {
