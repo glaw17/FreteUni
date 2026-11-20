@@ -1,81 +1,80 @@
-
 .sponsors {
-    background-color: @primary;
-    padding: 30px 32px;
+  background-color: @primary;
+  color: @secondary;
+  padding: 38px 28px;
 
-    h6 {
-        color: black;
-        text-align: center;
+  .sponsors-container {
+    width: min(100%, 1200px);
+    margin: 0 auto;
+  }
+
+  h2 {
+    margin: 0 0 10px 0;
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .sponsors-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    list-style: none;
+    padding: 0;
+    margin: 22px 0 0;
+
+    li {
+      flex: 0 0 calc((100% - 96px) / 5);
+      min-width: 0;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .btn-group {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 15px;
-        width: 100%;
+    img {
+      display: block;
+      width: 100%;
+      max-width: 170px;
+      height: 100%;
+      object-fit: contain;
     }
+  }
 
-    .button {
-        background-color: @primary;
-        color: black;
-        border: none;
-        border-radius: 15px;
-        padding: 8px 5px;
-        text-decoration: none;
-        font-size: 14px;
-        font-family: "Inter", sans-serif;
-        cursor: pointer;
+  @media only screen and (max-width: 870px) {
+    padding: 32px 24px;
 
-        width: 100px;
-        height: 40px;
-        flex: 1;
-        min-width: 0;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-
-        &:hover {
-            background-color: @secondary;
-            color: @primary;
-        }
+    .sponsors-list {
+      gap: 18px;
+      li {
+        flex-basis: calc((100% - 72px) / 5);
+        height: 64px;
+      }
     }
-}
+  }
 
-// RESPONSIVIDADE
-// fiz o uso da ia pra me ajudar nessa parte
+  @media only screen and (max-width: 600px) {
+    padding: 28px 18px;
 
-// RESPONSIVIDADE PARA TABLETS
-@media only screen and (max-width: 870px) {
-    .sponsors {
-        padding: 15px 20px;
+    .sponsors-list {
+      margin-top: 18px;
+      gap: 16px;
 
-        .btn-group {
-            gap: 10px;
-        }
+      li {
+        flex-basis: calc((100% - 32px) / 3);
+        height: 58px;
+      }
 
-        .button {
-            font-size: 12px;
-            height: 35px;
-        }
+      img { max-width: 140px; }
     }
-}
+  }
 
-// RESPONSIVIDADE PARA CELULARES
-@media only screen and (max-width: 600px) {
-    .sponsors {
-        padding: 10px;
-
-        .btn-group {
-            gap: 5px;
-        }
-
-        .button {
-            font-size: 9px;
-            height: 30px;
-            padding: 3px;
-        }
+  @media only screen and (max-width: 360px) {
+    .sponsors-list li {
+      flex-basis: calc((100% - 16px) / 2);
+      height: 54px;
     }
+  }
 }
