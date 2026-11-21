@@ -1,75 +1,160 @@
+.contract-layout {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  grid-template-areas: "content form";
+  gap: 50px;
+  align-items: start;
+}
 .content-contract {
-    
-        padding: 25px 25px 35px 25px;
+  grid-area: content;
+  padding: 25px 25px 35px 25px;
 
-        .flut {
+  .flut {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 11px;
 
-            font-family: "Inter", sans-serif;
-            font-weight: 700 ;
-            font-size: 11px;
+    padding: 9px 45px 9px 10px;
+    display: inline-block;
+    border-radius: 20px;
 
-            padding: 9px 45px 9px 10px;
-            display: inline-block;
-            border-radius: 20px;
+    background-color: @highlight;
+    color: @secondary;
+  }
 
-            background-color: @highlight;
-            color: @secondary;
-        }
+  .title {
+    font-family: "Inter", sans-serif;
+    font-size: 50px;
+    color: @secondary;
+  }
 
-        .title {
+  .subtitle {
+    font-family: "Inter", sans-serif;
+  }
 
-            font-family: "Inter", sans-serif ;
-            font-size: 50px;
-            color: @secondary;
-        }
+  div.box {
+    background-color: @secondary;
 
-        .subtitle {
-            font-family: "Inter", sans-serif;
-        }
+    display: inline-block;
+    padding: 15px 25px 20px 15px;
+    border-radius: 15px;
+    margin-top: 40px;
 
-        div.box {
-            background-color: @secondary;
+    div.t1 p {
+      color: @highlight;
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
 
-            display: inline-block;
-            padding: 10px 20px 10px 10px;
-            border-radius: 15px;
-
-
-            p {
-                color: @highlight;
-                font-family: "Inter", sans-serif ;
-                font-size: 11px;
-
-                margin: 0;
-            }
-
-            h1 {
-                color: @primary;
-                font-family: "Inter", sans-serif ;
-
-                margin: 10px 0;
-            }
-
-            .frases {
-                color: @primary;
-                font-family: "Inter", sans-serif;
-                
-                display: flex;
-                gap: 60px;
-                align-items: center;
-
-                margin-top: 0;
-            }
-
-            h6 {
-                margin: 0;
-            }
-
-        }
-
+      margin: 0;
     }
 
+    div.AB h1 {
+      color: @primary;
+      font-family: "Inter", sans-serif;
 
-.form-contract{
-    
+      margin: 15px 0;
+    }
+
+    div.frases {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+
+      p {
+        color: @primary;
+        font-family: "Inter", sans-serif;
+        font-size: 15px;
+        margin: 0;
+      }
+    }
+  }
+
+  .etapas {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    font-family: "Inter", sans-serif;
+    margin-top: 40px;
+    font-size: 12px;
+  }
+
+  .etapa {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+  }
+
+  .numero {
+    min-width: 38px;
+  }
+
+  .descricao {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 4px;
+  }
+
+  .descricao h3,
+  .descricao p {
+    margin: 0;
+  }
+}
+
+.form-card {
+}
+
+//RESPONSIVIDADE
+
+//RESPONSIVIDADE PARA TABLET
+@media only screen and (max-width: 870px) {
+  .contract-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "content"
+      "form";
+  }
+  .title {
+    font-size: 32px;
+  }
+  .box {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+//RESPONSIVIDADE PARA CELULAR
+@media only screen and (max-width: 600px) {
+  .contract-layout {
+    padding: 20px 20px;
+    gap: 30px;
+  }
+  .content-contract {
+    .title {
+      font-size: 32px;
+    }
+
+    .flut {
+      font-size: 12px;
+      padding: 8px 15px;
+    }
+
+    .box {
+      width: 100%;
+      padding: 25px;
+    }
+
+    .etapa {
+      gap: 15px;
+    }
+
+    .descricao h3 {
+      font-size: 16px;
+    }
+
+    .descricao p {
+      font-size: 14px;
+    }
+  }
 }
