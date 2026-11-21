@@ -18,5 +18,13 @@ router.get("/termos", (request, response) => {
   });
 });
 
+router.get("/contract", (request, response) => {
+  const user = getUserById(request.session.userId);
+  response.render("pages/contract/index", {
+    title: "Frete Uni | Contrate Seu Frete",
+    user: user || null
+  });
+});
+
 module.exports = router;
   
