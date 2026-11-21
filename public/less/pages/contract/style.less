@@ -1,75 +1,335 @@
+body[page="contract"] main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  padding: 25px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contract-layout {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  grid-template-areas: "content form";
+  gap: 50px;
+  align-items: start;
+}
 .content-contract {
-    
-        padding: 25px 25px 35px 25px;
+  grid-area: content;
+  padding: 25px 25px 35px 25px;
 
-        .flut {
+  .flut {
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    font-size: 11px;
 
-            font-family: "Inter", sans-serif;
-            font-weight: 700 ;
-            font-size: 11px;
+    padding: 9px 45px 9px 10px;
+    display: inline-block;
+    border-radius: 20px;
 
-            padding: 9px 45px 9px 10px;
-            display: inline-block;
-            border-radius: 20px;
+    background-color: @highlight;
+    color: @secondary;
+  }
 
-            background-color: @highlight;
-            color: @secondary;
-        }
+  .title {
+    font-family: "Inter", sans-serif;
+    font-size: 50px;
+    color: @secondary;
+  }
 
-        .title {
+  .subtitle {
+    font-family: "Inter", sans-serif;
+  }
 
-            font-family: "Inter", sans-serif ;
-            font-size: 50px;
-            color: @secondary;
-        }
+  div.box {
+    background-color: @secondary;
 
-        .subtitle {
-            font-family: "Inter", sans-serif;
-        }
+    display: inline-block;
+    padding: 15px 25px 20px 15px;
+    border-radius: 15px;
+    margin-top: 40px;
 
-        div.box {
-            background-color: @secondary;
+    div.t1 p {
+      color: @highlight;
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
 
-            display: inline-block;
-            padding: 10px 20px 10px 10px;
-            border-radius: 15px;
-
-
-            p {
-                color: @highlight;
-                font-family: "Inter", sans-serif ;
-                font-size: 11px;
-
-                margin: 0;
-            }
-
-            h1 {
-                color: @primary;
-                font-family: "Inter", sans-serif ;
-
-                margin: 10px 0;
-            }
-
-            .frases {
-                color: @primary;
-                font-family: "Inter", sans-serif;
-                
-                display: flex;
-                gap: 60px;
-                align-items: center;
-
-                margin-top: 0;
-            }
-
-            h6 {
-                margin: 0;
-            }
-
-        }
-
+      margin: 0;
     }
 
+    div.AB h1 {
+      color: @primary;
+      font-family: "Inter", sans-serif;
 
-.form-contract{
-    
+      margin: 15px 0;
+    }
+
+    div.frases {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+
+      p {
+        color: @primary;
+        font-family: "Inter", sans-serif;
+        font-size: 15px;
+        margin: 0;
+      }
+    }
+  }
+
+  .etapas {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    font-family: "Inter", sans-serif;
+    margin-top: 40px;
+    font-size: 12px;
+  }
+
+  .etapa {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+  }
+
+  .numero {
+    min-width: 38px;
+  }
+
+  .descricao {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 4px;
+  }
+
+  .descricao h3,
+  .descricao p {
+    margin: 0;
+  }
+}
+
+.form-contract {
+  background-color: @primary;
+  border-radius: 20px;
+  padding: 32px;
+  color: @secondary;
+  font-family: "Inter", sans-serif;
+
+  @media (max-width: 768px) {
+    padding: 24px;
+  }
+
+  &__header {
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid fade(@secondary, 12%);
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  &__subtitle {
+    font-size: 13px;
+    margin: 4px 0 0;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  legend {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .form__num,
+  .form__hint,
+  .form__note {
+    font-size: 11px;
+    color: fade(@secondary, 60%);
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+    }
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="date"],
+  input[type="time"] {
+    width: 100%;
+    padding: 12px 14px;
+    background-color: fade(@secondary, 4%);
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 13px;
+    color: @secondary;
+
+    &:focus {
+      outline: none;
+      border-color: @highlight;
+    }
+  }
+
+  .options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .option {
+    position: relative;
+    cursor: pointer;
+
+    input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    &__box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      border: 1px solid fade(@secondary, 15%);
+      border-radius: 12px;
+      font-size: 13px;
+
+      &::before {
+        content: '';
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        border: 1.5px solid fade(@secondary, 45%);
+        box-sizing: border-box;
+      }
+    }
+
+    input:checked + .option__box {
+      border-color: @highlight;
+      background-color: fade(@highlight, 10%);
+
+      &::before {
+        border: 4px solid @highlight;
+      }
+    }
+  }
+
+  .btn-submit {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border: 0;
+    border-radius: 12px;
+    background-color: @highlight;
+    color: @secondary;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+}
+
+//RESPONSIVIDADE
+
+//RESPONSIVIDADE PARA TABLET
+@media only screen and (max-width: 870px) {
+  .contract-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "content"
+      "form";
+  }
+  .title {
+    font-size: 32px;
+  }
+  .box {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+//RESPONSIVIDADE PARA CELULAR
+@media only screen and (max-width: 600px) {
+  .contract-layout {
+    padding: 20px 20px;
+    gap: 30px;
+  }
+  .content-contract {
+    .title {
+      font-size: 32px;
+    }
+
+    .flut {
+      font-size: 12px;
+      padding: 8px 15px;
+    }
+
+    .box {
+      width: 100%;
+      padding: 25px;
+    }
+
+    .etapa {
+      gap: 15px;
+    }
+
+    .descricao h3 {
+      font-size: 16px;
+    }
+
+    .descricao p {
+      font-size: 14px;
+    }
+  }
 }
