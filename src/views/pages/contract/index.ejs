@@ -99,7 +99,7 @@
 
         </header>
 
-        <form class="form" method="post">
+        <form class="form" method="post" id="form-C">
 
           <fieldset class="form__section">
 
@@ -116,6 +116,7 @@
                 name="nome"
                 type="text"
                 placeholder="Seu nome completo"
+                pattern="[A-Za-z]+"
                 required
               />
             </div>
@@ -129,8 +130,10 @@
                   id="cpf"
                   name="cpf"
                   type="text"
-                  placeholder="000.000.000-00"
+                  placeholder="Digite seu CPF"
                   inputmode="numeric"
+                  maxlength="11"
+                  pattern="[0-9]+"
                 />
               </div>
 
@@ -141,7 +144,9 @@
                   id="telefone"
                   name="telefone"
                   type="tel"
-                  placeholder="(00) 00000-0000"
+                  placeholder="Digite Seu Número com DDD"
+                  maxlength="11"
+                  pattern="[0-9]+"
                 />
               </div>
 
@@ -165,8 +170,10 @@
                   id="cep-origem"
                   name="cep_origem"
                   type="text"
-                  placeholder="00000-000"
+                  placeholder="Digite o Cep de Origem"
                   inputmode="numeric"
+                  maxlength="8"
+                  pattern="[0-9]+"
                 />
               </div>
 
@@ -177,8 +184,10 @@
                   id="cep-destino"
                   name="cep_destino"
                   type="text"
-                  placeholder="00000-000"
+                  placeholder="Digite o Cep de Destino"
                   inputmode="numeric"
+                  maxlength="8"
+                  pattern="[0-9]+"
                 />
               </div>
 
@@ -202,6 +211,7 @@
                   id="data"
                   name="data"
                   type="date"
+                  required
                 />
               </div>
 
@@ -212,6 +222,7 @@
                   id="hora"
                   name="hora"
                   type="time"
+                  required
                 />
               </div>
 
