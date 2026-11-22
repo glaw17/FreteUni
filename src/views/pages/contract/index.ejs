@@ -280,6 +280,53 @@
 
     </main>
 
+    <section>
+      <dialog class="modal-frete" id="modal-confirm">
+        <h2>Confirmação de Envio</h2>
+        <hr>
+
+        <div class="resumo-frete">
+
+          <div class="info-frete">
+              <span>Distância</span>
+              <span id="distancia"></span>
+          </div>
+
+          <div class="info-frete">
+              <span>Ajudantes</span>
+              <span id="valorAjudantes"></span>
+          </div>
+
+          <div class="info-frete">
+              <span>Subtotal</span>
+              <span id="subtotal"></span>
+          </div>
+
+          <div class="info-frete total-frete">
+              <span>Total</span>
+              <span id="total"></span>
+          </div>
+
+        </div>
+        <hr>
+
+        <p>Confira os dados do frete antes de confirmar o envio.</p>
+
+        <div class="botoes">
+          <button type="button" class="btn btn-outline-danger" id="cancel">Cancelar</button>
+          <button type="button" class="btn btn-orange" id="confirm">Confirmar</button>
+        </div>
+      </dialog>
+    </section>
+
+    <section>
+      <dialog id="modal-agradecimento" class="modal-frete">
+        <h4>🎉 Simulação concluída com sucesso! 🎉</h4>
+        <p>Obrigado por Utilizar nosso Serviço!</p>
+        <button type="button" class="btn btn-orange" id="close">Concluído</button>
+      </dialog>
+    </section>
+
     <%- include('../../partials/footer.ejs') %>
 
     <script

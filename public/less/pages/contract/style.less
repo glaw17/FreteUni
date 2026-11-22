@@ -257,3 +257,54 @@
         cursor: pointer;
     }
 }
+
+// Parte dos Modal
+
+.modal-frete{
+    padding: 40px 25px;
+    border-radius: 15px;
+    border: none;
+    background-color: @primary;
+    color: @secondary;
+    text-align: center;
+    min-width: 40%;
+
+    //Pedi arrego pra IA poder centralizar
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .resumo-frete {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .info-frete {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .total-frete {
+        margin-top: 10px;
+        padding-top: 15px;
+        border-top: 1px solid #ccc;
+
+        font-weight: bold;
+        font-size: 20px;
+    }
+}
+
+.modal-frete::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.botoes{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}

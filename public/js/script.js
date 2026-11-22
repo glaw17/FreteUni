@@ -46,6 +46,7 @@ if (formSimular) {
 
 //JS da Página de Contrato
 const formContract = document.getElementById('form-C');
+const modal_confirm = document.getElementById('modal-confirm');
 formContract.addEventListener('submit', async (envio) => {
   envio.preventDefault();
 
@@ -145,5 +146,31 @@ formContract.addEventListener('submit', async (envio) => {
     const ajudantes = document.querySelector('input[name="ajudantes"]:checked').value;
     const precoTotal = Number(preco) + (60*Number(ajudantes));
 
-    return alert(`Preço: ${preco}, PrecoTotal: ${precoTotal.toFixed(2)}, Ajudantes: ${ajudantes}`);
+    //Apresentando Valores no Modal
+    document.getElementById('distancia').textContent = `${distancia} km`;
+    document.getElementById('valorAjudantes').textContent = `R$ ${60 * Number(ajudantes)}`;
+    document.getElementById('subtotal').textContent = `R$ ${preco}`;
+    document.getElementById('total').textContent = `R$ ${precoTotal.toFixed(2)}`;
+
+    modal_confirm.showModal();
+});
+
+const botaoCancel = document.getElementById('cancel');
+botaoCancel.addEventListener('click', ()=>{
+    modal_confirm.close();
+    alert("Contrato Cancelado!");
+});
+
+const botaoConfirm = document.getElementById('confirm');
+botaoConfirm.addEventListener('click', ()=>{
+    modal_confirm.close();
+
+    const obrigado = document.getElementById('modal-agradecimento');
+    obrigado.showModal();
+    
+    const fechar = document.getElementById('close');
+    fechar.addEventListener('click', ()=>{
+        obrigado.close();
+        window.location.href = '/';
+    });
 });
