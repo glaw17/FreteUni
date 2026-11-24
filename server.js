@@ -6,6 +6,7 @@ const path = require("path");
 const pagesRoutes = require("./src/routes/pages");
 const authRoutes = require("./src/routes/auth");
 const fretesRoutes = require("./src/routes/fretes");
+
 const { getConnection, createTables } = require("./src/database/database");
 
 const app = express();

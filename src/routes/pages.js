@@ -18,14 +18,22 @@ router.get("/termos", async (request, response) => {
     user: user || null
   });
 });
-  
+
 router.get("/easter-egg", async (request, response) => {
   const user = await getUserById(request.session.userId);
-
   response.render("pages/easter-egg/easter_egg", {
-  title: "FreteUni | Easter egg",
-  user: user || null
+    title: "FreteUni | Easter egg",
+    user: user || null
+  });
 });
+
+
+router.get("/contract", async (request, response) => {
+  const user = await getUserById(request.session.userId);
+  response.render("pages/contract/index", {
+    title: "Frete Uni | Contrate Seu Frete",
+    user: user || null
+  });
 });
 
 module.exports = router;
