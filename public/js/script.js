@@ -109,7 +109,7 @@ formContract.addEventListener('submit', async (envio) => {
   const agora = new Date();
 
   const limite = new Date();
-  limite.setFullYear(limite.getFullYear() + 2);
+  limite.setFullYear(limite.getFullYear() + 1);
 
   if (frete < agora) {
     return alert("O frete não pode ser agendado para o passado!");
