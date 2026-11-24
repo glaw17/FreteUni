@@ -6,7 +6,11 @@ const path = require("path");
 const pagesRoutes = require("./src/routes/pages");
 const authRoutes = require("./src/routes/auth");
 const fretesRoutes = require("./src/routes/fretes");
+<<<<<<< HEAD
+const { createTables } = require("./src/database/scheminha");
+=======
 const { getConnection, createTables } = require("./src/database/database");
+>>>>>>> 864846f690a9ac90759b1311ca18a4690c58ee67
 
 const app = express();
 const port = process.env.PORT || 3000;
