@@ -6,11 +6,8 @@ const path = require("path");
 const pagesRoutes = require("./src/routes/pages");
 const authRoutes = require("./src/routes/auth");
 const fretesRoutes = require("./src/routes/fretes");
-<<<<<<< HEAD
-const { createTables } = require("./src/database/scheminha");
-=======
+
 const { getConnection, createTables } = require("./src/database/database");
->>>>>>> 864846f690a9ac90759b1311ca18a4690c58ee67
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -69,16 +66,16 @@ app.use((request, response) => {
 });
 
 async function startServer() {
-  const connection = await getConnection();
+  //const connection = await getConnection();
 
   try {
-    await createTables();
+    //await createTables();
     app.listen(port, () => {
       console.log(`Front disponível em: http://localhost:${port}`);
     });
   } catch (error) {
     console.error("Não foi possível preparar o banco de dados:", error.message);
-    await connection.destroy();
+    //await connection.destroy();
     process.exitCode = 1;
   }
 }

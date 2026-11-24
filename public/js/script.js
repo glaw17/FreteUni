@@ -170,7 +170,7 @@ formContract.addEventListener('submit', async (envio) => {
   }
 
   if (frete > limite) {
-    return alert("O frete não pode ser agendado para mais de 2 anos!");
+    return alert("O frete não pode ser agendado para mais de 1 anos!");
   }
 
   //Calculo para Confirmação (Reutilizado)
