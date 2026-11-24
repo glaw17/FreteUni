@@ -1,4 +1,4 @@
-import { regexEmail, createAuthButtonToPage } from "./utils.js";
+import { regexEmail } from "./utils.js";
 
 // Cada array é uma etapa. A ordem dos campos também é a ordem na tela.
 const stepsByProfile = {
@@ -816,14 +816,6 @@ function getRegisterData() {
   return registerData;
 }
 
-function resetNavbarButtons() {
-  const authArea = document.querySelector(".navbar-auth");
-  if (authArea) {
-    authArea.innerHTML = "";
-    authArea.appendChild(createAuthButtonToPage("login", "/login"));
-  }
-}
-
 function resetSubmitButton() {
   isSubmitting = false;
   submitBtn.disabled = false;
@@ -1057,8 +1049,7 @@ function focusFirstInput() {
   }
 }
 
-// Recarrega a navbar e monta os campos do perfil selecionado
-resetNavbarButtons();
+// Monta os campos do perfil selecionado
 updateProfile();
 
 const scrollObserver = new ResizeObserver(updateScrollHint);

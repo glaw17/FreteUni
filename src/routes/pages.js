@@ -28,8 +28,8 @@ router.get("/easter-egg", async (request, response) => {
 });
 
 
-router.get("/contract", (request, response) => {
-  const user = getUserById(request.session.userId);
+router.get("/contract", async (request, response) => {
+  const user = await getUserById(request.session.userId);
   response.render("pages/contract/index", {
     title: "Frete Uni | Contrate Seu Frete",
     user: user || null

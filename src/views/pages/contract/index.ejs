@@ -16,7 +16,7 @@
   <body page="contract">
 
 
-    <%- include('../../partials/navbar.ejs') %>
+    <%- include('../../partials/navbar.ejs', { navbarPage: 'contract' }) %>
 
     <main class="contract-layout">
 
@@ -116,7 +116,6 @@
                 name="nome"
                 type="text"
                 placeholder="Seu nome completo"
-                pattern="[A-Za-z]+"
                 required
               />
             </div>
