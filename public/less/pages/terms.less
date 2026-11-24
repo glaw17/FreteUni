@@ -1,0 +1,309 @@
+
+/*
+  =====================================================
+  PÁGINA DE TERMOS E CONDIÇÕES - FRETEUNI
+  =====================================================
+
+  Este código LESS teve grande auxílio da Inteligência
+  Artificial (IA) durante seu desenvolvimento.
+
+  A ferramenta foi utilizada como apoio na elaboração,
+  organização e documentação dos estilos.
+
+  O código foi adaptado conforme as necessidades e a
+  identidade visual do projeto acadêmico FreteUni.
+*/
+
+
+/* =====================================================
+   ESTILIZAÇÃO GERAL
+===================================================== */
+
+body[page="termos"] {
+
+  background-color: #f3f6fb;
+
+  .terms-page {
+    min-height: 100vh;
+    padding: 55px 0 70px;
+    background-color: #f3f6fb;
+    color: #343f50;
+  }
+
+
+  /* =====================================================
+     CABEÇALHO
+  ===================================================== */
+
+  .terms-header {
+    position: relative;
+    margin-bottom: 35px;
+    padding: 35px;
+    background: linear-gradient(135deg, @secondary, #17245a);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(1, 3, 43, 0.12);
+
+    h1 {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    p {
+      position: relative;
+      z-index: 1;
+      color: #d3d9e8;
+      font-size: 14px;
+      margin: 0;
+    }
+  }
+
+
+  /* Detalhe decorativo do cabeçalho */
+
+  .terms-header::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: -55px;
+    top: -75px;
+    border: 25px solid rgba(250, 112, 20, 0.16);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+
+  /* =====================================================
+     CONTEÚDO PRINCIPAL
+  ===================================================== */
+
+  .terms-content {
+    max-width: 950px;
+    margin: 0 auto;
+
+    /* Cartões das seções */
+
+    article {
+      position: relative;
+      margin-bottom: 20px;
+      padding: 25px 28px;
+      background-color: #fff;
+      border: 1px solid #e7ebf2;
+      border-left: 4px solid @highlight;
+      border-radius: 10px;
+      box-shadow: 0 3px 12px rgba(1, 3, 43, 0.035);
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+    }
+
+    /* Efeito de interação dos cartões */
+
+    article:hover {
+      transform: translateY(-3px);
+      border-color: #f6c29f;
+      box-shadow: 0 8px 22px rgba(1, 3, 43, 0.08);
+    }
+
+
+    /* =====================================================
+       TÍTULOS DAS SEÇÕES
+    ===================================================== */
+
+    h2 {
+      color: @secondary;
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #edf0f5;
+    }
+
+
+    /* =====================================================
+       PARÁGRAFOS
+    ===================================================== */
+
+    p {
+      color: #586477;
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 12px;
+      text-align: justify;
+    }
+
+    /* Remove o espaçamento do último parágrafo */
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+
+    /* =====================================================
+       LINKS
+    ===================================================== */
+
+    a {
+      color: @highlight;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    /* Interação ao passar o mouse */
+
+    a:hover {
+      color: #d95600;
+      text-decoration: underline;
+    }
+
+    /* Destaque de foco para navegação pelo teclado */
+
+    a:focus-visible {
+      outline: 2px solid @highlight;
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+  }
+
+
+  /* =====================================================
+     RESPONSIVIDADE - TABLETS
+     Adapta o layout para telas de até 768px.
+  ===================================================== */
+
+  @media (max-width: 768px) {
+
+    .terms-page {
+      padding: 35px 0 45px;
+    }
+
+    .terms-header {
+      padding: 28px 24px;
+      margin-bottom: 25px;
+
+      h1 {
+        font-size: 27px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+    }
+
+    .terms-header::after {
+      width: 130px;
+      height: 130px;
+      right: -45px;
+      top: -55px;
+      border-width: 18px;
+    }
+
+    .terms-content {
+      padding: 0 5px;
+
+      article {
+        padding: 22px;
+        margin-bottom: 16px;
+      }
+
+      h2 {
+        font-size: 18px;
+      }
+
+      p {
+        font-size: 14px;
+        line-height: 1.75;
+      }
+    }
+  }
+
+
+  /* =====================================================
+     RESPONSIVIDADE - CELULARES
+     Adapta o layout para telas de até 480px.
+  ===================================================== */
+
+  @media (max-width: 480px) {
+
+    .terms-page {
+      padding: 22px 0 35px;
+    }
+
+    .terms-header {
+      padding: 25px 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+
+      h1 {
+        font-size: 23px;
+        letter-spacing: 0;
+      }
+
+      p {
+        font-size: 12px;
+      }
+    }
+
+    .terms-header::after {
+      width: 100px;
+      height: 100px;
+      right: -35px;
+      top: -40px;
+      border-width: 14px;
+    }
+
+    .terms-content {
+      padding: 0;
+
+      article {
+        padding: 19px 17px;
+        margin-bottom: 14px;
+        border-radius: 9px;
+        border-left-width: 3px;
+      }
+
+      h2 {
+        font-size: 16px;
+        margin-bottom: 12px;
+        padding-bottom: 9px;
+      }
+
+      p {
+        font-size: 13px;
+        line-height: 1.75;
+        text-align: left;
+      }
+    }
+  }
+
+
+  /* =====================================================
+     ACESSIBILIDADE
+     Respeita a preferência por movimento reduzido.
+  ===================================================== */
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .terms-content article {
+      transition: none;
+    }
+
+    .terms-content article:hover {
+      transform: none;
+    }
+
+    .terms-content a {
+      transition: none;
+    }
+  }
+}

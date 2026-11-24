@@ -6,7 +6,7 @@
     </header>
     <div class="conteiner">
       <div class="imagem">
-        <img src="/images/img-freight-simulation.png" alt="imagem">
+        <img src="/images/gerado_por_ia/img-freight-simulation.png" alt="imagem">
       </div>
       <div class="conteudo">
         <h3>Calcule o Frete da Sua Encomenda!</h3>
@@ -16,19 +16,20 @@
           <div class="row">
             <div class="col">
               <label>Cep de Origem</label>
-              <input type="number" class="form-control" name="cepOrigem" placeholder="Digite o Cep" aria-label="Cep Origem">
+              <input type="text" class="form-control" name="cepOrigem" placeholder="Digite o Cep" aria-label="Cep Origem">
             </div>
             <div class="col">
               <label>Cep de Destino</label>
-              <input type="number" class="form-control" name="cepDestino" placeholder="Digite o Cep" aria-label="Cep Destino">
+              <input type="text" class="form-control" name="cepDestino" placeholder="Digite o Cep" aria-label="Cep Destino">
             </div>
           </div>
           <br>
-          <input type="submit" class="btn-orange" value="Calcular">
+          <input type="submit" id="botaoEnv" class="btn-orange" value="Calcular">
         </form>
 
         <div id="resultado">
-          <p>Obs: Preço Fixo: R$180, cada Km é cobrado R$4.50. Cada ajudante adiciona ao total R$60.00</p>
+          <p>Obs: Preço Fixo: R$180, cada Km é cobrado R$4.50. Cada ajudante adiciona ao total R$60.00</p><br>
+          <span id="messageERRO" class="d-none" style="color: red; font-weight: bold;"></span>
         </div>
       </div>
     </div>

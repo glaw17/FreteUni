@@ -1,0 +1,513 @@
+/*
+  Este arquivo LESS teve auxílio de Inteligência Artificial (IA)
+  na criação e organização dos estilos. O código foi adaptado
+  para a página de easter egg do projeto FreteUni.
+*/
+
+/*
+  Paleta do dossiê: fundo quase preto, textos claros,
+  verde de terminal e vermelho/âmbar para alertas.
+*/
+@dossier-background: #080908;
+@dossier-panel: #111411;
+@dossier-panel-hover: #191d18;
+@dossier-text: #d7d9d2;
+@dossier-muted: #9a9e94;
+@dossier-green: #9bb28e;
+@dossier-border: #394137;
+@dossier-red: #b6463e;
+@dossier-amber: #c49a58;
+
+/*
+  Faz cada bloco surgir gradualmente e subir um pouco.
+  As etapas from e to representam o início e o fim da animação.
+*/
+@keyframes incident-entry {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*
+  Faz o selo de alerta pulsar levemente para chamar atenção
+  sem piscar de maneira muito intensa.
+*/
+@keyframes warning-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(182, 70, 62, 0);
+  }
+
+  50% {
+    box-shadow: 0 0 14px rgba(182, 70, 62, 0.22);
+  }
+}
+
+/*
+  Este seletor combina com <body page="easter-egg">.
+  Assim, as regras abaixo não alteram as outras páginas do site.
+*/
+body[page="easter-egg"] {
+  background-color: @dossier-background;
+
+  .easter-egg-page {
+    /*
+      Flex organiza o conteúdo em coluna.
+      min-height ocupa pelo menos a altura toda da tela.
+      gap e padding criam espaços entre e ao redor dos blocos.
+    */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    padding: 30px 20px;
+    color: @dossier-text;
+    font-family: "Courier New", monospace;
+
+    /*
+      As camadas do fundo criam um brilho vermelho discreto
+      e uma grade com aparência de monitor de segurança.
+    */
+    background:
+      radial-gradient(circle at 50% 0, rgba(113, 35, 31, 0.2), transparent 42%),
+      linear-gradient(rgba(155, 178, 142, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(155, 178, 142, 0.035) 1px, transparent 1px),
+      @dossier-background;
+    background-size: auto, 32px 32px, 32px 32px, auto;
+
+    /*
+      > * seleciona os filhos diretos do main.
+      A largura máxima mantém o conteúdo confortável em telas grandes.
+    */
+    > * {
+      width: min(100%, 840px);
+      animation: incident-entry 0.5s ease both;
+    }
+
+    /*
+      Os atrasos fazem cabeçalho, hero, relatório, nota e rodapé
+      aparecerem em sequência, em vez de todos ao mesmo tempo.
+    */
+    > :nth-child(2) {
+      animation-delay: 0.08s;
+    }
+
+    > :nth-child(3) {
+      animation-delay: 0.16s;
+    }
+
+    > :nth-child(4) {
+      animation-delay: 0.24s;
+    }
+
+    > :nth-child(5) {
+      animation-delay: 0.32s;
+    }
+
+    /* Cabeçalho do arquivo. */
+    .easter-egg-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid @dossier-border;
+    }
+
+    .brand {
+      color: @dossier-green;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-decoration: none;
+      text-transform: uppercase;
+
+      /* Acrescenta "//" antes da marca sem alterar o HTML. */
+      &::before {
+        content: "// ";
+        color: @dossier-red;
+      }
+    }
+
+    /* Selo de classificação do arquivo. */
+    .secret-label {
+      margin: 0;
+      padding: 9px 12px;
+      border: 1px solid @dossier-red;
+      background-color: rgba(182, 70, 62, 0.08);
+      color: @dossier-red;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-align: center;
+      text-transform: uppercase;
+      animation: warning-pulse 3s ease-in-out infinite;
+    }
+
+    /*
+      O hero é o bloco de destaque.
+      position: relative permite posicionar o vídeo dentro dele.
+      isolation cria uma camada independente para organizar vídeo e texto.
+    */
+    .easter-egg-hero {
+      position: relative;
+      isolation: isolate;
+      min-height: 540px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid @dossier-border;
+      background-color: @dossier-background;
+
+      /*
+        Linhas transparentes simulam interferência de uma gravação.
+        pointer-events: none deixa os cliques passarem através do efeito.
+      */
+      &::after {
+        position: absolute;
+        z-index: 0;
+        inset: 0;
+        content: "";
+        background: repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          rgba(255, 255, 255, 0.025) 1px,
+          transparent 3px
+        );
+        pointer-events: none;
+      }
+    }
+
+    /*
+      O vídeo ocupa o hero inteiro.
+      object-fit: cover preenche o espaço, cortando as bordas se necessário.
+      brightness escurece a imagem para o texto sobreposto ficar legível.
+    */
+    .hero-video {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.3) grayscale(0.45) sepia(0.12) blur(20px);
+    }
+
+    /* Texto do hero: position e z-index mantêm-no acima do vídeo. */
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 740px);
+      padding: 48px 24px 100px;
+      text-align: center;
+
+      .eyebrow {
+        margin: 0 0 14px;
+        color: @dossier-amber;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0 0 18px;
+        color: @dossier-text;
+        font-size: clamp(30px, 6vw, 56px);
+        line-height: 1.12;
+        text-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
+        text-transform: uppercase;
+      }
+
+      p:not(.eyebrow) {
+        max-width: 600px;
+        margin: 0 auto 24px;
+        color: #c1c3ba;
+        font-size: 15px;
+        line-height: 1.8;
+      }
+    }
+
+    /* Link em formato de botão para abrir o relatório. */
+    .hero-link {
+      display: inline-block;
+      padding: 12px 18px;
+      border: 1px solid @dossier-red;
+      background-color: rgba(8, 9, 8, 0.72);
+      color: #e2aaa2;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+
+      &:hover {
+        border-color: @dossier-red;
+        background-color: @dossier-red;
+        color: #fff;
+      }
+
+      /* Contorno para indicar foco ao navegar com o teclado. */
+      &:focus-visible {
+        outline: 2px solid @dossier-amber;
+        outline-offset: 4px;
+      }
+    }
+
+    /* Cartões do relatório e da nota confidencial. */
+    .tracking-card,
+    .secret-message {
+      padding: 24px;
+      border: 1px solid @dossier-border;
+      background-color: @dossier-panel;
+      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.4);
+      transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background-color 0.2s ease;
+    }
+
+    /* Levanta os cartões um pouco ao passar o mouse. */
+    .tracking-card:hover,
+    .secret-message:hover {
+      transform: translateY(-3px);
+      border-color: @dossier-red;
+      background-color: @dossier-panel-hover;
+    }
+
+    .record-label {
+      margin: 0 0 10px;
+      color: @dossier-amber;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .tracking-card h2 {
+      margin: 0 0 18px;
+      color: @dossier-text;
+      font-size: 18px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /*
+      counter-reset inicia a numeração da lista.
+      counter-increment soma um para cada item li.
+    */
+    .tracking-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: incident-step;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 48px;
+        padding: 12px;
+        border-left: 2px solid @dossier-border;
+        background-color: #0b0d0b;
+        color: @dossier-muted;
+        line-height: 1.6;
+        counter-increment: incident-step;
+        transition:
+          transform 0.2s ease,
+          border-color 0.2s ease,
+          background-color 0.2s ease;
+
+        /* Insere um número automático antes do texto da etapa. */
+        &::before {
+          content: "0" counter(incident-step);
+          flex: 0 0 34px;
+          color: @dossier-red;
+          font-weight: 700;
+        }
+
+        strong {
+          color: @dossier-text;
+        }
+
+        /* Destaca a etapa apontada pelo mouse. */
+        &:hover {
+          transform: translateX(4px);
+          border-color: @dossier-red;
+          background-color: #17110f;
+        }
+      }
+    }
+
+    /* Mensagem extra que abre ao clicar em "Abrir nota do operador". */
+    .secret-message {
+      summary {
+        color: @dossier-amber;
+        font-weight: 700;
+        cursor: pointer;
+        list-style: none;
+
+        /* Esconde o marcador padrão do Safari. */
+        &::-webkit-details-marker {
+          display: none;
+        }
+
+        /* Acrescenta um símbolo de arquivo restrito antes do resumo. */
+        &::before {
+          content: "[RESTRITO] ";
+          color: @dossier-red;
+        }
+
+        &:focus-visible {
+          outline: 2px solid @dossier-amber;
+          outline-offset: 5px;
+        }
+      }
+
+      p {
+        margin: 16px 0 0;
+        padding: 12px;
+        border-left: 2px solid @dossier-red;
+        background-color: #0b0d0b;
+        color: @dossier-muted;
+        line-height: 1.7;
+      }
+    }
+
+    /* Rodapé e link para sair do arquivo. */
+    .easter-egg-footer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0 24px;
+      text-align: center;
+
+      a {
+        padding: 12px 20px;
+        border: 1px solid @dossier-border;
+        color: @dossier-muted;
+        font-weight: 700;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition:
+          color 0.2s ease,
+          border-color 0.2s ease,
+          background-color 0.2s ease;
+
+        &:hover {
+          border-color: @dossier-green;
+          background-color: @dossier-green;
+          color: @dossier-background;
+        }
+      }
+
+      p {
+        margin: 0;
+        color: @dossier-muted;
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+    }
+
+    /*
+      @media aplica regras só em telas que atendem à condição.
+      768px cobre tablets e telas menores; aqui diminuímos espaços
+      e a altura do hero.
+    */
+    @media (max-width: 768px) {
+      gap: 18px;
+      padding: 24px 16px;
+
+      .easter-egg-hero {
+        min-height: 470px;
+      }
+
+      .tracking-card,
+      .secret-message {
+        padding: 20px;
+      }
+    }
+
+    /*
+      480px cobre celulares estreitos.
+      O cabeçalho vira uma coluna e os textos ficam mais compactos.
+    */
+    @media (max-width: 480px) {
+      gap: 14px;
+      padding: 18px 12px;
+
+      .easter-egg-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .secret-label {
+        font-size: 10px;
+      }
+
+      .easter-egg-hero {
+        min-height: 440px;
+      }
+
+      .hero-content {
+        padding: 32px 16px 90px;
+
+        h1 {
+          font-size: 32px;
+        }
+
+        p:not(.eyebrow) {
+          font-size: 13px;
+        }
+      }
+
+      .tracking-card,
+      .secret-message {
+        padding: 16px;
+      }
+
+      .tracking-list li {
+        align-items: flex-start;
+        font-size: 13px;
+      }
+    }
+
+    /*
+      Respeita a preferência de acessibilidade por menos movimento:
+      desativa animações e transições quando o dispositivo pede isso.
+    */
+    @media (prefers-reduced-motion: reduce) {
+      > *,
+      .secret-label,
+      .tracking-card,
+      .secret-message,
+      .tracking-list li,
+      .hero-link,
+      .easter-egg-footer a {
+        animation: none;
+        transition: none;
+      }
+
+      .tracking-card:hover,
+      .secret-message:hover,
+      .tracking-list li:hover {
+        transform: none;
+      }
+    }
+  }
+}

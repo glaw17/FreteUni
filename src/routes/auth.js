@@ -6,8 +6,8 @@ const { validateRegisterData } = require("../validators/register");
 const router = express.Router();
 const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-router.get("/login", (request, response) => {
-  const user = getUserById(request.session.userId);
+router.get("/login", async (request, response) => {
+  const user = await getUserById(request.session.userId);
 
   if (user) {
     return response.redirect("/");
@@ -56,7 +56,7 @@ router.post("/auth/login", async (request, response, next) => {
 
   let user;
   try {
-    user = getUserByEmail(email);
+    user = await getUserByEmail(email);
     if (!user) {
       return response.status(400).json({
         status: "error",
@@ -103,8 +103,8 @@ router.post("/auth/login", async (request, response, next) => {
   });
 });
 
-router.get("/register", (request, response) => {
-  const user = getUserById(request.session.userId);
+router.get("/register", async (request, response) => {
+  const user = await getUserById(request.session.userId);
 
   if (user) {
     return response.redirect("/");

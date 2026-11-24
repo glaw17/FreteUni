@@ -6,7 +6,11 @@ const path = require("path");
 const pagesRoutes = require("./src/routes/pages");
 const authRoutes = require("./src/routes/auth");
 const fretesRoutes = require("./src/routes/fretes");
+<<<<<<< HEAD
 const { createTables } = require("./src/database/scheminha");
+=======
+const { getConnection, createTables } = require("./src/database/database");
+>>>>>>> 864846f690a9ac90759b1311ca18a4690c58ee67
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -58,11 +62,28 @@ app.use((error, request, response, next) => {
 });
 
 app.use((request, response) => {
-  response.status(404).send("Página não encontrada");
+  response.render("pages/pag404", {
+    title: "Pagina404"
+  });
+
 });
 
-createTables();
+async function startServer() {
+  const connection = await getConnection();
 
-app.listen(port, () => {
-  console.log(`Front disponível em http://localhost:${port}`);
+  try {
+    await createTables();
+    app.listen(port, () => {
+      console.log(`Front disponível em: http://localhost:${port}`);
+    });
+  } catch (error) {
+    console.error("Não foi possível preparar o banco de dados:", error.message);
+    await connection.destroy();
+    process.exitCode = 1;
+  }
+}
+
+startServer().catch((error) => {
+  console.error("Não foi possível iniciar o servidor:", error.message);
+  process.exitCode = 1;
 });
