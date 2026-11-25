@@ -3,14 +3,25 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 48px;
     align-items: start;
-    padding: 25px;
+    width: min(calc(100% - 56px), 1200px);
+    margin: 0 auto;
+    padding: 38px 0 30px;
+
+    @media (max-width: 800px) {
+        width: calc(100% - 48px);
+        padding: 32px 0;
+    }
 
     @media (max-width: 768px) {
         grid-template-columns: minmax(0, 1fr);
     }
 
+    @media (max-width: 560px) {
+        width: calc(100% - 36px);
+        padding: 28px 0;
+    }
+
     @media (max-width: 480px) {
-        padding: 20px 16px;
         gap: 24px;
     }
 }
