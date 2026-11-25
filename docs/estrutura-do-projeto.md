@@ -64,6 +64,6 @@ Os caminhos de `include` e `@import` partem da pasta do arquivo em que você est
 - Use classes específicas da sua parte para evitar mudar outras seções sem querer.
 - Ao mudar um arquivo compartilhado, como as cores ou a navbar, avise a equipe e confira o que ele afeta.
 - Se renomear um `id` no HTML, veja se ele também é usado no JavaScript ou no LESS.
-- Imagens vão em `public/images/`. No HTML, use o endereço sem `public`, por exemplo: `<img src="/images/logo.png" alt="FreteUni" />`.
+- Imagens vão em `public/images/`. No HTML, use o endereço sem `public`, por exemplo: `<img src="/images/logo-small.webp" alt="FreteUni" />`.
 
 Para mexer nos endereços do site, veja também o guia de [rotas](rotas.md).
