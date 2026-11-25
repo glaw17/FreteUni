@@ -1,4 +1,14 @@
-process.loadEnvFile();
+try {
+  process.loadEnvFile();
+  console.log('Arquivo .env carregado com sucesso.');
+} catch (err) {
+  if (err.code === 'ENOENT') {
+    console.warn('Aviso: arquivo .env não encontrado, usando variáveis do sistema.');
+  } else {
+    console.error('Erro ao ler o arquivo .env:', err);
+  }
+}
+
 
 const express = require("express");
 const session = require("express-session");
