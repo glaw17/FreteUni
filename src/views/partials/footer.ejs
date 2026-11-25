@@ -2,41 +2,33 @@
     <div class="footer-container">
         <div class="f-entreCon">
             <h4>Contato</h4>
-            <p>Encontrou Problemas?</p>
-            <p>Não achou o que estava procurando?</p>
-            <p>Gostaria de Fazer uma Reclamação?</p>
-            <br>
-            <a href="https://github.com/glaw17/FreteUni" target=_blank class="btn btn-orange btn-sm">Email</a>
-            <a href="https://wa.me/558388482656?text=PIIAUM%20TODO%20TATUAADUU" target="_blank" class="btn btn-orange btn-sm zap"><img src="/images/logo-whatsapp.jpg">WhatsApp</a>
+            <p>Fale com a equipe do FreteUni.</p>
+            <div class="footer-links">
+                <a href="mailto:glawber.de.morais@gmail.com" class="btn btn-orange btn-sm">Email</a>
+                <a href="https://wa.me/558388482656" target="_blank" rel="noopener noreferrer" class="btn btn-orange btn-sm zap"><img src="/images/logo-whatsapp.jpg" alt="">WhatsApp</a>
+                <a href="https://github.com/glaw17/FreteUni" class="btn btn-outline-orange btn-sm">GitHub</a>
+            </div>
         </div>
 
         <div class="centro">
             <!-- Reutilizei a Parte da Logo da NavBar -->
-            <img class="navbar-brand-img" src="/images/logo.png" alt="Logo" s/><br>
+            <img class="navbar-brand-img" src="/images/logo-small.webp" alt="">
             <span class="navbar-brand-text">
               Frete<span class="navbar-brand-text highlight-text">Uni</span>
             </span>
-            <br><br>
-            <p class="mb-0 text-muted">&copy; 2026 Unifrete. Todos os direitos reservados.</p>  
-        </div>
-
-        <div class="f-redesSoc">
-            <h4>Redes Sociais</h4>
-            <p>Nos Acompanhe pelas Redes Sociais</p>
-            <div class="redes" style="display: inline-flex;">
-                <a href="#"><img src="/images/logo-instagram.jpg" alt="Instagram"></a>
-                <a href="#"><img src="/images/logo-facebook.jpg" alt="Facebook"></a>
-                <a href="#"><img src="/images/logo-twitter.jpg" alt="X"></a>
-            </div>
+            <p class="mb-0 text-muted">&copy; 2026 FreteUni. Todos os direitos reservados.</p>
         </div>
 
         <div class="feedback">
-            <form>
-                <h4>Avalie-Nos!</h4>
-                <label>Sua Opnião faz Toda Diferença!</label>
-                <input class="btn btn-orange btn-sm" type="reset" value="&#10003" style="margin-left: 8px;"><br>
-                <input class="form-range" type="range" min="0" max="10" step="1">
+            <form id="footer-review" action="/avaliacoes" method="post">
+                <h4>Avalie o site</h4>
+                <label for="footer-rating">Escolha uma nota de 0 a 10.</label>
+                <output for="footer-rating" id="footer-rating-value">5</output>
+                <input id="footer-rating" name="rating" class="form-range" type="range" min="0" max="10" step="1" value="5">
+                <button type="submit" class="btn btn-orange btn-sm">Enviar avaliação</button>
+                <p id="footer-review-status" class="footer-review-status" role="status"></p>
             </form>
         </div>
     </div>
 </footer>
+<script src="/js/footer.js" defer></script>

@@ -1,6 +1,6 @@
 # Onde mexer no projeto
 
-Deixei algumas coisas prontas para ajudar vocês a começar. Este guia mostra onde fica cada parte e o que já está ligado à home. Para abrir o site, veja [como rodar o projeto](como-rodar-localmente.md). Para enviar sua parte, veja [como contribuir](../CONTRIBUTING.md).
+Este guia mostra onde ficam as páginas, os componentes e a lógica do FreteUni. Para abrir o site, veja [como rodar o projeto](como-rodar-localmente.md). Para enviar sua parte, veja [como contribuir](../CONTRIBUTING.md).
 
 Duas coisas que aparecem bastante:
 
@@ -20,40 +20,20 @@ Duas coisas que aparecem bastante:
 | Ajustar estilos gerais e reset | `public/less/base.less` |
 | Personalizar botões e checkbox do Bootstrap | `public/less/bootstrap-extended.less` |
 | Fazer um botão responder a um clique | `public/js/script.js` |
+| Ajustar as páginas ou formulários de login e cadastro | `src/views/pages/auth/` e `public/js/auth/` |
+| Ajustar a página de cotação da contratação | `src/views/pages/contract/index.ejs` e `public/less/pages/contract/style.less` |
 | Criar ou ajustar um endereço do site | `src/routes/` |
+| Ajustar a estrutura do banco | `src/database/database.js` e `src/database/schema.sql` |
 
 As seções da home têm o mesmo nome no EJS e no LESS. Assim fica mais fácil encontrar os dois lados da tarefa.
 
-Deixei os imports dos estilos no `public/less/style.less`. Os estilos das seções da home são reunidos no `public/less/pages/home/style.less`. As quatro seções atuais já estão incluídas, então vocês podem editar os arquivos delas direto.
+Os imports principais ficam em `public/less/style.less`. Os estilos das cinco seções da home são reunidos em `public/less/pages/home/style.less`. A navbar e o rodapé são componentes compartilhados.
 
 ## Exemplo: mexer na hero
 
-A hero é a apresentação inicial da página. Deixei uma base de HTML e LESS pronta nos dois arquivos dela. Eles já estão incluídos na home, então vocês podem continuar dali.
+A hero é a apresentação inicial da página. O texto e os botões ficam no `hero.ejs`, e o visual fica no `hero.less`, no seletor `.hero`. O botão de contratação abre `/contract`, e o de simulação aponta para `#section-simulation` na própria home.
 
-Em `src/views/pages/home/sections/hero.ejs`, deixei este começo:
-
-```html
-<section class="home-hero">
-  <h1>Seu frete começa aqui</h1>
-  <p>Conheça a FreteUni.</p>
-</section>
-```
-
-E em `public/less/pages/home/sections/hero.less`, deixei um espaçamento e a cor do título:
-
-```less
-.home-hero {
-  padding: 40px 20px;
-
-  h1 {
-    color: @highlight;
-  }
-}
-```
-
-As cores do projeto já estão em `colors.less`. O `@highlight` usado no título é o laranja. Vocês podem usar essas variáveis nos estilos das outras seções também.
-
-Esse é só um começo para mostrar como o HTML e o LESS se conectam. Podem trocar os textos, acrescentar elementos e continuar o layout conforme a parte de vocês.
+As cores compartilhadas ficam em `colors.less`. Por exemplo, `@highlight` é o laranja usado nos destaques.
 
 Salve os arquivos e atualize a home no navegador. Confira também como ficou com a janela menor.
 
@@ -84,6 +64,6 @@ Os caminhos de `include` e `@import` partem da pasta do arquivo em que você est
 - Use classes específicas da sua parte para evitar mudar outras seções sem querer.
 - Ao mudar um arquivo compartilhado, como as cores ou a navbar, avise a equipe e confira o que ele afeta.
 - Se renomear um `id` no HTML, veja se ele também é usado no JavaScript ou no LESS.
-- Imagens vão em `public/images/`. No HTML, use o endereço sem `public`, por exemplo: `<img src="/images/logo.png" alt="FreteUni" />`.
+- Imagens vão em `public/images/`. No HTML, use o endereço sem `public`, por exemplo: `<img src="/images/logo-small.webp" alt="FreteUni" />`.
 
 Para mexer nos endereços do site, veja também o guia de [rotas](rotas.md).

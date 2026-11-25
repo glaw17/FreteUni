@@ -209,6 +209,23 @@ async function createTables() {
   } else {
     await renameOldColumn(connection, "cars", "driver_id", "id_driver");
   }
+
+  if (!(await connection.schema.hasTable("sessions"))) {
+    await connection.schema.createTable("sessions", (table) => {
+      table.string("sid", 128).primary();
+      table.text("data").notNullable();
+      table.dateTime("expires_at").notNullable().index();
+    });
+  }
+
+  if (!(await connection.schema.hasTable("reviews"))) {
+    await connection.schema.createTable("reviews", (table) => {
+      table.increments("id_review");
+      table.tinyint("rating").unsigned().notNullable();
+      table.timestamp("created_at").notNullable().defaultTo(connection.fn.now());
+      table.check("rating BETWEEN 0 AND 10", [], "check_review_rating");
+    });
+  }
 }
 
 module.exports = { getConnection, createTables };

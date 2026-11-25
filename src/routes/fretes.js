@@ -2,13 +2,6 @@ const express = require("express");
 const { getDistance } = require("geolib");
 const router = express.Router();
 
-router.get("/fretes/novo", (request, response) => {
-  // TODO: mostrar o formulário de contratação.
-  response
-    .status(501)
-    .send("Página de contratação de frete em desenvolvimento.");
-});
-
 const CEP_REGEX = /^\d{8}$/;
 const BRASIL_API_TIMEOUT = 5000;
 
@@ -112,11 +105,11 @@ router.post("/fretes/simular", async (request, response) => {
       message: "Os CEPs de origem e destino devem ter exatamente 8 dígitos.",
     });
   }
-  if (!Number.isInteger(ajudantes) || ajudantes < 0) {
+  if (!Number.isInteger(ajudantes) || ajudantes < 0 || ajudantes > 2) {
     return response.status(400).json({
       status: "error",
       errtype: "invalid_helpers",
-      message: "Quantidade de ajudantes inválida.",
+      message: "Selecione de 0 a 2 ajudantes.",
     });
   }
 

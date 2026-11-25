@@ -36,7 +36,7 @@ body[page="register"] {
           fade(@secondary, 60%) 58%,
           fade(@secondary, 14%)
         ),
-        url("/images/gerado_por_ia/auth-image.png");
+        url("/images/gerado_por_ia/auth-image.webp");
       background-repeat: no-repeat;
       background-position: right center;
       background-size: cover;
@@ -204,7 +204,27 @@ body[page="register"] {
               transition: 0.1s linear;
             }
             .form-input-icon#password-view {
+              background: none;
+              border: 0;
+              border-radius: 4px;
+              padding: 0;
               cursor: pointer;
+
+              .password-visible-icon {
+                display: none;
+              }
+              &[aria-pressed="true"] {
+                .password-hidden-icon {
+                  display: none;
+                }
+                .password-visible-icon {
+                  display: inline-block;
+                }
+              }
+              &:focus-visible {
+                outline: 2px solid @secondary;
+                outline-offset: 3px;
+              }
               &:hover {
                 color: darken(@highlight, 10%);
               }
@@ -497,7 +517,7 @@ body[page="register"] {
       grid-template-columns: minmax(0, 12fr);
       grid-template-areas: "form";
       align-items: stretch;
-      background-image: url("/images/gerado_por_ia/auth-image.png");
+      background-image: url("/images/gerado_por_ia/auth-image.webp");
       background-repeat: no-repeat;
       background-position: right center;
       background-size: cover;

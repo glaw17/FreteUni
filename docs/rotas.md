@@ -4,43 +4,42 @@ Rotas são os endereços que o servidor atende. **GET** serve para abrir página
 
 Deixei as rotas separadas nestes arquivos de `src/routes/`:
 
-- `pages.js`: páginas gerais, como a home.
+- `pages.js`: home, contratação, termos de uso e easter egg.
 - `auth.js`: login, cadastro e saída da conta.
-- `fretes.js`: simulação, contratação e rastreamento.
+- `fretes.js`: simulação de frete.
+- `avaliacoes.js`: envio das notas do rodapé.
 
-## O que temos por enquanto
+## Endereços disponíveis
 
-Só a home (`GET /`) mostra uma página. Deixei as outras rotas com uma mensagem e status **501**, porque essas partes ainda precisam ser feitas.
+| Método | Rota | Para que serve |
+| --- | --- | --- |
+| GET | `/` | Abrir a home e o simulador. |
+| GET | `/login` | Abrir o login. |
+| POST | `/auth/login` | Conferir email e senha e abrir a sessão. |
+| GET | `/register` | Abrir o cadastro. |
+| POST | `/auth/register` | Validar e salvar o cadastro. |
+| POST | `/auth/logout` | Encerrar a sessão. |
+| GET | `/contract` | Abrir o formulário da cotação de contratação. |
+| POST | `/fretes/simular` | Estimar o preço a partir dos dois CEPs e da quantidade de ajudantes. |
+| POST | `/avaliacoes` | Receber uma nota de 0 a 10 enviada pelo rodapé. |
+| GET | `/termos` | Abrir os termos de uso. |
+| GET | `/easter-egg` | Abrir o easter egg. |
 
-| Método | Rota | Arquivo | Para que vai servir |
-| --- | --- | --- | --- |
-| GET | `/` | `pages.js` | Abrir a home. |
-| GET | `/login` | `auth.js` | Abrir o login. |
-| POST | `/login` | `auth.js` | Receber os dados do login. |
-| GET | `/register` | `auth.js` | Abrir o cadastro. |
-| POST | `/register` | `auth.js` | Receber e salvar o cadastro. |
-| POST | `/logout` | `auth.js` | Sair da conta. |
-| GET | `/fretes/novo` | `fretes.js` | Abrir o formulário de contratação. |
-| POST | `/fretes/simular` | `fretes.js` | Estimar o preço do frete. |
-| POST | `/fretes` | `fretes.js` | Salvar uma contratação. |
-| GET | `/fretes/:id` | `fretes.js` | Mostrar os detalhes de um frete. |
-| GET | `/rastrear` | `fretes.js` | Rastrear um frete pelo código. |
-| GET | `/easter-egg` | `pages.js` | Mostrar a página do easter egg. |
+A confirmação de `/contract` conclui a demonstração da cotação na página. A busca de rastreio avisa que o serviço está indisponível.
 
 ## Como abrir uma página pela rota
 
 A home usa `response.render("pages/home/index", ...)`, em `src/routes/pages.js`. Esse caminho aponta para `src/views/pages/home/index.ejs`.
 
-Para fazer outra página, crie o arquivo EJS na pasta correspondente de `src/views/pages/` e troque a mensagem 501 da rota GET por um `response.render` com o caminho certo. Seções dentro de uma página não precisam de uma rota própria.
+Para fazer outra página, crie o arquivo EJS em `src/views/pages/` e adicione uma rota GET com `response.render` e o caminho certo. As seções da home são incluídas pelo EJS.
 
 ## Como os dados chegam
 
-- Em `/rastrear?id=ABC123`, o código chega em `request.query.id`.
-- Em `/fretes/123`, o ID chega em `request.params.id`.
-- Em um formulário com `method="post" action="/login"`, um campo com `name="email"` chega em `request.body.email`.
+- O JavaScript do login envia `email`, `password` e `rememberMe` como JSON. Esses campos chegam em `request.body`.
+- Em `POST /fretes/simular`, envie `cepOrigem` e `cepDestino` como textos de 8 dígitos. O campo `ajudantes` é um número inteiro de 0 a 2 e vale 0 quando omitido.
+- Em `POST /avaliacoes`, envie a nota no campo `rating`. O servidor responde com `201` depois de gravar a avaliação.
+- O cookie identifica a sessão, que o servidor recupera do MySQL a cada requisição que precisa dela.
 
-Deixei o servidor pronto para receber dados de formulários, mas o login e as outras funcionalidades ainda precisam ser feitos. O atributo `name` é o que identifica o valor enviado pelo campo.
-
-Mantenha `/fretes/novo` antes de `/fretes/:id` no arquivo de rotas, para o servidor não confundir `novo` com um ID. No `server.js`, as rotas ficam antes da resposta 404, que atende os endereços não encontrados.
+No `server.js`, as rotas ficam antes da resposta 404, que atende os endereços não encontrados.
 
 Atualize esta lista quando implementar ou acrescentar alguma rota. Veja também [onde ficam os arquivos](estrutura-do-projeto.md).

@@ -1,12 +1,12 @@
 # FreteUni - Andrey Elias, David Anderson, Glawber de Morais, Lucas Arruda, Yohan Mitsuo
 
-Trabalho do primeiro período da disciplina de Desenvolvimento Front-End Para Web. Estamos montando um site de serviços de frete usando HTML, LESS, JavaScript, EJS e Express.
+Trabalho do primeiro período da disciplina de Desenvolvimento Front-End Para Web. O FreteUni é uma demonstração de serviços de frete feita com LESS, JavaScript, EJS, Express e MySQL.
 
 ## Como rodar
 
-Veja o [passo a passo para baixar e abrir o projeto](docs/como-rodar-localmente.md).
+Você precisa de Node.js com npm e de um banco MySQL. Crie o banco `freteuni` e preencha o `.env` a partir do `.env.example`. O [passo a passo de instalação](docs/como-rodar-localmente.md) mostra como configurar os dois.
 
-Se já baixou o projeto e tem Node.js e npm instalados, abra o terminal na pasta que contém `package.json` e execute:
+Com a configuração pronta, abra o terminal na pasta que contém `package.json` e execute:
 
 ```bash
 npm start
@@ -20,6 +20,7 @@ O `npm start` já instala as dependências antes de iniciar o servidor. É preci
 
 - [Como contribuir](CONTRIBUTING.md): combinar sua parte, criar uma branch e enviar as alterações.
 - [Onde fica cada coisa](docs/estrutura-do-projeto.md): arquivos de HTML, estilos e JavaScript.
-- [Rotas](docs/rotas.md): endereços do site e o que falta implementar.
+- [Rotas](docs/rotas.md): endereços das páginas e das requisições.
+- [Correções à documentação acadêmica](docs/errata-documentacao.md): escopo da entrega, fórmula de frete e dicionário atualizado do banco.
 
-Por enquanto, a home abre normalmente e suas seções estão sendo construídas. Login, cadastro e fretes ainda mostram mensagens de desenvolvimento com status `501`. Não precisa configurar banco de dados para trabalhar na home.
+O site tem home com simulador por CEP, cadastro de cliente e motorista, login, logout, termos de uso e avaliação no rodapé. A página de contratação demonstra a cotação com até dois ajudantes e a confirmação do orçamento. O rastreamento aparece como indisponível na interface.

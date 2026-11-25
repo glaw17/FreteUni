@@ -9,10 +9,9 @@
         width: min(100%, 1200px);
         margin: 0 auto;
         display: grid;
-        grid-template-areas:
-            "f-entreCon centro f-redesSoc"
-            "f-entreCon centro feedback";
-        grid-template-columns: 1.5fr 3fr 1.5fr;
+        grid-template-areas: "f-entreCon centro feedback";
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr);
+        gap: 24px;
         justify-content: center;
         align-items: center;
     }
@@ -22,7 +21,12 @@
         grid-area: f-entreCon;
         margin: 30px 0;
         p{margin: 3px 0;}
-        a{margin-right: 10px;}
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
         img{border-radius: 50%; height: 20px; margin-right: 5px;}
         .zap{
             background-color: #25D366; 
@@ -44,13 +48,16 @@
     //Parte da Logo
     .centro {
         grid-area: centro;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
         text-align: center;
         margin: 30px 0;
         //Reutilizei o estilo da Parte da Logo da NavBar
         .navbar-brand-img {
             width: 50px;
             height: 50px;
-            margin-right: 10px;
         }
         .navbar-brand-text {
             color: @navy-light;
@@ -63,20 +70,23 @@
             }
         }
     }
-    //Parte das Redes Sociais
-    .f-redesSoc {
-        grid-area: f-redesSoc;
-        margin: 30px 0;
-        img{border-radius: 50%; height: 40%;}
-        text-align: center;
-    }
     //Parte do Feedback
     .feedback {
         grid-area: feedback;
         text-align: center;
-        padding: 0px 0px 20px 0px;
         //Barrinha de Avaliar
-        .form-range{ max-width: 70%; }
+        .form-range {
+            display: block;
+            width: min(100%, 240px);
+            margin: 6px auto;
+        }
+
+        .footer-review-status {
+            margin: 0;
+            &:not(:empty) {
+                margin-top: 8px;
+            }
+        }
 
         /* Alterar a cor do ponteiro no Bootstrap (utilizei IA nessa parte) */
         .form-range::-webkit-slider-thumb {
@@ -88,10 +98,6 @@
         .form-range:focus::-webkit-slider-thumb {
         box-shadow: 0 0 0 1px #fff, 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
         }
-        //Botão para "Enviar" a Avaliação
-        .btn{
-            height: auto;
-        }
     }
 }
 
@@ -100,14 +106,9 @@
     .footer{
         .footer-container {
             grid-template-areas:
-                "f-entreCon f-redesSoc"
-                "feedback feedback"
+                "f-entreCon feedback"
                 "centro centro";
-            grid-template-columns: 5fr 0.5fr;
-        }
-
-        .feedback{
-            .form-range{max-width: 40%;}
+            grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
 }
@@ -125,14 +126,13 @@
         .footer-container {
             grid-template-areas:
                 "f-entreCon"
-                "f-redesSoc"
                 "feedback"
                 "centro";
             grid-template-columns: minmax(0, 1fr);
         }
         text-align: center;
-        .feedback{
-            .form-range{max-width: 40%;}
+        .f-entreCon .footer-links {
+            justify-content: center;
         }
     }
 }

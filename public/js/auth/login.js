@@ -1,4 +1,4 @@
-import { regexEmail } from "./utils.js";
+import { regexEmail, AUTH_REQUEST_TIMEOUT } from "./utils.js";
 
 const emailInput = document.getElementById("email-input");
 const passwordInput = document.getElementById("password-input");
@@ -10,7 +10,7 @@ const emailInputArea = document.getElementById("email-input-area");
 const passwordInputArea = document.getElementById("password-input-area");
 
 const rememberInput = document.getElementById("rememberMe");
-const passwordViewIcon = document.getElementById("password-view");
+const passwordViewButton = document.getElementById("password-view");
 
 const authForm = document.getElementById("auth-form");
 const submitBtn = document.getElementById("submitBtn");
@@ -24,8 +24,7 @@ function testEmail() {
   if (!regexEmail.test(email)) {
     return { isValid: false, error: "Por favor, insira um email válido." };
   }
-  emailError.classList.add("d-none");
-  emailInputArea.classList.remove("border-danger");
+  resetInputAreaError(emailInput, emailInputArea, emailError);
   return { isValid: true, error: null, email };
 }
 
@@ -46,19 +45,17 @@ function testPassword() {
       error: "A senha é muito longa. Reduza a quantidade de caracteres.",
     };
   }
-  passwordError.classList.add("d-none");
-  passwordInputArea.classList.remove("border-danger");
+  resetInputAreaError(passwordInput, passwordInputArea, passwordError);
   return { isValid: true, error: null, password };
 }
 
 function passwordViewClick() {
-  if (passwordInput) {
-    if (passwordInput.getAttribute("type") === "password") {
-      passwordInput.setAttribute("type", "text");
-    } else {
-      // Poderia usar ternário? claro! Pq eu n sei? pq alguém pode n entender
-      passwordInput.setAttribute("type", "password");
-    }
+  if (passwordInput.getAttribute("type") === "password") {
+    passwordInput.setAttribute("type", "text");
+    passwordViewButton.setAttribute("aria-pressed", "true");
+  } else {
+    passwordInput.setAttribute("type", "password");
+    passwordViewButton.setAttribute("aria-pressed", "false");
   }
 }
 
@@ -69,16 +66,17 @@ function resetSubmitButton() {
   submitBtn.innerHTML = "Entrar";
 }
 
-function setInputAreaError(inputArea, errorElement, message) {
+function setInputAreaError(input, inputArea, errorElement, message) {
   errorElement.textContent = message;
-  errorElement.classList.remove("d-none");
   inputArea.classList.add("border-danger");
+  input.setAttribute("aria-invalid", "true");
+  input.focus();
 }
 
-function resetInputAreaError(inputArea, errorElement) {
+function resetInputAreaError(input, inputArea, errorElement) {
   errorElement.textContent = "";
-  errorElement.classList.add("d-none");
   inputArea.classList.remove("border-danger");
+  input.removeAttribute("aria-invalid");
 }
 
 function setFormError(message) {
@@ -92,15 +90,15 @@ function resetFormError() {
 }
 
 // Adiciona eventos aos elementos
-passwordViewIcon.addEventListener("click", passwordViewClick);
+passwordViewButton.addEventListener("click", passwordViewClick);
 
 emailInput.addEventListener("input", () => {
-  resetInputAreaError(emailInputArea, emailError);
+  resetInputAreaError(emailInput, emailInputArea, emailError);
   resetFormError();
 });
 
 passwordInput.addEventListener("input", () => {
-  resetInputAreaError(passwordInputArea, passwordError);
+  resetInputAreaError(passwordInput, passwordInputArea, passwordError);
   resetFormError();
 });
 
@@ -116,7 +114,7 @@ authForm.addEventListener("submit", async (e) => {
   // Verificações pra email
   const emailTest = testEmail();
   if (!emailTest.isValid) {
-    setInputAreaError(emailInputArea, emailError, emailTest.error);
+    setInputAreaError(emailInput, emailInputArea, emailError, emailTest.error);
     resetSubmitButton();
     return;
   }
@@ -124,7 +122,7 @@ authForm.addEventListener("submit", async (e) => {
   // Verificações pra senha
   const passwordTest = testPassword();
   if (!passwordTest.isValid) {
-    setInputAreaError(passwordInputArea, passwordError, passwordTest.error);
+    setInputAreaError(passwordInput, passwordInputArea, passwordError, passwordTest.error);
     resetSubmitButton();
     return;
   }
@@ -148,6 +146,7 @@ authForm.addEventListener("submit", async (e) => {
         password: passwordTest.password,
         rememberMe: rememberInput.checked,
       }),
+      signal: AbortSignal.timeout(AUTH_REQUEST_TIMEOUT),
     });
 
     const resultjson = await result.json();
@@ -157,12 +156,12 @@ authForm.addEventListener("submit", async (e) => {
         "invalid_email",
       ];
       if (emailErroTypes.includes(resultjson.errtype)) {
-        setInputAreaError(emailInputArea, emailError, resultjson.message);
+        setInputAreaError(emailInput, emailInputArea, emailError, resultjson.message);
         return;
       }
       let passwordErroTypes = ["invalid_password"];
       if (passwordErroTypes.includes(resultjson.errtype)) {
-        setInputAreaError(passwordInputArea, passwordError, resultjson.message);
+        setInputAreaError(passwordInput, passwordInputArea, passwordError, resultjson.message);
         return;
       }
       setFormError(
@@ -192,9 +191,13 @@ authForm.addEventListener("submit", async (e) => {
     }
     window.location.href = "/";
   } catch (error) {
-    setFormError(
-      "Não foi possível concluir o login. Tente novamente em instantes.",
-    );
+    if (error.name === "TimeoutError" || error.name === "AbortError") {
+      setFormError("O login demorou demais. Tente novamente.");
+    } else {
+      setFormError(
+        "Não foi possível concluir o login. Tente novamente em instantes.",
+      );
+    }
   } finally {
     if (!authForm.hidden) {
       resetSubmitButton();
