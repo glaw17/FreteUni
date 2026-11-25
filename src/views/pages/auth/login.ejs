@@ -33,7 +33,7 @@
         <div class="form-card">
           <h2 class="form-title">Entrar na sua conta</h2>
           <span class="form-description">Acesse sua conta para continuar.</span>
-          <form id="auth-form" novalidate>
+          <form id="auth-form" action="/auth/login" method="post" novalidate>
             <label for="email-input" class="form-input">Email</label>
             <div id="email-input-area" class="form-input-area">
               <i class="form-input-icon fa-solid fa-envelope"></i>
@@ -42,9 +42,12 @@
                 type="email"
                 placeholder="Digite seu email"
                 id="email-input"
+                name="email"
+                autocomplete="email"
+                aria-describedby="email-error"
               />
             </div>
-            <span id="email-error" class="d-none text-danger">Email inválido</span>
+            <span id="email-error" class="text-danger" aria-live="polite"></span>
 
             <label for="password-input" class="form-input mt-3">Senha</label>
             <div id="password-input-area" class="form-input-area">
@@ -54,14 +57,23 @@
                 type="password"
                 placeholder="Digite sua senha"
                 id="password-input"
+                name="password"
+                autocomplete="current-password"
+                aria-describedby="password-error"
               />
-              <i
+              <button
                 id="password-view"
-                class="form-input-icon fa-solid fa-eye"
-                aria-hidden="true"
-              ></i>
+                type="button"
+                class="form-input-icon"
+                aria-controls="password-input"
+                aria-label="Exibir senha"
+                aria-pressed="false"
+              >
+                <i class="fa-solid fa-eye password-hidden-icon" aria-hidden="true"></i>
+                <i class="fa-solid fa-eye-slash password-visible-icon" aria-hidden="true"></i>
+              </button>
             </div>
-            <span id="password-error" class="d-none text-danger">Senha inválida</span>
+            <span id="password-error" class="text-danger" aria-live="polite"></span>
 
             <div class="form-options">
               <label class="remember-me" for="rememberMe">

@@ -1,12 +1,17 @@
 .contract-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 48px;
     align-items: start;
     padding: 25px;
 
     @media (max-width: 768px) {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    @media (max-width: 480px) {
+        padding: 20px 16px;
+        gap: 24px;
     }
 }
 
@@ -26,6 +31,10 @@
     .title {
         font-size: 50px;
         color: @secondary;
+
+        @media (max-width: 768px) {
+            font-size: clamp(30px, 8vw, 50px);
+        }
     }
 
     .subtitle {
@@ -33,11 +42,9 @@
     }
 
     .box {
-        display: inline-block;
         padding: 20px 30px 20px 20px;
         border-radius: 15px;
         background-color: @secondary;
-        min-width: 100%;
 
         .t1 p {
             color: @highlight;
@@ -52,7 +59,8 @@
 
         .frases {
             display: flex;
-            gap: 60px;
+            flex-wrap: wrap;
+            gap: 8px clamp(12px, 8vw, 60px);
             color: @primary;
             font-size: 13px;
 
@@ -157,11 +165,11 @@
 
     .field-row {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 16px;
 
         @media (max-width: 768px) {
-            grid-template-columns: 1fr;
+            grid-template-columns: minmax(0, 1fr);
         }
     }
 
@@ -177,6 +185,7 @@
 
         input {
             width: 100%;
+            min-width: 0;
             padding: 12px 14px;
             background-color: fade(@secondary, 4%);
             border: 1px solid transparent;
@@ -194,11 +203,11 @@
 
     .options {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 12px;
 
-        @media (max-width: 768px) {
-            grid-template-columns: 1fr;
+        @media (max-width: 1024px) {
+            grid-template-columns: minmax(0, 1fr);
         }
     }
 
@@ -255,6 +264,11 @@
         font-size: 14px;
         font-weight: 700;
         cursor: pointer;
+
+        &:disabled {
+            cursor: wait;
+            opacity: 0.65;
+        }
     }
 }
 

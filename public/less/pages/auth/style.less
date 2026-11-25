@@ -204,7 +204,27 @@ body[page="register"] {
               transition: 0.1s linear;
             }
             .form-input-icon#password-view {
+              background: none;
+              border: 0;
+              border-radius: 4px;
+              padding: 0;
               cursor: pointer;
+
+              .password-visible-icon {
+                display: none;
+              }
+              &[aria-pressed="true"] {
+                .password-hidden-icon {
+                  display: none;
+                }
+                .password-visible-icon {
+                  display: inline-block;
+                }
+              }
+              &:focus-visible {
+                outline: 2px solid @secondary;
+                outline-offset: 3px;
+              }
               &:hover {
                 color: darken(@highlight, 10%);
               }

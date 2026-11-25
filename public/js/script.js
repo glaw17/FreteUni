@@ -136,10 +136,18 @@
   } else if (pageId == "contract") {
     const formContract = document.getElementById("form-C");
     const modalConfirm = document.getElementById("modal-confirm");
+    const submitButton = document.getElementById("quote-submit");
+    const submitLabel = document.getElementById("quote-submit-label");
 
-    if (formContract && modalConfirm) {
+    if (formContract && modalConfirm && submitButton && submitLabel) {
+      const originalSubmitLabel = submitLabel.textContent;
+
       formContract.addEventListener("submit", async (event) => {
         event.preventDefault();
+
+        if (submitButton.disabled || modalConfirm.open) {
+          return;
+        }
 
         const name = document.getElementById("nome").value.trim();
         if (name.length < 3) {
@@ -190,6 +198,14 @@
           return alert("Selecione de 0 a 2 ajudantes.");
         }
 
+        const fieldsets = formContract.querySelectorAll("fieldset:not([disabled])");
+        for (const fieldset of fieldsets) {
+          fieldset.disabled = true;
+        }
+        submitButton.disabled = true;
+        submitLabel.textContent = "Calculando...";
+        formContract.setAttribute("aria-busy", "true");
+
         try {
           const dados = await fetch("/fretes/simular", {
             method: "POST",
@@ -232,6 +248,13 @@
           } else {
             alert("Não foi possível calcular o frete. Tente novamente.");
           }
+        } finally {
+          for (const fieldset of fieldsets) {
+            fieldset.disabled = false;
+          }
+          submitButton.disabled = false;
+          submitLabel.textContent = originalSubmitLabel;
+          formContract.removeAttribute("aria-busy");
         }
       });
 

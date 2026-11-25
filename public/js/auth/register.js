@@ -1,4 +1,4 @@
-import { regexEmail } from "./utils.js";
+import { regexEmail, AUTH_REQUEST_TIMEOUT } from "./utils.js";
 
 // Cada array é uma etapa. A ordem dos campos também é a ordem na tela.
 const stepsByProfile = {
@@ -1153,7 +1153,8 @@ authForm.addEventListener("submit", async (e) => {
       },
       body: JSON.stringify({
         data: registerData,
-      })
+      }),
+      signal: AbortSignal.timeout(AUTH_REQUEST_TIMEOUT),
     });
 
     const resultjson = await result.json();
@@ -1273,8 +1274,13 @@ authForm.addEventListener("submit", async (e) => {
       delete fieldErrors[fieldName];
     });
   } catch (error) {
-    registerError.textContent =
-      "Não foi possível concluir o cadastro. Tente novamente em instantes.";
+    if (error.name === "TimeoutError" || error.name === "AbortError") {
+      registerError.textContent =
+        "A confirmação do cadastro demorou demais. Tente entrar ou envie o cadastro novamente.";
+    } else {
+      registerError.textContent =
+        "Não foi possível concluir o cadastro. Tente novamente em instantes.";
+    }
     registerError.hidden = false;
   } finally {
     resetSubmitButton();

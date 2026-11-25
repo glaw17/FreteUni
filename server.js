@@ -6,11 +6,14 @@ const path = require("path");
 const pagesRoutes = require("./src/routes/pages");
 const authRoutes = require("./src/routes/auth");
 const fretesRoutes = require("./src/routes/fretes");
+const avaliacoesRoutes = require("./src/routes/avaliacoes");
 
 const { getConnection, createTables } = require("./src/database/database");
+const MySqlSessionStore = require("./src/database/MySqlSessionStore");
 
 const app = express();
 const port = process.env.PORT || 3000;
+const sessionStore = new MySqlSessionStore();
 
 const sourceDirectory = path.join(__dirname, "src");
 const publicDirectory = path.join(__dirname, "public");
@@ -27,6 +30,7 @@ app.use(
   session({
     name: "freteuni.sid",
     secret: process.env.SESSION_SECRET,
+    store: sessionStore,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -41,12 +45,14 @@ app.use(
 app.use(pagesRoutes);
 app.use(authRoutes);
 app.use(fretesRoutes);
+app.use(avaliacoesRoutes);
 
 app.use((error, request, response, next) => {
   const isAuthRoute = request.path.startsWith("/auth/");
   const isSimulationRoute = request.path === "/fretes/simular";
+  const isReviewRoute = request.path === "/avaliacoes";
 
-  if (!isAuthRoute && !isSimulationRoute) { // Trata erros antes de seguir
+  if (!isAuthRoute && !isSimulationRoute && !isReviewRoute) {
     return next(error);
   }
   if (error.status === 400 || error.status === 413 || error.status === 415) {
@@ -76,9 +82,17 @@ async function startServer() {
 
   try {
     await createTables();
-    app.listen(port, () => {
+    const server = app.listen(port, () => {
       console.log(`Front disponível em: http://localhost:${port}`);
     });
+    function limparSessoesExpiradas() {
+      sessionStore.deleteExpired().catch(() => {
+        console.error("Não foi possível limpar as sessões expiradas.");
+      });
+    }
+    limparSessoesExpiradas();
+    const limpeza = setInterval(limparSessoesExpiradas, 60 * 60 * 1000).unref();
+    server.on("close", () => clearInterval(limpeza));
   } catch (error) {
     console.error("Não foi possível preparar o banco de dados:", error.message);
     await connection.destroy();

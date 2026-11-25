@@ -112,11 +112,11 @@ router.post("/fretes/simular", async (request, response) => {
       message: "Os CEPs de origem e destino devem ter exatamente 8 dígitos.",
     });
   }
-  if (!Number.isInteger(ajudantes) || ajudantes < 0) {
+  if (!Number.isInteger(ajudantes) || ajudantes < 0 || ajudantes > 2) {
     return response.status(400).json({
       status: "error",
       errtype: "invalid_helpers",
-      message: "Quantidade de ajudantes inválida.",
+      message: "Selecione de 0 a 2 ajudantes.",
     });
   }
 
