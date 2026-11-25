@@ -2,13 +2,6 @@ const express = require("express");
 const { getDistance } = require("geolib");
 const router = express.Router();
 
-router.get("/fretes/novo", (request, response) => {
-  // TODO: mostrar o formulário de contratação.
-  response
-    .status(501)
-    .send("Página de contratação de frete em desenvolvimento.");
-});
-
 const CEP_REGEX = /^\d{8}$/;
 const BRASIL_API_TIMEOUT = 5000;
 
